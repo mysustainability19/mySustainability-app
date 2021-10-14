@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "mySustainability",
+    "slug": "mySustainability",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "config": {
+        "firebase": {
+          "appId": "1:521671782195:web:87998c5389c06450e91846",
+          "apiKey": "AIzaSyA2eMic7_99gu8_YCpC7hIFQUABfhhYi8g",
+          "projectId": "mysustainability-a9aa4",
+          "measurementId": "G-2M99XCQMK3"
+        }
+      }
+    }
+  }
+}

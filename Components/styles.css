@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;900&display=swap');
+
+body {
+    font-family: 'Inter' !important;
+}
+
+.heading {
+
+    font-weight: bold !important;
+    font-size: 1.6rem !important;
+    text-align:center !important;
+}
+
+.signUpForm{
+    margin:auto !important;
+    width:90% !important;
+}
+
+/*
+.avatarDiv {
+    width:"100%" !important;
+    display:"flex" !important;
+    flex-direction:"row";
+    justify-content:"space-evenly";
+    height: "40px";
+    align-items: "center";
+}
+*/

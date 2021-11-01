@@ -4,6 +4,7 @@ import Home from './Components/Home';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Profile from './Components/Profile';
+import Add from './Components/Add';
 import challengePage from './Components/challengePage';
 import Redeem from './Components/Redeem'
 import reportProgress from './Components/reportProgress';
@@ -21,7 +22,8 @@ const config = {
     Profile: 'profile',
     challengePage: 'challengePage',
     reportProgress: 'reportProgress',
-    Leaderboard: 'Leaderboard'
+    Leaderboard: 'Leaderboard',
+    Signup: 'Signup'
   },
 };
 
@@ -41,6 +43,7 @@ export default function App() {
             <Stack.Screen name="TransitionScreen" component={TransitionScreen} />
             <Stack.Screen name="Navbar" component={NavBar} />
             <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Add" component={Add} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Signup" component={Signup} />
             <Stack.Screen name="Profile" component={Profile} />

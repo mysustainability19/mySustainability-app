@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
-import { StyleSheet, TouchableOpacity, View, Text, Image, ScrollView, useWindowDimensions, Modal, Button} from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Text, Image, ScrollView, useWindowDimensions, Button} from 'react-native';
 import { Avatar } from 'react-native-paper';
 import NavBar from './NavBar';
 import Profile from './Profile';
 import { PhoneView, BodyContainer, StyledCard} from '../styles/GeneralStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from '@react-native-picker/picker';
-
+import Modal from 'modal-enhanced-react-native-web';
 
 const getData = async (key) => {
     try {
@@ -58,6 +58,13 @@ export default function reportProgress ({route, navigation}){
         }
     })
 
+    getData('admin')
+    .then(value => {
+        if (value === 'true'){
+            setAdmin(true)
+        }
+    })
+
 
     const { replace, challengeID, points_worth, reportingQuestion } = route.params;
     //console.log(route.params)
@@ -65,16 +72,18 @@ export default function reportProgress ({route, navigation}){
     const isMobile = windowHeight <= 700 ? true : false;
     const [selectedValue, setSelectedValue] = React.useState("1");
     const [isVisible, setIsVisible] = React.useState(false);
+    const [admin, setAdmin] = React.useState(false);
 
     function handleReporting(){
         const progressScore = selectedValue === "1" ? "5" : "10";
+        const pointsEarned = progressScore === "5" ? points_worth/2 : points_worth
         getData('user_id')
             .then(value => {
                 if(value !== null){
                     fetch(`https://mysustainability-api-123.herokuapp.com/updateChallengeProgress/?challengeID=${challengeID}&userEmail=${value}&progressScore=${progressScore}`, {method: 'POST'})
                     .then(response => {
                         if(response['status'] === 200){
-                            fetch(`https://mysustainability-api-123.herokuapp.com/updatePoints/?points=${points_worth}&userEmail=${value}`, {method: 'POST'})
+                            fetch(`https://mysustainability-api-123.herokuapp.com/updatePoints/?points=${pointsEarned}&userEmail=${value}`, {method: 'POST'})
                             .then(response => response.json())
                             .then(finalResp => {
                                 //console.log(finalResp)
@@ -93,8 +102,8 @@ export default function reportProgress ({route, navigation}){
 
     return (
         <PhoneView>
-            <BodyContainer>
-                <ScrollView style={{display:"flex", flexDirection:'column', }}>
+            <BodyContainer style={{flex:1}}>
+                <ScrollView contentContainerStyle={{display:"flex", flexDirection:'column', width: "95vw"}}>
                     <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", flex:1}}>
                         <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold'}]}> mySustainability </Text>
                         <TouchableOpacity
@@ -113,6 +122,7 @@ export default function reportProgress ({route, navigation}){
                             <Modal
                                 onRequestClose={() => setIsVisible(false)}
                                 visible={isVisible}
+                                style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex'}}
                             >
                                 <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
                                     <Text style={{fontSize:23, margin:'5%', textAlign:'center'}}> You cannot report challenge progress more than 3 times a day! </Text>
@@ -121,7 +131,7 @@ export default function reportProgress ({route, navigation}){
                                     </TouchableOpacity>
                                 </View>
                             </Modal>
-                            <StyledCard style={{marginTop:'0 !important'}}>
+                            <StyledCard style={{marginTop:'0 !important', width:'80vw', maxWidth:'500px'}}>
                                 <br/>
                                 <Text style={{}}>Report your challenge progress</Text>
                                 <br/>
@@ -137,7 +147,7 @@ export default function reportProgress ({route, navigation}){
                                 </Picker>
                                 <br/>
                                 <TouchableOpacity
-                                    style={{padding:'3%',backgroundColor:'#7d83ff', border:'2px solid', width:'40%', height:'fit-content'}}
+                                    style={{padding:'3%',backgroundColor:'#7d83ff', border:'2px solid', width:'50%', height:'fit-content'}}
                                     accessible={true}
                                     accessibilityLabel="button to submit progress"
                                     onPress={() =>  handleReporting()}>
@@ -148,7 +158,7 @@ export default function reportProgress ({route, navigation}){
                     </View>
                 </ScrollView>
             </BodyContainer>
-            <NavBar navigation={navigation} selectedIcon="Home"/>
+            <NavBar navigation={navigation} selectedIcon="Home" admin={admin}/>
         </PhoneView>
     );
 };

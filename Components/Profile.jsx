@@ -8,19 +8,11 @@ import {
   FriendTile
 } from '../styles/HomeStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from "@react-navigation/native";
   
-const getData = async (key) => {
-    try {
-        const value = await AsyncStorage.getItem(key)
-        if(value !== null) {
-            return value
-        }else{
-            return null
-        }
-    } catch(e) {
-        // error reading value
-    }
-}
+async function getData(key) {
+    return await AsyncStorage.getItem(key)
+  }
 
 const storeData = async (key, value) => {
     try {
@@ -60,12 +52,22 @@ const styles = StyleSheet.create({
 })
 
 export default function Profile ({navigation}){
+
+    const isFocused = useIsFocused();
+
     getData('token')
     .then(value => {
         if (value === "null"){
             navigation.navigate('Login', { replace: true })
         }else{
             return value
+        }
+    })
+
+    getData('admin')
+    .then(value => {
+        if (value === 'true'){
+            setAdmin(true)
         }
     })
 
@@ -96,20 +98,41 @@ export default function Profile ({navigation}){
     }
 
     const windowHeight = useWindowDimensions().height;
-    const isMobile = windowHeight <= 700 ? true : false;
+    const windowWidth = useWindowDimensions().width;
+    const isMobile = windowHeight <= 700 || windowWidth <= 900 ? true : false;
     const [info, setInfo] = React.useState({name:"", points:"", badges:[]});  
     const [ranking, setRanking] = React.useState(0);  
     const [total_number_users, set_total] = React.useState(0);  
     const badges_catalogue = ['beginner', 'earth_lover', 'sustainability_ninja', 'elite']
+    const [unearnt_badges, set_unearnt_badges] = React.useState([])
+    const [badges_updated, set_badges_updated] = React.useState(false)
+    const [is_focused, set_is_focused] = React.useState(false)
+    const [admin, setAdmin] = React.useState(false);
+
+    function updateUserBadges(email, badge){
+        fetch(`https://mysustainability-api-123.herokuapp.com/updateUserBadges/?userEmail=${email}&newBadge=${badge}`, {method: 'POST'})
+            .then(response => response.json())
+            .then(responseJSON => {
+                responseJSON['message'] === 'user badges successfully updated' ? set_badges_updated(true) : ''
+            })
+    }
     
     useEffect(() => {
         getData('user_id')
         .then(value => {
+            console.log('user_id', value)
             if(value !== null){
                 fetch(`https://mysustainability-api-123.herokuapp.com/get_user_info/?userEmail=${value}`, {method: 'GET'})
                 .then(response => response.json())
                 .then(value => {
-                    setInfo({name:value['name'], points:value['points'], badges:value['badges']})
+
+                    if (value['points'] >= 35) updateUserBadges(value['email'], 'earth_lover')
+                    if (value['points'] >= 55) updateUserBadges(value['email'], 'sustainability_ninja')
+                    if (value['points'] >= 75) updateUserBadges(value['email'], 'elite')
+
+                    set_unearnt_badges(badges_catalogue.filter(badge => !value['badges'].includes(badge)))
+                    setInfo({email: value['email'], name:value['name'], points:value['points'], badges:value['badges']})
+
                     fetch(`https://mysustainability-api-123.herokuapp.com/get_user_ranks/`, {method: 'GET'})
                     .then(resp => resp.json())
                     .then(finalResp => {
@@ -120,63 +143,67 @@ export default function Profile ({navigation}){
                 })
             }
         })
-    },[])
+    },[isFocused])
+
+    
 
     return (
-        <View> </View>
-        /*<PhoneView>
+        <PhoneView>
             <BodyContainer>
-                <ScrollView style={{display:"flex", flexDirection:'column', }}>
-                    <StyledCard>
-                        <Text style={{fontSize:23, fontWeight:"bold"}}>Welcome, {info['name']} </Text>
-                        <br/>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={{fontSize:18, fontWeight:"bold"}}>Total points:</Text>
-                            <Text style={{fontSize:18}}> {info['points']} </Text>
-                        </View>
-                        <br/>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={{fontSize:18, fontWeight:"bold"}}>Your ranking is: </Text>
-                            <Text style={{fontSize:18}}>{ranking + 1}/{total_number_users}</Text>
-                        </View>
-                        <br/>
-                        <View style={{flexDirection: 'row'}}>
+                <View style={{flex:1 }}>
+                    <ScrollView contentContainerStyle={{display:"flex", flexDirection:'column', height:'150vh'}}>
+                        <StyledCard>
+                            <Text style={{fontSize:23, fontWeight:"bold"}}>Welcome, {info['name']} </Text>
+                            <br/>
+                            <View style={{flexDirection: 'row'}}>
+                                <Text style={{fontSize:18, fontWeight:"bold"}}>Total Green XP:</Text>
+                                <Text style={{fontSize:18}}> {info['points']} </Text>
+                            </View>
+                            <br/>
+                            <View style={{flexDirection: 'row'}}>
+                                <Text style={{fontSize:18, fontWeight:"bold"}}>Your ranking is: </Text>
+                                <Text style={{fontSize:18}}>{ranking + 1}/{total_number_users}</Text>
+                            </View>
+                            <br/>
                             <Text style={{fontSize:18, fontWeight:"bold"}}>Badges: </Text>
-                            {console.log(info['badges'])}
-                            {   
-                                info["badges"].map((badge) => {
-                                    return (
-                                        <Text style={{textAlign:'center', width:'min-content'}}>
-                                            <Image source={require(`../icons/badges/${badge}.PNG`)} style={{width:'150px', height:'150px'}}/>
-                                            {getCaptionforBadge(badge)}
-                                        </Text>
-                                    )
-                                })
-                            }
-                            {
-                                badges_catalogue.filter(badge => !info['badges'].includes(badge)).map((badge) => {
-                                    return (
-                                        <Text style={{textAlign:'center', width:'min-content'}}>
-                                            <Image source={require(`../icons/badges/${badge}_unearnt.PNG`)} style={{width:'150px', height:'150px'}}/>
-                                            {getCaptionforBadge(badge)}
-                                        </Text>
-                                    )
-                                })
-                            }
-                        </View>
-                        <br/>
-                        <TouchableOpacity
-                        type="submit"
-                        onPress={(e) => handleLogOut(e)}
-                        style={styles.LogOutButton}
-                        >
-                        <Text style={styles.buttonText}> Log Out </Text>
-                        </TouchableOpacity>
-                    </StyledCard>
-                </ScrollView>
+                            <View style={{flexDirection: isMobile === true ? 'column': 'row', justifyContent:'space-evenly', marginBottom:'3%'}}>
+                                {   
+                                    info['badges'].map((badge, i) => {
+                                        return (
+                                            <Text style={{textAlign:'center', width:'min-content'}} key={i}>
+                                                <Image source={require(`../icons/badges/${badge}.PNG`)} style={{width:'150px', height:'150px'}}/>
+                                            </Text>
+                                        )
+                                    })
+                                }
+
+                                {console.log(unearnt_badges)}
+    
+                                {   
+                                    unearnt_badges.map((badge, i) => {
+                                            return (
+                                                <Text style={{textAlign:'center', width:'min-content'}} key={i}>
+                                                    <Image source={require(`../icons/badges/${badge}_unearnt.PNG`)} style={{width:'150px', height:'150px'}}/>
+                                                    {getCaptionforBadge(badge)}
+                                                </Text>
+                                            )
+                                    })
+                                }
+                            </View>
+                            <br/>
+                            <TouchableOpacity
+                            type="submit"
+                            onPress={(e) => handleLogOut(e)}
+                            style={styles.LogOutButton}
+                            >
+                            <Text style={styles.buttonText}> Log Out </Text>
+                            </TouchableOpacity>
+                        </StyledCard>
+                    </ScrollView>
+                </View>
             </BodyContainer>
-            <NavBar navigation={navigation} selectedIcon="Home"/>
-                        </PhoneView>*/
+            <NavBar navigation={navigation} selectedIcon="Home" admin={admin}/>
+        </PhoneView>
     );
 };
 

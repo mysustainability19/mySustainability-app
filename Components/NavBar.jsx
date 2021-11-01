@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 })
 
 
-export default function NavBar({ navigation, selectedIcon }){
+export default function NavBar({ navigation, selectedIcon, admin }){
 
     const home = selectedIcon === "Home" ? require("../icons/selected_home.png"): require("../icons/home.png");
     const friends = selectedIcon === "Leaderboard" ? require("../icons/selected_friends.png"): require("../icons/friends.png");
@@ -32,9 +32,12 @@ export default function NavBar({ navigation, selectedIcon }){
                 <TouchableOpacity onPress={() => {navigation.navigate('Home', {replace: true, newUser:false})}}>
                     <Image alt="home page button" source={home} style={styles.icon}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {}}>
-                    <Image alt="create new challenge"  source={add} style={styles.icon}/>
-                </TouchableOpacity>
+                {admin ? 
+                    <TouchableOpacity onPress={() => {navigation.navigate('Add', {replace: true})}}>
+                        <Image alt="create new challenge"  source={add} style={styles.icon}/>
+                    </TouchableOpacity>
+                    : ''
+                }
                 <TouchableOpacity onPress={() => {navigation.navigate('Leaderboard'), {replace: true}}}>
                     <Image alt="leaderboard" source={friends} style={styles.icon}/>
                 </TouchableOpacity>

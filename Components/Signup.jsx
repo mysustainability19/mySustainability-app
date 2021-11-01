@@ -1,10 +1,11 @@
 import React from "react";
-import { StyleSheet, Image, View, Text, TouchableOpacity, useWindowDimensions, Modal, Button } from 'react-native';
+import { StyleSheet, Image, View, Text, TouchableOpacity, useWindowDimensions, Button } from 'react-native';
 import Email from './Email';
 import Password from './Password';
 import FullName from "./FullName";
 import { JSHash, CONSTANTS } from "react-native-hash";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Modal from 'modal-enhanced-react-native-web';
 
 const getData = async (key) => {
   try {
@@ -59,14 +60,6 @@ const storeData = async (key, value) => {
 
 export default function Signup ({ navigation }){
 
-  getData('token')
-  .then(value => {
-      if (value !== "null"){
-          navigation.navigate('Home', { replace: true })
-      }
-  })
-
-
   const windowHeight = useWindowDimensions().height;
   const isMobile = windowHeight <= 850 ? true : false;
   const [email, setEmail] = React.useState("");
@@ -74,64 +67,69 @@ export default function Signup ({ navigation }){
   const [fullName, setfullName] = React.useState("");
   const [isVisible, setIsVisible] = React.useState({ message: "", visibility: false });
 
-  
-function handleSignUp(e){
-  e.preventDefault();
-  JSHash(email, CONSTANTS.HashAlgorithms.sha256)
-      .then(encryptedEmail => {
-        JSHash(password, CONSTANTS.HashAlgorithms.sha256)
-        .then(encryptedPassword => {
-            fetch(`https://mysustainability-api-123.herokuapp.com/sign_up/?name=${fullName}&email=${encryptedEmail}&password=${encryptedPassword}`, {method: 'POST'})
-              .then(resp => resp.json())
-              .then(response => {
-                console.log(response)
-                if(response['message'] == "Internal Server Error"){
-                  setIsVisible({ message: "An account with this email already exists", visibility: true })
-                }
-                else{
-                  storeData ('token', response['token']);
-                  storeData ('user_id', response['user_id']);
-                  navigation.navigate('Home', { replace: true, newUser: true })
-                }
-              })
-          })
-      })
-      .catch(e => console.log(e));
-}
+  function validateEmail (email) {
+    const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regexp.test(email);
+  }
+    
+  function handleSignUp(e){
+    validateEmail === false ?  setIsVisible({ message: "Please specify a valid email", visibility: true }) : ''
+    JSHash(email, CONSTANTS.HashAlgorithms.sha256)
+        .then(encryptedEmail => {
+          JSHash(password, CONSTANTS.HashAlgorithms.sha256)
+          .then(encryptedPassword => {
+              fetch(`https://mysustainability-api-123.herokuapp.com/sign_up/?name=${fullName}&email=${encryptedEmail}&password=${encryptedPassword}`, {method: 'POST'})
+                .then(resp => resp.json())
+                .then(response => {
+                  console.log(response)
+                  if(response['message'] == "Internal Server Error"){
+                    setIsVisible({ message: "An account with this email already exists", visibility: true })
+                  }
+                  else{
+                    storeData ('token', response['token']);
+                    storeData ('user_id', response['user_id']);
+                    navigation.navigate('Home', { replace: true, newUser: true })
+                  }
+                })
+            })
+        })
+        .catch(e => console.log(e));
+  }
 
-  return(
-    <View style={[isMobile ? {marginTop:'10%'} : {}, classes.signUpForm]}>
-      <Modal
-        onRequestClose={() => setIsVisible({ message: "", visibility: false })}
-        visible={isVisible['visibility']}
-      >
-        <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
-          <Text style={{fontSize:18, marginBottom:'2%'}}> {isVisible['message']} </Text>
-          <Button onPress={() => setIsVisible({ message: "", visibility: false })} title={'Dismiss'} color="#7D83FF"/>
-        </View>
-      </Modal>
-      <Text style = {classes.heading}> Create a new account </Text>
-      <View>
-        <FullName  onChangeText={(fullName) => setfullName(fullName)}/>
-        <Email  onChangeText={(email) => setEmail(email)}/>
-        <Password  onChangeText={(password) => setPassword(password)}/>
+    return(
+      <View style={[isMobile ? {marginTop:'10%'} : {}, classes.signUpForm]}>
+        <Modal
+          onRequestClose={() => setIsVisible({ message: "", visibility: false })}
+          visible={isVisible['visibility']}
+          style={{height:'100vh', backgroundColor:'#f2f2f2'}}
+        >
+          <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
+            <Text style={{fontSize:18, marginBottom:'2%'}}> {isVisible['message']} </Text>
+            <Button onPress={() => setIsVisible({ message: "", visibility: false })} title={'Dismiss'} color="#7D83FF"/>
+          </View>
+        </Modal>
+        <Text style = {classes.heading}> Create a new account </Text>
         <View>
-          <TouchableOpacity
-              type="submit"
-              onPress={(e) => handleSignUp(e)}
-              style={classes.SignUpButton}
-            >
-              <Text style={classes.buttonText}> Create a new account </Text>
-            </TouchableOpacity>
+          <FullName  onChangeText={(fullName) => setfullName(fullName)}/>
+          <Email  onChangeText={(email) => setEmail(email)}/>
+          <Password  onChangeText={(password) => setPassword(password)}/>
+          <View>
+            <TouchableOpacity
+                type="submit"
+                onPress={(e) => handleSignUp(e)}
+                style={classes.SignUpButton}
+              >
+                <Text style={classes.buttonText}> Create a new account </Text>
+              </TouchableOpacity>
+          </View>
         </View>
+        <Text style = {classes.question}> Already have an account? </Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Login', { replace: true })}
+          style={{margin:0, padding:0}}
+        >
+          <Text style={classes.redirect}> Log-in</Text>
+        </TouchableOpacity>
       </View>
-      <Text style = {classes.question}> Already have an account? </Text>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Login', { replace: true })}
-        style={{margin:0, padding:0}}
-      >
-        <Text style={classes.redirect}> Log-in</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+    );
+  };

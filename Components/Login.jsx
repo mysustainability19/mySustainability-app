@@ -1,9 +1,10 @@
-import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Modal, Button } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Button } from "react-native";
 import Email from './Email';
 import Password from './Password';
 import { JSHash, CONSTANTS } from "react-native-hash";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Modal from 'modal-enhanced-react-native-web';
 
 
 const classes = StyleSheet.create({
@@ -44,33 +45,42 @@ const storeData = async (key, value) => {
 }
 
 
-const getData = async (key) => {
-  try {
-    const value = await AsyncStorage.getItem(key)
-    if(value !== null) {
-      return value
-    }
-  } catch(e) {
-    // error reading value
-  }
-}
-
-
 export default function Login ({ navigation }){
-
-  getData('token')
-  .then(value => {
-      if (value !== "null"){
-          navigation.navigate('Home', { replace: true })
-      }
-  })
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isVisible, setIsVisible] = React.useState(false);
+  const [Signup, setSignup] = React.useState(false)
+  const [tokenStatus, setTokenStatus] = React.useState(false)
 
-  function handleLogin(e){
-    e.preventDefault();
+  async function getTokenData() {
+    return await AsyncStorage.getItem('token')
+  }
+
+  getTokenData()
+  .then(value => {
+      if (value !== 'null'){
+        //tokenStatus === false ? setTokenStatus(true) : ''
+        navigation.navigate('Home', { replace: true })
+      }
+  })
+
+  useEffect(() => {
+    return () => {};
+  }, []);
+
+
+  /*
+  useEffect(() => {
+    let isMounted = true; 
+    if (isMounted && Signup === true) navigation.navigate('Signup', { replace: true })
+    return () => { isMounted = false };
+  }, [])
+  */
+  
+
+  function handleLogin(){
+    //e.preventDefault();
     JSHash(email, CONSTANTS.HashAlgorithms.sha256)
       .then(encryptedEmail => {
         JSHash(password, CONSTANTS.HashAlgorithms.sha256)
@@ -78,12 +88,13 @@ export default function Login ({ navigation }){
             fetch(`https://mysustainability-api-123.herokuapp.com/log_in/?email=${encryptedEmail}&password=${encryptedPassword}`, {method: 'POST'})
               .then(resp => resp.json())
               .then(response => {
-                //console.log(response)
+                console.log(response)
                 if(response['message'] == "Internal Server Error"){
                   setIsVisible(true)
                 }else{
                   storeData ('token',response['token']);
                   storeData ('user_id',response['user_id']);
+                  email === 'admin' ? storeData ('admin', true) : ''
                   navigation.navigate('Home', { replace: true })
                 }
               })
@@ -92,17 +103,13 @@ export default function Login ({ navigation }){
       .catch(e => console.log(e));
   }
 
-  function handleSignUp(e){
-    e.preventDefault();
-    navigation.navigate('Signup', { replace: true })
-  }
-
   return(
     <View style={{display:"flex", justifyContent:'center', alignItems:'center', width:'100%', height:'100%'}}>
       <Text style = {classes.heading}> Log-in </Text>
       <Modal
         onRequestClose={() => setIsVisible(false)}
         visible={isVisible}
+        style={{height:'100vh', backgroundColor:'#f2f2f2'}}
       >
         <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
           <Text style={{fontSize:23, marginBottom:'2%'}}> Incorrect username or password </Text>
@@ -117,7 +124,7 @@ export default function Login ({ navigation }){
         <View style={{marginTop:20}}>
           <TouchableOpacity
             type="submit"
-            onPress={(e) => handleLogin(e)}
+            onPress={() => handleLogin()}
             style={classes.LoginButton}
           >
             <Text style={classes.buttonText}> Log-in </Text>
@@ -126,9 +133,8 @@ export default function Login ({ navigation }){
       </View>
       <Text style={classes.question}> Don't have an account? </Text>
       <TouchableOpacity
-            type="submit"
-            onPress={(e) => handleSignUp(e)}
-          >
+        onPress={() => navigation.navigate('Signup', { replace: true })}
+      >
             <Text style={classes.redirect}> Create a new account</Text>
       </TouchableOpacity>
     </View>

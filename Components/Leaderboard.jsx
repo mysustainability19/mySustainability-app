@@ -39,10 +39,7 @@ const styles = StyleSheet.create({
         flex:0, width:'100%', borderRadius:10, padding:10, marginBottom:'5%'
     },
     meetingsColumn: {
-        flexDirection:"column", justifyContent:"space-evenly", alignItems:"center", marginTop:'5%', marginBottom:'5%', margin:"auto"
-    },
-    avatar:{
-        margin:5
+        flexDirection:"column", justifyContent:"space-evenly", alignItems:"center", marginBottom:'5%'
     },
     navBar: {
         position: 'absolute', left: 0, right: 0, bottom: 0
@@ -52,10 +49,6 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color:"white", textAlign:"center", fontSize:15, fontWeight:'bold'
-    },
-    LogOutButton: { 
-        display:"flex", justifyContent:'center',alignSelf:'center',width:'95%', padding:20, borderRadius:10, backgroundColor:"#7D83FF", marginBottom:10,
-        marginTop:10
     },
 
 })
@@ -70,6 +63,13 @@ export default function Leaderboard ({navigation}){
         }
     })
 
+    getData('admin')
+    .then(value => {
+        if (value === 'true'){
+            setAdmin(true)
+        }
+    })
+
     function handleLogOut(e){
         storeData('token', null)
         storeData('user_id', null)
@@ -81,6 +81,7 @@ export default function Leaderboard ({navigation}){
     const [info, setInfo] = React.useState({name:"", points:""});    
     const [leaderboard, setLeaderBoard] = React.useState([]); 
     const [userEmail, setUserEmail] = React.useState(""); 
+    const [admin, setAdmin] = React.useState(false);
     
     useEffect(() => {
         getData('user_id')
@@ -99,24 +100,39 @@ export default function Leaderboard ({navigation}){
     return (
         <PhoneView>
             <BodyContainer>
-                <ScrollBox style={{display:"flex", flexDirection:'column', margin:'auto' }}>
-                    <StyledCard style={{margin:'auto'}}>
+                    <View style={{flexDirection:"row", justifyContent:"space-between"}}>
+                        <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold', marginTop:'20px'}]}> mySustainability </Text>
+                        <TouchableOpacity
+                            //style={{paddingTop:'3%'}}
+                            accessible={true}
+                            accessibilityLabel="button to personal profile"
+                            onPress={() =>  navigation.navigate('Profile', { replace: true })}>
+                            <Image
+                                style={{height:65, width:65}}
+                                source={require('../icons/myprofile.png')}
+                            />  
+                        </TouchableOpacity>
+                    </View>
+                    <StyledCard style={{marginTop: isMobile === true ? '5%': '2%'}}>
                         <Text style={{fontSize:23, fontWeight:"bold"}}>Leaderboard: </Text>
                         <br/>
-                        {
-                            leaderboard.map((user) => {
-                                return (
-                                    <>  {console.log(userEmail, user['email'])}
-                                        <Text key={user['name']} style={userEmail == user['email'] ? {backgroundColor:'#7D83FF', padding:'20px', fontSize:20} : {fontSize:20}}> {leaderboard.indexOf(user) + 1}. {user['name']} </Text>
-                                        <br/>
-                                    </>
-                                );
-                            })
-                        }
+                        <ScrollView style={{display:"flex", flexDirection:'column', height:'45vh'}}>
+                            {
+                                leaderboard.map((user, i) => {
+                                    return (
+                                        <>  
+                                            <br key={i+1}/>
+                                            <br key={i+2}/>
+                                            <Text key={i} style={userEmail == user['email'] ? {backgroundColor:'#7D83FF', padding:'20px', fontSize:20, borderRadius:'20px'} : {fontSize:20}}> {leaderboard.indexOf(user) + 1}. {user['name']} </Text>
+                                            <br key={i+3}/>
+                                        </>
+                                    );
+                                })
+                            }
+                        </ScrollView>
                     </StyledCard>
-                </ScrollBox>
             </BodyContainer>
-            <NavBar navigation={navigation} selectedIcon="Leaderboard"/>
+            <NavBar navigation={navigation} selectedIcon="Leaderboard" admin={admin}/>
         </PhoneView>
     );
 };

@@ -3,7 +3,6 @@ import {StyleSheet, View, Image, Platform } from 'react-native';
 
 
 export default function TransitionScreen({navigation}) {
-    console.log("weifjifw")
     setTimeout(() => {
       navigation.navigate('Login', { replace: true })
     }, 1100)  

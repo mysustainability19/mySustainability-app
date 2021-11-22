@@ -131,15 +131,15 @@ export default function challengePage ({route, navigation}){
                             <View style={[styles.meetingsColumn, {width:'100%'}]}>
                                 <StyledCard style={{marginTop:'0 !important'}}>
                                     <Text style={{fontWeight:'bold'}}>Challenge: {challenge['title']} </Text>
-                                    <br/>
+                                    <p/>
                                     <Text>{challenge['description']}</Text>
-                                    <br/>
+                                    <p/>
                                     <Text style={{fontWeight:'bold'}}>Number of participants: {participation} {participation === 1 ? 'user' : 'users'}</Text>
-                                    <br />
+                                    <p/>
                                     <Text style={{fontWeight:'bold'}}>Points this challenge is worth: {challenge['points_worth']}</Text>
-                                    <br/>
+                                    <p/>
                                     <Text style={{fontWeight:'bold'}}>Relatedness to SDGs:</Text>
-                                    <br/>
+                                    <p/>
                                     {
                                         challenge.length === undefined ? 
                                         
@@ -152,11 +152,11 @@ export default function challengePage ({route, navigation}){
                                             )
                                         }) : ''
                                     }
-                                    <br/>
+                                    <p/>
                                     <Text style={{fontWeight:'bold'}}>Your progress so far: {completionMessage}</Text>
-                                    <br/>
+                                    <p/>
                                     <TouchableOpacity
-                                        style={{padding:'20px', backgroundColor:'#7d83ff', border:'2px solid', width:'fit-content', height:'fit-content', borderRadius:'10px'}}
+                                        style={{padding:'20px', backgroundColor:'#8a90fd', border:'2px solid', width:'100%', height:'fit-content', borderRadius:'10px', maxWidth:'200px'}}
                                         accessible={true}
                                         accessibilityLabel="button to report progress"
                                         onPress={() =>  navigation.navigate('reportProgress', { replace: true, challengeID: challengeID, points_worth: challenge['points_worth'], reportingQuestion: challenge['reportingQuestion'] })}>

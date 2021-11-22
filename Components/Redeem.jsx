@@ -91,7 +91,7 @@ export default function Redeem ({navigation}){
                 <ScrollView style={{display:"flex", flexDirection:'column', }}>
                     <StyledCard>
                         <Text style={{fontSize:23, fontWeight:"bold"}}>Rewards: </Text>
-                        <br/>
+                        <p/>
                         <View style={{height:'20%'}}>
                             <Text style={{fontSize:18}}>Receive a Plastic-Free, reusable bottle</Text>
                             <TouchableOpacity

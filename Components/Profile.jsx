@@ -48,6 +48,9 @@ const styles = StyleSheet.create({
         display:"flex", justifyContent:'center',alignSelf:'center',width:'50%', maxWidth: '250px', padding:20, borderRadius:10, backgroundColor:"#7D83FF", marginBottom:10,
         marginTop:10
     },
+    test: {
+
+    }
 
 })
 
@@ -148,23 +151,23 @@ export default function Profile ({navigation}){
     
 
     return (
-        <PhoneView>
-            <BodyContainer>
-                <View style={{flex:1 }}>
-                    <ScrollView contentContainerStyle={{display:"flex", flexDirection:'column', height:'150vh'}}>
-                        <StyledCard>
+        <PhoneView nativeID="1">
+            <BodyContainer nativeID="2">
+                <View style={{flex:1 , marginBottom: isMobile === true ? '15vh': '0vh'}} nativeID="3">
+                    <ScrollView contentContainerStyle={{display:"flex", flexDirection:'column', height:'150vh'}} nativeID="4">
+                        <StyledCard nativeID="5" style={{marginTop:'0'}}>
                             <Text style={{fontSize:23, fontWeight:"bold"}}>Welcome, {info['name']} </Text>
-                            <br/>
+                            <p/>
                             <View style={{flexDirection: 'row'}}>
                                 <Text style={{fontSize:18, fontWeight:"bold"}}>Total Green XP:</Text>
                                 <Text style={{fontSize:18}}> {info['points']} </Text>
                             </View>
-                            <br/>
+                            <p/>
                             <View style={{flexDirection: 'row'}}>
                                 <Text style={{fontSize:18, fontWeight:"bold"}}>Your ranking is: </Text>
                                 <Text style={{fontSize:18}}>{ranking + 1}/{total_number_users}</Text>
                             </View>
-                            <br/>
+                            <p/>
                             <Text style={{fontSize:18, fontWeight:"bold"}}>Badges: </Text>
                             <View style={{flexDirection: isMobile === true ? 'column': 'row', justifyContent:'space-evenly', marginBottom:'3%'}}>
                                 {   
@@ -190,7 +193,7 @@ export default function Profile ({navigation}){
                                     })
                                 }
                             </View>
-                            <br/>
+                            <p/>
                             <TouchableOpacity
                             type="submit"
                             onPress={(e) => handleLogOut(e)}

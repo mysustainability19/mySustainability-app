@@ -115,16 +115,15 @@ export default function Leaderboard ({navigation}){
                     </View>
                     <StyledCard style={{marginTop: isMobile === true ? '5%': '2%'}}>
                         <Text style={{fontSize:23, fontWeight:"bold"}}>Leaderboard: </Text>
-                        <br/>
+                        <p/>
                         <ScrollView style={{display:"flex", flexDirection:'column', height:'45vh'}}>
                             {
                                 leaderboard.map((user, i) => {
                                     return (
                                         <>  
-                                            <br key={i+1}/>
-                                            <br key={i+2}/>
+                                            <p key={i+1}/>
                                             <Text key={i} style={userEmail == user['email'] ? {backgroundColor:'#7D83FF', padding:'20px', fontSize:20, borderRadius:'20px'} : {fontSize:20}}> {leaderboard.indexOf(user) + 1}. {user['name']} </Text>
-                                            <br key={i+3}/>
+                                            <p key={i+3}/>
                                         </>
                                     );
                                 })

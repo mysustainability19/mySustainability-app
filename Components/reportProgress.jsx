@@ -125,33 +125,36 @@ export default function reportProgress ({route, navigation}){
                                 style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex'}}
                             >
                                 <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
-                                    <Text style={{fontSize:23, margin:'5%', textAlign:'center'}}> You cannot report challenge progress more than 3 times a day! </Text>
+                                    <Text style={{fontSize:20, margin:'5%', textAlign:'center'}}> You cannot report challenge progress more than 3 times a day! </Text>
                                     <TouchableOpacity onPress={() =>  navigation.navigate('challengePage', { replace: true, challengeID: 0 })} style={{backgroundColor:"#7D83FF", padding:'20px', borderRadius: '10px'}}>
                                         <Text style={{fontSize:20}}> Dismiss </Text>
                                     </TouchableOpacity>
                                 </View>
                             </Modal>
-                            <StyledCard style={{marginTop:'0 !important', width:'80vw', maxWidth:'500px'}}>
-                                <br/>
-                                <Text style={{}}>Report your challenge progress</Text>
-                                <br/>
-                                <Text style={{fontWeight:'bold'}}>{reportingQuestion}</Text>
-                                <br/>
+                            <StyledCard style={{marginTop:'0 !important', width:'80vw', maxWidth:'700px'}}>
+                                <p/>
+                                <Text style={{fontSize:20}}>Report your challenge progress</Text>
+                                <p/>
+                                <Text style={{fontWeight:'bold', fontSize:20}}>{reportingQuestion}</Text>
+                                <p/>
                                 <Picker
                                     selectedValue={selectedValue}
                                     onValueChange={(value) =>
                                         setSelectedValue(value)
-                                    }>
+                                    }
+                                    style={{width:'100%', maxWidth:'100px'}}
+                                >
+                                    {/*style={{width:'30%', maxWidth:'100px'}}*/}
                                     <Picker.Item label="1" value="1" />
                                     <Picker.Item label="2" value="2" />
                                 </Picker>
-                                <br/>
+                                <p/>
                                 <TouchableOpacity
-                                    style={{padding:'3%',backgroundColor:'#7d83ff', border:'2px solid', width:'50%', height:'fit-content'}}
+                                    style={{padding:'3%',backgroundColor:'#7d83ff', border:'2px solid', width:'50%', height:'fit-content', borderRadius:'10px'}}
                                     accessible={true}
                                     accessibilityLabel="button to submit progress"
                                     onPress={() =>  handleReporting()}>
-                                        <Text style={{fontSize:18, textAlign:'center'}}>Submit</Text>
+                                        <Text style={{fontSize:20, textAlign:'center'}}>Submit</Text>
                                 </TouchableOpacity>        
                             </StyledCard>
                         </View>

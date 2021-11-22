@@ -193,7 +193,7 @@ export default function Home ({route, navigation}){
                                 </View>
                             </Modal>
 
-                            <ScrollView contentContainerStyle = {{display:"flex", flexDirection:'column', height:'120vh', marginRight:'5%'}}>
+                            <ScrollView contentContainerStyle = {{display:"flex", flexDirection:'column', height:'120vh', marginLeft: isMobile ? '5%' : '0%'}}>
 
                                 {
                                     challengeList === [] ? (
@@ -201,7 +201,7 @@ export default function Home ({route, navigation}){
                                     ): (
                                         challengeList.map((challenge)=> {
                                             return (
-                                                <>
+                                                <div style={{marginBottom:'3vh'}}>
                                                     <StyledCard key={challenge['challengeID']} style={{marginTop:'0'}}>
                                                         <TouchableOpacity onPress={() => openChallengePage(challenge['challengeID'])} >
                                                             <Text style={{textAlign:'center', fontSize:25,fontWeight:'bold'}}>{challenge['title']}</Text>
@@ -214,8 +214,8 @@ export default function Home ({route, navigation}){
                                                             : ''
                                                         }
                                                     </StyledCard>
-                                                    <br/>
-                                                </>
+                                                    {/*<br/>*/}
+                                                </div>
                                             );
                                         })
                                     )

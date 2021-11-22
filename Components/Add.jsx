@@ -100,8 +100,8 @@ export default function Add ({route, navigation}){
                             >
                                 <View style={{alignItems: 'center', flex: 1, width:'60%', justifyContent: 'center', margin:'auto', textAlign:'center'}}>
                                 <Text style={{fontSize:18}}> Challenge has been successfully added! </Text>
-                                <br/>
-                                <br/>
+                                <p/>
+                                <p/>
                                 <Button onPress={() => setIsVisible(false)} title={'Dismiss'} color="#7D83FF"/>
                                 </View>
                             </Modal>
@@ -115,13 +115,13 @@ export default function Add ({route, navigation}){
                                     {"\n\n"}
                                     <ChallengeField onChangeText={(title) => setTitle(title)}/>
                                 </Text>
-                                <br/>
+                                <p/>
                                 <Text> Challenge description
                                     
                                     {"\n\n"}
                                     <ChallengeField onChangeText={(description) => setDescription(description)}/>
                                 </Text>
-                                <br/>
+                                <p/>
                                 <Text> Points challenge is worth: 
                                     {"\n\n"}
                                     <Picker
@@ -135,7 +135,7 @@ export default function Add ({route, navigation}){
                                         <Picker.Item label="30" value="30" />
                                     </Picker>
                                 </Text>
-                                <br/>
+                                <p/>
                                 <Text> Primary SDG (that the challenge is related to): 
                                     {"\n\n"}
                                     <Picker
@@ -163,7 +163,7 @@ export default function Add ({route, navigation}){
                                         <Picker.Item label="17" value="17" />
                                     </Picker>
                                 </Text>
-                                <br/>
+                                <p/>
                                 <Text> Secondary SDG (that the challenge is related to): 
                                     {"\n\n"}
                                     <Picker
@@ -191,17 +191,17 @@ export default function Add ({route, navigation}){
                                         <Picker.Item label="17" value="17" />
                                     </Picker>
                                 </Text>
-                                <br/>
+                                <p/>
                                 <Text> Accompanying SDG-related text
                                     {"\n\n"}
                                     <ChallengeField onChangeText={(sdgText) => setSDGtext(sdgText)}/>
                                 </Text>
-                                <br/>
+                                <p/>
                                 <Text> Reporting question
                                     {"\n\n"}
                                     <ChallengeField onChangeText={(reportingQuestion) => set_reportingQuestion(reportingQuestion)}/>
                                 </Text>
-                                <br/>
+                                <p/>
                                 <TouchableOpacity
                                     type="submit"
                                     onPress={() => addChallenge()}
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
         alignItems:"flex-start",
         justifyContent:"flex-start",
         width:'90vw',    //set this to center div
-        padding:'5%',
+      //  padding:'5%',
         height:'150vh',
         maxWidth:'800px'
     },

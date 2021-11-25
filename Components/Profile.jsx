@@ -87,6 +87,7 @@ export default function Profile ({navigation}){
 
     
 
+
     function getCaptionforBadge(badge){
 
         if (badge === 'beginner'){

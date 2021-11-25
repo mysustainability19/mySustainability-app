@@ -66,11 +66,15 @@ export default function Home ({route, navigation}){
     const isFocused = useIsFocused();
 
     getData('token')
-    .then(value => {
-        if (value === 'null'){
-            console.log("token is null")
+    .then(token_value => {
+        fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
+        .then(resp => resp.json())
+        .then(response => {
+          //console.log(response)
+          if (!JSON.stringify(response).includes("logged_in")){
             navigation.navigate('Login', { replace: true })
-        }
+          }
+        })
     })
 
     getData('admin')
@@ -79,11 +83,12 @@ export default function Home ({route, navigation}){
             setAdmin(true)
         }
     })
+    //maybe have better admin code here instead of just checking value === 'true'.
 
     const {newUser} = route.params;
 
     function openChallengePage(challengeID){
-        console.log(challengeID)
+        //console.log(challengeID)
         navigation.navigate('challengePage', { replace: true, challengeID: challengeID })
     }
     
@@ -115,8 +120,8 @@ export default function Home ({route, navigation}){
         fetch(`https://mysustainability-api-123.herokuapp.com/deleteChallenge/?challengeID=${delete_challenge_modal[1]}`, {method:'DELETE'})
             .then(resp => resp.json())
             .then(resp_json => {
-                console.log(delete_challenge_modal[1])
-                console.log(resp_json)
+                //console.log(delete_challenge_modal[1])
+                //console.log(resp_json)
                 if(resp_json === 200){
                     set_delete_challenge_modal([false, 'challenge_id_', 'challengeTitle'])
                     set_refresh_challenges(refresh_challenges+1);

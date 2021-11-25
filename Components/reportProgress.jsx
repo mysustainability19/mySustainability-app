@@ -51,11 +51,16 @@ const styles = StyleSheet.create({
 export default function reportProgress ({route, navigation}){
 
     getData('token')
-    .then(value => {
-        //console.log(value)
-        if (value === null){
+    .then(token_value => {
+
+        fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
+        .then(resp => resp.json())
+        .then(response => {
+         // console.log(response['msg'])
+          if (!JSON.stringify(response).includes("logged_in")){
             navigation.navigate('Login', { replace: true })
-        }
+          }
+        })
     })
 
     getData('admin')
@@ -88,7 +93,7 @@ export default function reportProgress ({route, navigation}){
                             .then(finalResp => {
                                 //console.log(finalResp)
                                 if (finalResp['message'] === 'user stats successfully updated'){
-                                    console.log(finalResp)
+                                    //console.log(finalResp)
                                     navigation.navigate('challengePage', { replace: true, challengeID: challengeID })
                                 }
                             })

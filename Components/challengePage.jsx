@@ -52,10 +52,16 @@ export default function challengePage ({route, navigation}){
     const isFocused = useIsFocused();
 
     getData('token')
-    .then(value => {
-        if (value === null){
+    .then(token_value => {
+
+        fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
+        .then(resp => resp.json())
+        .then(response => {
+          //console.log(response['msg'])
+          if (!JSON.stringify(response).includes("logged_in")){
             navigation.navigate('Login', { replace: true })
-        }
+          }
+        })
     })
 
     getData('admin')
@@ -80,7 +86,7 @@ export default function challengePage ({route, navigation}){
         fetch(`https://mysustainability-api-123.herokuapp.com/getChallengebyID?challengeID=${challengeID}`, {method: 'GET'})
         .then(resp => resp.json())
         .then(response => {
-            console.log(response)
+            //console.log(response)
             setChallenge(response['challenges'][0])
             getData('user_id')
             .then(user_id => {
@@ -92,7 +98,7 @@ export default function challengePage ({route, navigation}){
                         fetch(`https://mysustainability-api-123.herokuapp.com/getChallengeParticipation/?challengeID=${challengeID}`)
                             .then(participationNumber => participationNumber.json())
                             .then(participationNumberJSON => {
-                                console.log(participationNumberJSON)
+                               // console.log(participationNumberJSON)
                                 setParticipation(participationNumberJSON['participation'])
                             })
                     })
@@ -114,7 +120,7 @@ export default function challengePage ({route, navigation}){
             <BodyContainer style={{flex:1}}>
                 <ScrollBox style={{height: "100vh", width: "90vw", margin: "auto", marginTop: "1vh", marginBottom:'12vh'}}>
                         <View style={{flexDirection:"row", justifyContent:"space-between",  flex:1}}>
-                            {console.log(challenge)}
+                            
                             <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold', marginTop:'20px'}]}> mySustainability </Text>
                             <TouchableOpacity
                                 //style={{paddingTop:'3%'}}

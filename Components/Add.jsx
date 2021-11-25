@@ -42,11 +42,15 @@ export default function Add ({route, navigation}){
 
 
     getData('token')
-    .then(value => {
-        if (value === 'null'){
-            console.log("token is null")
+    .then(token_value => {
+
+        fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
+        .then(resp => resp.json())
+        .then(response => {
+          if (!JSON.stringify(response).includes("logged_in")){
             navigation.navigate('Login', { replace: true })
-        }
+          }
+        })
     })
 
     const isMobile = Dimensions.get("window").height <= 700 ? true : false;
@@ -63,7 +67,7 @@ export default function Add ({route, navigation}){
         fetch(`https://mysustainability-api-123.herokuapp.com/updateChallenges/?challengeTitle=${title}&challengeDescription=${description}&pointsWorth=${selectedValue}&primarySDG=${String(selected1stSDG)}&secondarySDG=${String(selected2ndSDG)}&SDGtext=${sdgText}&reportingQuestion=${reportingQuestion}`, {method: 'POST'})
         .then(resp => resp.json())
         .then(response => {
-          console.log(response)
+          //console.log(response)
           if(response === 200){
             setIsVisible(true);
           }

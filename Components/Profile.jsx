@@ -59,12 +59,16 @@ export default function Profile ({navigation}){
     const isFocused = useIsFocused();
 
     getData('token')
-    .then(value => {
-        if (value === "null"){
+    .then(token_value => {
+
+        fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
+        .then(resp => resp.json())
+        .then(response => {
+          //console.log(response['msg'])
+          if (!JSON.stringify(response).includes("logged_in")){
             navigation.navigate('Login', { replace: true })
-        }else{
-            return value
-        }
+          }
+        })
     })
 
     getData('admin')
@@ -75,8 +79,7 @@ export default function Profile ({navigation}){
     })
 
     function handleLogOut(e){
-        storeData('token', null)
-        storeData('user_id', null)
+        localStorage.clear();
         navigation.navigate('Login', { replace: true })
     }
 
@@ -123,7 +126,7 @@ export default function Profile ({navigation}){
     useEffect(() => {
         getData('user_id')
         .then(value => {
-            console.log('user_id', value)
+            //console.log('user_id', value)
             if(value !== null){
                 fetch(`https://mysustainability-api-123.herokuapp.com/get_user_info/?userEmail=${value}`, {method: 'GET'})
                 .then(response => response.json())
@@ -179,8 +182,6 @@ export default function Profile ({navigation}){
                                         )
                                     })
                                 }
-
-                                {console.log(unearnt_badges)}
     
                                 {   
                                     unearnt_badges.map((badge, i) => {

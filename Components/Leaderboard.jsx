@@ -55,12 +55,16 @@ const styles = StyleSheet.create({
 
 export default function Leaderboard ({navigation}){
     getData('token')
-    .then(value => {
-        if (value === "null"){
+    .then(token_value => {
+
+        fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
+        .then(resp => resp.json())
+        .then(response => {
+          //console.log(response['msg'])
+          if (!JSON.stringify(response).includes("logged_in")){
             navigation.navigate('Login', { replace: true })
-        }else{
-            return value
-        }
+          }
+        })
     })
 
     getData('admin')

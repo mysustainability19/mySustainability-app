@@ -36,6 +36,19 @@ const classes = StyleSheet.create({
 
 });
 
+const getData = async (key) => {
+  try {
+      const value = await AsyncStorage.getItem(key)
+      if(value !== null) {
+          return value
+      }else{
+          return null
+      }
+  } catch(e) {
+      // error reading value
+  }
+}
+
 const storeData = async (key, value) => {
   try {
     await AsyncStorage.setItem(key, value)
@@ -57,12 +70,17 @@ export default function Login ({ navigation }){
     return await AsyncStorage.getItem('token')
   }
 
-  getTokenData()
-  .then(value => {
-      if (value !== 'null'){
-        //tokenStatus === false ? setTokenStatus(true) : ''
-        navigation.navigate('Home', { replace: true })
-      }
+  getData('token')
+  .then(token_value => {
+
+      fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
+      .then(resp => resp.json())
+      .then(response => {
+        //console.log(JSON.stringify(response).includes("logged_in"))
+        if (JSON.stringify(response).includes("logged_in")){
+          navigation.navigate('Home', { replace: true })
+        }
+      })
   })
 
   useEffect(() => {
@@ -88,7 +106,7 @@ export default function Login ({ navigation }){
             fetch(`https://mysustainability-api-123.herokuapp.com/log_in/?email=${encryptedEmail}&password=${encryptedPassword}`, {method: 'POST'})
               .then(resp => resp.json())
               .then(response => {
-                console.log(response)
+                //console.log(response)
                 if(response['message'] == "Internal Server Error"){
                   setIsVisible(true)
                 }else{

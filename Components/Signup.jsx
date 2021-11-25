@@ -67,6 +67,19 @@ export default function Signup ({ navigation }){
   const [fullName, setfullName] = React.useState("");
   const [isVisible, setIsVisible] = React.useState({ message: "", visibility: false });
 
+  getData('token')
+  .then(token_value => {
+
+      fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
+      .then(resp => resp.json())
+      .then(response => {
+        //console.log(JSON.stringify(response).includes("logged_in"))
+        if (JSON.stringify(response).includes("logged_in")){
+          navigation.navigate('Home', { replace: true })
+        }
+      })
+  })
+
   function validateEmail (email) {
     const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return regexp.test(email);
@@ -81,11 +94,15 @@ export default function Signup ({ navigation }){
               fetch(`https://mysustainability-api-123.herokuapp.com/sign_up/?name=${fullName}&email=${encryptedEmail}&password=${encryptedPassword}`, {method: 'POST'})
                 .then(resp => resp.json())
                 .then(response => {
-                  console.log(response)
+                  //console.log(response)
                   if(response['message'] == "Internal Server Error"){
                     setIsVisible({ message: "An account with this email already exists", visibility: true })
                   }
-                  else{
+                  
+                  else if (response['message'] == "email, name and password all require valid values"){
+                    setIsVisible({ message: "email, name and password all require valid values", visibility: true })
+                  }else{
+                    //console.log(response['token'])
                     storeData ('token', response['token']);
                     storeData ('user_id', response['user_id']);
                     navigation.navigate('Home', { replace: true, newUser: true })
@@ -97,7 +114,8 @@ export default function Signup ({ navigation }){
   }
 
     return(
-      <View style={[isMobile ? {marginTop:'10%'} : {}, classes.signUpForm]}>
+      <View style={{display:"flex", justifyContent:'center', alignItems:'center', width:'100%', height:'100%'}}>
+        {/*//old style={[isMobile ? {marginTop:'10%'} : {}, classes.signUpForm]}>*/}
         <Modal
           onRequestClose={() => setIsVisible({ message: "", visibility: false })}
           visible={isVisible['visibility']}

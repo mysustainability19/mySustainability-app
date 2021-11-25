@@ -5,7 +5,8 @@
     "ios": "react-native run-ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "build": "expo build:web"
+    "build": "expo build:web",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "@auth0/auth0-react": "^1.7.0",

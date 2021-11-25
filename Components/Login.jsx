@@ -6,7 +6,6 @@ import { JSHash, CONSTANTS } from "react-native-hash";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Modal from 'modal-enhanced-react-native-web';
 
-
 const classes = StyleSheet.create({
 
   loginForm: {
@@ -64,11 +63,20 @@ export default function Login ({ navigation }){
   const [password, setPassword] = React.useState("");
   const [isVisible, setIsVisible] = React.useState(false);
   const [Signup, setSignup] = React.useState(false)
-  const [tokenStatus, setTokenStatus] = React.useState(false)
+  const [tokenStatus, setTokenStatus] = React.useState(false);
 
   async function getTokenData() {
     return await AsyncStorage.getItem('token')
   }
+
+  import { useIsFocused } from "@react-navigation/native";
+  const isFocused = useIsFocused();
+  useEffect(() => {
+
+    setEmail('')
+    setPassword('')
+
+  },[isFocused])
 
   getData('token')
   .then(token_value => {

@@ -67,6 +67,15 @@ export default function Signup ({ navigation }){
   const [fullName, setfullName] = React.useState("");
   const [isVisible, setIsVisible] = React.useState({ message: "", visibility: false });
 
+  import { useIsFocused } from "@react-navigation/native";
+  const isFocused = useIsFocused();
+  useEffect(() => {
+
+    setEmail('')
+    setPassword('')
+
+  },[isFocused])
+
   getData('token')
   .then(token_value => {
 

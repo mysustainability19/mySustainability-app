@@ -79,9 +79,9 @@ export default function Profile ({navigation}){
     })
 
     function handleLogOut(e){
-        
+
         for (key in localStorage) {
-            delete localStorage[key];
+            localStorage.removeItem(key);
         }
         navigation.navigate('Login', { replace: true })
     }

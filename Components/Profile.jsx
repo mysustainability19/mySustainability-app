@@ -79,10 +79,10 @@ export default function Profile ({navigation}){
     })
 
     function handleLogOut(e){
-        localStorage.clear();
-        localStorage.clear();
-        window.localStorage.clear(); 
-        window.localStorage.clear(); 
+        
+        for (key in localStorage) {
+            delete localStorage[key];
+        }
         navigation.navigate('Login', { replace: true })
     }
 

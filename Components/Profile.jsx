@@ -85,6 +85,7 @@ export default function Profile ({navigation}){
         navigation.navigate('Login', { replace: true })
     }
 
+    
     function getCaptionforBadge(badge){
 
         if (badge === 'beginner'){

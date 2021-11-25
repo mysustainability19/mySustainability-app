@@ -80,6 +80,7 @@ export default function Profile ({navigation}){
 
     function handleLogOut(e){
         localStorage.clear();
+        window.localStorage.clear(); 
         navigation.navigate('Login', { replace: true })
     }
 

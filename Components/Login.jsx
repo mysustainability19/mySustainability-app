@@ -5,6 +5,7 @@ import Password from './Password';
 import { JSHash, CONSTANTS } from "react-native-hash";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Modal from 'modal-enhanced-react-native-web';
+import { useIsFocused } from "@react-navigation/native";
 
 const classes = StyleSheet.create({
 
@@ -69,7 +70,7 @@ export default function Login ({ navigation }){
     return await AsyncStorage.getItem('token')
   }
 
-  import { useIsFocused } from "@react-navigation/native";
+
   const isFocused = useIsFocused();
   useEffect(() => {
 

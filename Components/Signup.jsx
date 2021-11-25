@@ -6,6 +6,7 @@ import FullName from "./FullName";
 import { JSHash, CONSTANTS } from "react-native-hash";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Modal from 'modal-enhanced-react-native-web';
+import { useIsFocused } from "@react-navigation/native";
 
 const getData = async (key) => {
   try {
@@ -67,7 +68,6 @@ export default function Signup ({ navigation }){
   const [fullName, setfullName] = React.useState("");
   const [isVisible, setIsVisible] = React.useState({ message: "", visibility: false });
 
-  import { useIsFocused } from "@react-navigation/native";
   const isFocused = useIsFocused();
   useEffect(() => {
 

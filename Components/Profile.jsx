@@ -80,10 +80,8 @@ export default function Profile ({navigation}){
 
     function handleLogOut(e){
         e.preventDefault()
-        console.log(localStorage)
-        console.log(localStorage.getItem('admin'))
-        localStorage.setItem('admin', 'false')
-        localStorage.clear()
+        window.localStorage.clear();
+        window.localStorage.removeItem('admin');
         navigation.navigate('Login', { replace: true })
     }
 

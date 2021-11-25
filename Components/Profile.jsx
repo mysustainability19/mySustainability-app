@@ -79,7 +79,7 @@ export default function Profile ({navigation}){
     })
 
     function handleLogOut(e){
-        localStorage.setItem('admin', false)
+        localStorage.setItem('admin', 'false')
         localStorage.clear()
         navigation.navigate('Login', { replace: true })
     }

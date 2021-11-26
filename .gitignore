@@ -68,7 +68,7 @@ buck-out/
 
 # Expo
 .expo/
-web-build/
+#web-build/
 
 # @end expo-cli
 .vercel

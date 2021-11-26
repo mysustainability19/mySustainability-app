@@ -159,7 +159,7 @@ export default function Home ({route, navigation}){
                         onPress={() =>  navigation.navigate('Profile', { replace: true })}>
                         <Image
                             style={{height:65, width:65}}
-                            source={require('../icons/myprofile.png')}
+                            source={require('../public/icons/myprofile.png')}
                         />  
                     </TouchableOpacity>
                 </View>

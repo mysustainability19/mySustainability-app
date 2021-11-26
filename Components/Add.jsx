@@ -63,11 +63,12 @@ export default function Add ({route, navigation}){
     const [reportingQuestion, set_reportingQuestion] = React.useState("");
     const [isVisible, setIsVisible] = React.useState(false);
 
+
     function addChallenge(){
         fetch(`https://mysustainability-api-123.herokuapp.com/updateChallenges/?challengeTitle=${title}&challengeDescription=${description}&pointsWorth=${selectedValue}&primarySDG=${String(selected1stSDG)}&secondarySDG=${String(selected2ndSDG)}&SDGtext=${sdgText}&reportingQuestion=${reportingQuestion}`, {method: 'POST'})
         .then(resp => resp.json())
         .then(response => {
-          //console.log(response)
+          console.log(response)
           if(response === 200){
             setIsVisible(true);
           }

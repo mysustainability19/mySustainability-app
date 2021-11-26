@@ -70,6 +70,7 @@ export default function reportProgress ({route, navigation}){
         }
     })
 
+    console.log("the points worth are", points_worth)
 
     const { replace, challengeID, points_worth, reportingQuestion } = route.params;
     //console.log(route.params)

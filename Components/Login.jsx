@@ -73,7 +73,7 @@ export default function Login ({ navigation }){
 
   const isFocused = useIsFocused();
   useEffect(() => {
-
+    console.log("fuk")
     setEmail('')
     setPassword('')
 

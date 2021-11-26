@@ -182,7 +182,7 @@ export default function Profile ({navigation}){
                                     info['badges'].map((badge, i) => {
                                         return (
                                             <Text style={{textAlign:'center', width:'min-content'}} key={i}>
-                                                <Image source={require("https://raw.githubusercontent.com/adamelmohamad/mySustainability-app/new/public/icons/badges/" + badge + ".PNG?token=AI6OBNB3IT6CRP6LSVKF3ITBUB266")} style={{width:'150px', height:'150px'}}/>
+                                                <Image source={{ uri : "https://raw.githubusercontent.com/adamelmohamad/mySustainability-assets/main/badges/" + badge + ".PNG"}} style={{width:'150px', height:'150px'}}/>
                                                 {/*<Image source={require(`../public/icons/badges/${badge}.PNG`)} style={{width:'150px', height:'150px'}}/>*/}
                                             </Text>
                                         )
@@ -193,7 +193,7 @@ export default function Profile ({navigation}){
                                     unearnt_badges.map((badge, i) => {
                                             return (
                                                 <Text style={{textAlign:'center', width:'min-content'}} key={i}>
-                                                    <Image source={require("https://raw.githubusercontent.com/adamelmohamad/mySustainability-app/new/public/icons/badges/" + badge + "_unearnt.PNG?token=AI6OBNB3IT6CRP6LSVKF3ITBUB266")} style={{width:'150px', height:'150px'}}/>
+                                                    <Image source={{ uri: "https://raw.githubusercontent.com/adamelmohamad/mySustainability-assets/main/badges/" + badge + "_unearnt.PNG"}} style={{width:'150px', height:'150px'}}/>
                                                     {/*<Image source={require(`../public/icons/badges/${badge}_unearnt.PNG`)} style={{width:'150px', height:'150px'}}/>*/}
                                                     {getCaptionforBadge(badge)}
                                                 </Text>

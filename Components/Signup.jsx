@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Image, View, Text, TouchableOpacity, useWindowDimensions, Button } from 'react-native';
 import Email from './Email';
 import Password from './Password';

@@ -58,6 +58,9 @@ export default function challengePage ({route, navigation}){
         .then(resp => resp.json())
         .then(response => {
           //console.log(response['msg'])
+          if (response['msg'] === 'Token has expired' ){
+            return
+          }
           if (!JSON.stringify(response).includes("logged_in")){
             navigation.navigate('Login', { replace: true })
           }
@@ -107,13 +110,9 @@ export default function challengePage ({route, navigation}){
         })
     }, [isFocused]);
 
-    if (progress == '5'){
-        completionMessage = ("50% completed")
-    }else if(progress == '10'){
-        completionMessage = "100% completed"
-    }else if(progress == '0'){
-        completionMessage = "0% completed"
-    }
+    
+    completionMessage = (`${progress*10}% completed`)
+
 
     return (
         <PhoneView>
@@ -144,6 +143,29 @@ export default function challengePage ({route, navigation}){
                                     <p/>
                                     <Text style={{fontWeight:'bold'}}>Points this challenge is worth: {challenge['points_worth']}</Text>
                                     <p/>
+
+                                    <p/>
+
+                                    <Text style={{fontWeight:'bold'}}>Stages of this challenge: </Text>
+
+                                    <p/>
+                                   
+                                    {
+                                        challenge['stages'] !== undefined ? 
+
+                                            challenge['stages'].map((eachStage, index) => {
+                                                return (
+
+                                                    <Text> {index+1}:  {eachStage.filter(n=>n).join('OR')}</Text> 
+
+                                                )
+                                            })
+
+                                        : ''
+                                    }
+
+                                    <p/>
+
                                     <Text style={{fontWeight:'bold'}}>Relatedness to SDGs:</Text>
                                     <p/>
                                     {
@@ -165,7 +187,7 @@ export default function challengePage ({route, navigation}){
                                         style={{padding:'20px', backgroundColor:'#8a90fd', border:'2px solid', width:'100%', height:'fit-content', borderRadius:'10px', maxWidth:'200px'}}
                                         accessible={true}
                                         accessibilityLabel="button to report progress"
-                                        onPress={() =>  navigation.navigate('reportProgress', { replace: true, challengeID: challengeID, points_worth: challenge['points_worth'], reportingQuestion: challenge['reportingQuestion'] })}>
+                                        onPress={() =>  navigation.navigate('reportProgress', { replace: true, challengeID: challengeID, points_worth: challenge['points_worth'], stages: challenge['stages'] })}>
                                             <Text style={{fontSize:18, textAlign:'center',}}>Report challenge progress</Text>
                                     </TouchableOpacity>
                                 </StyledCard>

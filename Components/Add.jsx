@@ -47,6 +47,9 @@ export default function Add ({route, navigation}){
         fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
         .then(resp => resp.json())
         .then(response => {
+          if (response['msg'] === 'Token has expired' ){
+            return
+          }
           if (!JSON.stringify(response).includes("logged_in")){
             navigation.navigate('Login', { replace: true })
           }
@@ -58,19 +61,37 @@ export default function Add ({route, navigation}){
     const [selectedValue, setSelectedValue] = React.useState("10");
     const [description, setDescription] = React.useState("");
     const [selected1stSDG, setSelected1stSDG] = React.useState("2");
-    const [selected2ndSDG, setSelected2ndSDG] = React.useState("10");
     const [sdgText, setSDGtext] = React.useState("");
-    const [reportingQuestion, set_reportingQuestion] = React.useState("");
     const [isVisible, setIsVisible] = React.useState(false);
+
+    const [stage1_option1, set_stage1_option1] = React.useState("");
+    const [stage1_option2, set_stage1_option2] = React.useState("");
+    const [stage1_option3, set_stage1_option3] = React.useState("");
+
+    const [stage2_option1, set_stage2_option1] = React.useState("");
+    const [stage2_option2, set_stage2_option2] = React.useState("");
+    const [stage2_option3, set_stage2_option3] = React.useState("");
+
+    const [stage3_option1, set_stage3_option1] = React.useState("");
+    const [stage3_option2, set_stage3_option2] = React.useState("");
+    const [stage3_option3, set_stage3_option3] = React.useState("");
+
+    const [stage4_option1, set_stage4_option1] = React.useState("");
+    const [stage4_option2, set_stage4_option2] = React.useState("");
+    const [stage4_option3, set_stage4_option3] = React.useState("");
 
 
     function addChallenge(){
-        fetch(`https://mysustainability-api-123.herokuapp.com/updateChallenges/?challengeTitle=${title}&challengeDescription=${description}&pointsWorth=${selectedValue}&primarySDG=${String(selected1stSDG)}&secondarySDG=${String(selected2ndSDG)}&SDGtext=${sdgText}&reportingQuestion=${reportingQuestion}`, {method: 'POST'})
+        fetch(`https://mysustainability-api-123.herokuapp.com/updateChallenges/?challengeTitle=${title}&challengeDescription=${description}&pointsWorth=${selectedValue}&primarySDG=${String(selected1stSDG)}&SDGtext=${sdgText}&stage1_option1=${stage1_option1}&stage1_option2=${stage1_option2}&stage1_option3=${stage1_option3}&stage2_option1=${stage2_option1}&stage2_option2=${stage2_option2}&stage2_option3=${stage2_option3}&stage3_option1=${stage3_option1}&stage3_option2=${stage3_option2}&stage3_option3=${stage3_option3}&stage4_option1=${stage4_option1}&stage4_option2=${stage4_option2}&stage4_option3=${stage4_option3}`, {method: 'POST'})
         .then(resp => resp.json())
         .then(response => {
           console.log(response)
           if(response === 200){
-            setIsVisible(true);
+            setIsVisible(true, 'Challenge has been successfully added!');
+          }else{
+              if(response['message'] === 'stages_not_valid'){
+                  setIsVisible(true, 'Challenge could not be added! Stages are invalid');
+              }
           }
         })
     }
@@ -141,11 +162,11 @@ export default function Add ({route, navigation}){
                                     </Picker>
                                 </Text>
                                 <p/>
-                                <Text> Primary SDG (that the challenge is related to): 
+                                <Text> SDG (that the challenge is related to): 
                                     {"\n\n"}
                                     <Picker
                                         selectedValue={selected1stSDG}
-                                        style={[{width:'50px', height:'20px'}, isMobile ? {marginTop:'10px'} : {}]}
+                                        style={[{width:'312px', height:'20px'}, isMobile ? {marginTop:'10px'} : {}]}
                                         onValueChange={(value) =>
                                             setSelected1stSDG(value)
                                         }>
@@ -169,44 +190,108 @@ export default function Add ({route, navigation}){
                                     </Picker>
                                 </Text>
                                 <p/>
-                                <Text> Secondary SDG (that the challenge is related to): 
-                                    {"\n\n"}
-                                    <Picker
-                                        selectedValue={selected2ndSDG}
-                                        style={[{width:'50px', height:'20px'}, isMobile ? {marginTop:'10px'} : {}]}
-                                        onValueChange={(value) =>
-                                            setSelected2ndSDG(value)
-                                        }>
-                                        <Picker.Item label="SDG 1 - No Poverty" value="1" />
-                                        <Picker.Item label="SDG 2 - Zero Hunger" value="2" />
-                                        <Picker.Item label="SDG 3 - Good Health and Well-Being" value="3" />
-                                        <Picker.Item label="SDG 4 - Quality Education" value="4" />
-                                        <Picker.Item label="SDG 5 - Gender Equality" value="5" />
-                                        <Picker.Item label="SDG 6 - Clean Water and Sanitation" value="6" />
-                                        <Picker.Item label="SDG 7 - Affordable and Clean Energy" value="7" />
-                                        <Picker.Item label="SDG 8 - Decent Work and Economic Growth" value="8" />
-                                        <Picker.Item label="SDG 9 - Industry, Innovation and Infrastructure" value="9" />
-                                        <Picker.Item label="SDG 10 - Reduce Inequalities" value="10" />
-                                        <Picker.Item label="SDG 11 - Sustainable Cities and Communities" value="11" />
-                                        <Picker.Item label="SDG 12 - Responsible Consumption and Production" value="12" />
-                                        <Picker.Item label="SDG 13 - Climate Action" value="13" />
-                                        <Picker.Item label="SDG 14 - Life below Water" value="14" />
-                                        <Picker.Item label="SDG 15 - Life on Land" value="15" />
-                                        <Picker.Item label="SDG 16 - Peace, Justice and Strong Institutions" value="16" />
-                                        <Picker.Item label="SDG 17 - Partnership for the Goals" value="17" />
-                                    </Picker>
-                                </Text>
+                                
                                 <p/>
                                 <Text> Accompanying SDG-related text
                                     {"\n\n"}
                                     <ChallengeField onChangeText={(sdgText) => setSDGtext(sdgText)}/>
                                 </Text>
                                 <p/>
-                                <Text> Reporting question
-                                    {"\n\n"}
-                                    <ChallengeField onChangeText={(reportingQuestion) => set_reportingQuestion(reportingQuestion)}/>
+
+                                <Text> Stage 1 (to complete the challenge)
+                                    {"\n"}
                                 </Text>
                                 <p/>
+                                <div style={{marginLeft:'5%'}}>
+                                    <Text> Option 1 (required) </Text>
+                                    <p/>
+                                    <ChallengeField onChangeText={(stage1_option1) => set_stage1_option1(stage1_option1)}/>
+                                </div>
+                                <p/>
+                                <div style={{marginLeft:'5%'}}>
+                                    <Text> Option 2 </Text>
+                                    <p/>
+                                    <ChallengeField onChangeText={(stage1_option2) => set_stage1_option2(stage1_option2)}/>
+                                </div>
+                                <p/>
+                                <div style={{marginLeft:'5%'}}>
+                                    <Text> Option 3 </Text>
+                                    <p/>
+                                    <ChallengeField onChangeText={(stage1_option3) => set_stage1_option3(stage1_option3)}/>
+                                </div>
+                                <p/>
+
+                                <Text> Stage 2 (to complete the challenge)
+                                    {"\n"}
+                                </Text>
+                                <p/>
+                                <div style={{marginLeft:'5%'}}>
+                                    <Text> Option 1 (required) </Text>
+                                    <p/>
+                                    <ChallengeField onChangeText={(stage2_option1) => set_stage2_option1(stage2_option1)}/>
+                                </div>
+                                <p/>
+                                <div style={{marginLeft:'5%'}}>
+                                    <Text> Option 2 </Text>
+                                    <p/>
+                                    <ChallengeField onChangeText={(stage2_option2) => set_stage2_option2(stage2_option2)}/>
+                                </div>
+                                <p/>
+                                <div style={{marginLeft:'5%'}}>
+                                    <Text> Option 3 </Text>
+                                    <p/>
+                                    <ChallengeField onChangeText={(stage2_option3) => set_stage2_option3(stage2_option3)}/>
+                                </div>
+
+                                <p/>
+                                <Text> Stage 3 (to complete the challenge)
+                                    {"\n"}
+                                </Text>
+                                <p/>
+                                <div style={{marginLeft:'5%'}}>
+                                    <Text> Option 1 </Text>
+                                    <p/>
+                                    <ChallengeField onChangeText={(stage3_option1) => set_stage3_option1(stage3_option1)}/>
+                                </div>
+                                <p/>
+                                <div style={{marginLeft:'5%'}}>
+                                    <Text> Option 2 </Text>
+                                    <p/>
+                                    <ChallengeField onChangeText={(stage3_option2) => set_stage3_option2(stage3_option2)}/>
+                                </div>
+                                <p/>
+                                <div style={{marginLeft:'5%'}}>
+                                    <Text> Option 3 </Text>
+                                    <p/>
+                                    <ChallengeField onChangeText={(stage3_option3) => set_stage3_option3(stage3_option3)}/>
+                                </div>
+                                <p/>
+
+                                
+                                <p/>
+                                <Text> Stage 4 (to complete the challenge)
+                                    {"\n"}
+                                </Text>
+                                <p/>
+                                <div style={{marginLeft:'5%'}}>
+                                    <Text> Option 1 </Text>
+                                    <p/>
+                                    <ChallengeField onChangeText={(stage4_option1) => set_stage4_option1(stage4_option1)}/>
+                                </div>
+                                <p/>
+                                <div style={{marginLeft:'5%'}}>
+                                    <Text> Option 2 </Text>
+                                    <p/>
+                                    <ChallengeField onChangeText={(stage4_option2) => set_stage4_option2(stage4_option2)}/>
+                                </div>
+                                <p/>
+                                <div style={{marginLeft:'5%'}}>
+                                    <Text> Option 3 </Text>
+                                    <p/>
+                                    <ChallengeField onChangeText={(stage4_option3) => set_stage4_option3(stage4_option3)}/>
+                                </div>
+                                <p/>
+
                                 <TouchableOpacity
                                     type="submit"
                                     onPress={() => addChallenge()}

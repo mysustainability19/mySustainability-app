@@ -65,6 +65,9 @@ export default function Profile ({navigation}){
         .then(resp => resp.json())
         .then(response => {
           //console.log(response['msg'])
+          if (response['msg'] === 'Token has expired' ){
+            return
+          }
           if (!JSON.stringify(response).includes("logged_in")){
             navigation.navigate('Login', { replace: true })
           }

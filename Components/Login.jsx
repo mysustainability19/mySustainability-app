@@ -85,8 +85,9 @@ export default function Login ({ navigation }){
       fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
       .then(resp => resp.json())
       .then(response => {
-        //console.log(JSON.stringify(response).includes("logged_in"))
-        if (JSON.stringify(response).includes("logged_in")){
+        console.log(response)
+
+        if (JSON.stringify(response).includes("logged_in") || response['msg'] === 'Token has expired' ){
           navigation.navigate('Home', { replace: true })
         }
       })

@@ -71,6 +71,9 @@ export default function Home ({route, navigation}){
         .then(resp => resp.json())
         .then(response => {
           //console.log(response)
+          if (response['msg'] === 'Token has expired' ){
+            return
+          }
           if (!JSON.stringify(response).includes("logged_in")){
             navigation.navigate('Login', { replace: true })
           }
@@ -103,6 +106,13 @@ export default function Home ({route, navigation}){
     //const [isVisible, setIsVisible] = React.useState(true);
     const [delete_challenge_modal, set_delete_challenge_modal] = React.useState([false, 'challenge_id_', 'challengeTitle']);
     const [refresh_challenges, set_refresh_challenges] = React.useState(1);
+    const [challenges_sorted_by_sdg, set_challenges_sorted_by_sdg] = React.useState([ {'1': []}, {'2': []}, {'3': []}, {'4': []}, {'5':[]}, {'6':[]}, {'7':[]}, {'8':[]}, {'9':[]}, {'10':[]}, {'11':[]}, {'12':[]}, {'13':[]}, {'14':[]}, {'15':[]}, {'16':[]}, {'17':[]} ]);
+    const [sorted_, setSorted] = React.useState([]);
+    const sdg_names = ['No Poverty', 'Zero Hunger', 'Good Health and Well-Being', 'Quality Education', 'Gender Equality', 'Clean Water and Sanitation', 'Affordable and Clean Energy', 'Decent Work and Economic Growth', 'Industry, Innovation and Infrastructure', 'Reduce Inequalities', 'Sustainable Cities and Communities', 'Responsible Consumption and Production', 'Climate Action', 'Life below Water', 'Life on Land', 'Peace, Justice and Strong Institutions', 'Partnership for the Goals']
+    const sdg_descriptions = ['', '', '', '', '', '','','', '', '', '','', '', '', '','', '', '', '','', '', '', '','', '', '', '','', '', '', '','', '', '', '',];
+
+
+    //console.log("this", challenges_sorted_by_sdg[1])
 
     const toggleMore = () => {
         if (more === true){
@@ -147,91 +157,153 @@ export default function Home ({route, navigation}){
         })
     }, [refresh_challenges, isFocused]);
 
-  return (
-    <PhoneView>
-        <BodyContainer>
-                <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", flex:1}}>
-                    <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold'}]}> mySustainability </Text>
-                    <TouchableOpacity
-                        //style={{paddingTop:'3%'}}
-                        accessible={true}
-                        accessibilityLabel="button to personal profile"
-                        onPress={() =>  navigation.navigate('Profile', { replace: true })}>
-                        <Image
-                            style={{height:65, width:65}}
-                            source={require('../public/icons/myprofile.png')}
-                        />  
-                    </TouchableOpacity>
-                </View>
-                    <View style={[styles.flexContainer, {flex:4, margin:'auto',  marginTop:'0', }]}>
-                        <View style={styles.meetingsColumn}>
+    useEffect(() => {
 
-                            <Modal
-                                onRequestClose={() => setIsVisible(false)}
-                                visible={isVisible}
-                                style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex'}}
-                            >
-                                <View style={{alignItems: 'center', flex: 1, width:'60%', justifyContent: 'center', margin:'auto', textAlign:'center'}}>
-                                <Text style={{fontSize:18}}> Welcome to mySustainability! {'\n'} {'\n'} You have earnt your first badge: The Beginner badge! {'\n'} {'\n'} Earn more badges and Green XP by completing challenges, goals or the dynamic quiz. In no time, you will find yourself climbing the leaderboard ranks. </Text>
-                                <Image source={require("../icons/badges/beginner.PNG")} style={{width:'200px', height:'200px', marginTop:'5%', marginBottom:'5%'}}/>
-                                <Button onPress={() => setIsVisible(false)} title={'Dismiss'} color="#7D83FF"/>
-                                </View>
-                            </Modal>
+        for (let i = 1; i <= 17; i++){
+            let temp = []
+            for (let k = 0; k < challengeList.length; k++){
+                //console.log(challengeList[k]['sdg'])
+                let sdg_for_challenge = parseInt(challengeList[k]['sdg'][0]['sdg']);
+                //console.log(sdg_for_challenge)
+                if (sdg_for_challenge === i){
+                    //console.log('entered')
+                    temp.push(challengeList[k])
+                }
+            }
+            //console.log(temp)
 
-                            
-                            <Modal
-                                onRequestClose={() => set_delete_challenge_modal([false, '', ''])}
-                                visible={delete_challenge_modal[0]}
-                                style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex'}}
-                            >
-                                <View style={{alignItems: 'center', flex: 1, width:'60%', justifyContent: 'center', margin:'auto', textAlign:'center'}}>
-                                    <Text style={{fontSize:18}}> Are you sure you want to delete the following challenge: {'\n'} {'\n'}  {delete_challenge_modal[2]} {'\n'}  {'\n'}  </Text>
-                                    <View style={{width:'100%', display:'flex', flexDirection:'row', justifyContent:'space-evenly'}}>
+            challenges_sorted_by_sdg[i-1][`${i}`] = temp
+        }
+        //console.log(challenges_sorted_by_sdg)
 
-                                        <TouchableOpacity onPress={() => deleteChallenge()} style={{backgroundColor:'green', padding:'2%', borderRadius:'20px', width:'40%', maxWidth:'100px'}}>
-                                            <Text style={{color:'white', textAlign:'center', fontSize:25,fontWeight:'bold'}}>Yes</Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity onPress={() => set_delete_challenge_modal([false, '', ''])} style={{backgroundColor:'red', padding:'2%', borderRadius:'20px',width:'40%', maxWidth:'100px'}}>
-                                            <Text style={{color:'white', textAlign:'center', fontSize:25,fontWeight:'bold'}}>No</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                            </Modal>
+        let sorted_ = [ [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [] ];
 
-                            <ScrollView contentContainerStyle = {{display:"flex", flexDirection:'column', height:'120vh', marginLeft: isMobile ? '5%' : '0%'}}>
+        for (let i = 0; i < challenges_sorted_by_sdg.length; i++){
+            //console.log(challenges_sorted_by_sdg[i])
+            for (let [key, value] of Object.entries(challenges_sorted_by_sdg[i])) {
+                
+                for (let k = 0; k < value.length; k++){
+                    
+                    sorted_[i].push(value[k])
+                }
+            }
+        }
 
-                                {
-                                    challengeList === [] ? (
-                                        <Text style = {{width:'auto', fontSize: 18, textAlign:'auto'}}> None yet!</Text>
-                                    ): (
-                                        challengeList.map((challenge)=> {
-                                            return (
-                                                <div style={{marginBottom:'3vh'}}>
-                                                    <StyledCard key={challenge['challengeID']} style={{marginTop:'0'}}>
-                                                        <TouchableOpacity onPress={() => openChallengePage(challenge['challengeID'])} >
-                                                            <Text style={{textAlign:'center', fontSize:25,fontWeight:'bold'}}>{challenge['title']}</Text>
-                                                        </TouchableOpacity>
-                                                        {admin === true ?
-                                                        
-                                                            <TouchableOpacity onPress={() => openDeleteChallengeModal(challenge['challengeID'], challenge['title'])} style={{position:'absolute', top:'-15px', right:'-15px'}}>
-                                                                <Image style={{height:'20px', width:'20px'}} source={{uri: 'https://i.imgur.com/EL7Awvs.png'}}/>
-                                                            </TouchableOpacity>
-                                                            : ''
-                                                        }
-                                                    </StyledCard>
-                                                    {/*<br/>*/}
-                                                </div>
-                                            );
-                                        })
-                                    )
-                                }
-                            </ScrollView>
-                        </View>
+        setSorted(sorted_)
+
+    }, [challengeList]);
+
+  
+    return (
+        <PhoneView>
+            <BodyContainer>
+                    <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", flex:1}}>
+                        <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold'}]}> mySustainability </Text>
+                        <TouchableOpacity
+                            //style={{paddingTop:'3%'}}
+                            accessible={true}
+                            accessibilityLabel="button to personal profile"
+                            onPress={() =>  navigation.navigate('Profile', { replace: true })}>
+                            <Image
+                                style={{height:65, width:65}}
+                                source={require('../public/icons/myprofile.png')}
+                            />  
+                        </TouchableOpacity>
                     </View>
-        </BodyContainer>
-        <NavBar navigation={navigation} selectedIcon="Home" admin={admin}/>
-    </PhoneView>
-  );
+                        <View style={[styles.flexContainer, {flex:4, margin:'auto',  marginTop:'0', }]}>
+                            <View style={styles.meetingsColumn}>
+
+                                <Modal
+                                    onRequestClose={() => setIsVisible(false)}
+                                    visible={isVisible}
+                                    style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex'}}
+                                >
+                                    <View style={{alignItems: 'center', flex: 1, width:'60%', justifyContent: 'center', margin:'auto', textAlign:'center'}}>
+                                    <Text style={{fontSize:18}}> Welcome to mySustainability! {'\n'} {'\n'} You have earnt your first badge: The Beginner badge! {'\n'} {'\n'} Earn more badges and Green XP by completing challenges, goals or the dynamic quiz. In no time, you will find yourself climbing the leaderboard ranks. </Text>
+                                    <Image source={require("../icons/badges/beginner.PNG")} style={{width:'200px', height:'200px', marginTop:'5%', marginBottom:'5%'}}/>
+                                    <Button onPress={() => setIsVisible(false)} title={'Dismiss'} color="#7D83FF"/>
+                                    </View>
+                                </Modal>
+
+                                
+                                <Modal
+                                    onRequestClose={() => set_delete_challenge_modal([false, '', ''])}
+                                    visible={delete_challenge_modal[0]}
+                                    style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex'}}
+                                >
+                                    <View style={{alignItems: 'center', flex: 1, width:'60%', justifyContent: 'center', margin:'auto', textAlign:'center'}}>
+                                        <Text style={{fontSize:18}}> Are you sure you want to delete the following challenge: {'\n'} {'\n'}  {delete_challenge_modal[2]} {'\n'}  {'\n'}  </Text>
+                                        <View style={{width:'100%', display:'flex', flexDirection:'row', justifyContent:'space-evenly'}}>
+
+                                            <TouchableOpacity onPress={() => deleteChallenge()} style={{backgroundColor:'green', padding:'2%', borderRadius:'20px', width:'40%', maxWidth:'100px'}}>
+                                                <Text style={{color:'white', textAlign:'center', fontSize:25,fontWeight:'bold'}}>Yes</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity onPress={() => set_delete_challenge_modal([false, '', ''])} style={{backgroundColor:'red', padding:'2%', borderRadius:'20px',width:'40%', maxWidth:'100px'}}>
+                                                <Text style={{color:'white', textAlign:'center', fontSize:25,fontWeight:'bold'}}>No</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                </Modal>
+
+                                <ScrollView contentContainerStyle = {{display:"flex", flexDirection:'column', height:'120vh', marginLeft: isMobile ? '5%' : '0%'}}>
+
+                                    {
+                                        
+                                        challengeList === [] ? (
+                                            <Text style = {{width:'auto', fontSize: 18, textAlign:'auto'}}> None yet!</Text>
+                                        ): (
+
+                                        
+                                        
+                                        sorted_.map((eachEntry)=> {
+
+                                            if (eachEntry.length === 0) return                                                                                       
+                               
+                                            return (
+                                                <>
+                                                    <div style={{display:'flex', flexDirection:'row', marginBottom:'5%', marginTop:'5%'}}>
+
+                                                        <Image source={{uri: eachEntry[0]['sdg'][0]['image_url']}} style={{width:'100px', height:'100px', marginRight:'5%'}}/>
+                                                        <p style={{fontSize:'120%'}}> SDG {eachEntry[0]['sdg'][0]['sdg']} - {sdg_names[parseInt(eachEntry[0]['sdg'][0]['sdg']) - 1]}: {sdg_descriptions[parseInt(eachEntry[0]['sdg'][0]['sdg']) - 1]}</p>
+
+                                                    </div>
+                                                    
+                                                    
+                                                    {
+                                                        eachEntry.map((challenge)=> {
+                                                            return (
+                                                                <div style={{marginBottom:'3vh'}}>
+                                                                    <StyledCard key={challenge['challengeID']} style={{marginTop:'0'}}>
+                                                                        <TouchableOpacity onPress={() => openChallengePage(challenge['challengeID'])} >
+                                                                            <Text style={{textAlign:'center', fontSize:25,fontWeight:'bold'}}>{challenge['title']}</Text>
+                                                                        </TouchableOpacity>
+                                                                        {admin === true ?
+                                                                        
+                                                                            <TouchableOpacity onPress={() => openDeleteChallengeModal(challenge['challengeID'], challenge['title'])} style={{position:'absolute', top:'-15px', right:'-15px'}}>
+                                                                                <Image style={{height:'20px', width:'20px'}} source={{uri: 'https://i.imgur.com/EL7Awvs.png'}}/>
+                                                                            </TouchableOpacity>
+                                                                            : ''
+                                                                        }
+                                                                    </StyledCard>
+                                                                    {/*<br/>*/}
+                                                                </div>
+                                                            );
+                                                        })
+                                                    }
+                                                </>
+                                            );
+                                            
+                                        })
+
+                                        )
+                                    }
+                                </ScrollView>
+                            </View>
+                        </View>
+            </BodyContainer>
+            <NavBar navigation={navigation} selectedIcon="Home" admin={admin}/>
+        </PhoneView>
+    );
 };
 
 //all updated

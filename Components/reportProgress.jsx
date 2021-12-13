@@ -57,6 +57,9 @@ export default function reportProgress ({route, navigation}){
         .then(resp => resp.json())
         .then(response => {
          // console.log(response['msg'])
+         if (response['msg'] === 'Token has expired' ){
+            return
+          }
           if (!JSON.stringify(response).includes("logged_in")){
             navigation.navigate('Login', { replace: true })
           }
@@ -70,19 +73,24 @@ export default function reportProgress ({route, navigation}){
         }
     })
 
-    console.log("the points worth are", points_worth)
+    //console.log("the points worth are", points_worth)
 
-    const { replace, challengeID, points_worth, reportingQuestion } = route.params;
+    const { replace, challengeID, points_worth, stages } = route.params;
+
     //console.log(route.params)
     const windowHeight = useWindowDimensions().height;
     const isMobile = windowHeight <= 700 ? true : false;
-    const [selectedValue, setSelectedValue] = React.useState("1");
+    const [selectedValue, setSelectedValue] = React.useState("");
     const [isVisible, setIsVisible] = React.useState(false);
     const [admin, setAdmin] = React.useState(false);
 
     function handleReporting(){
-        const progressScore = selectedValue === "1" ? "5" : "10";
-        const pointsEarned = progressScore === "5" ? points_worth/2 : points_worth
+        //the selected value is the stage index e.g. 0, 1, 2
+        const pointsEarned = points_worth/stages.length;
+        const progressScore = String(pointsEarned/points_worth * 10);
+        console.log('the stages are', stages.length);
+        console.log('the points earned are', pointsEarned);
+
         getData('user_id')
             .then(value => {
                 if(value !== null){
@@ -141,18 +149,27 @@ export default function reportProgress ({route, navigation}){
                                 <p/>
                                 <Text style={{fontSize:20}}>Report your challenge progress</Text>
                                 <p/>
-                                <Text style={{fontWeight:'bold', fontSize:20}}>{reportingQuestion}</Text>
+                                <Text style={{fontWeight:'bold', fontSize:20}}>Please select the challenge stage you would like to report progress for: </Text>
                                 <p/>
                                 <Picker
                                     selectedValue={selectedValue}
                                     onValueChange={(value) =>
                                         setSelectedValue(value)
                                     }
-                                    style={{width:'100%', maxWidth:'100px'}}
+                                    style={{width:'100%', maxWidth:'250px'}}
                                 >
                                     {/*style={{width:'30%', maxWidth:'100px'}}*/}
-                                    <Picker.Item label="1" value="1" />
-                                    <Picker.Item label="2" value="2" />
+                                    {console.log(stages)}
+                                    {
+                                        stages !== undefined ? 
+                                            stages.map((eachStage, stage_index) => {
+                                                return eachStage.map((option, option_index) => {
+                                                    return (<Picker.Item label={`Stage ${stage_index+1}, option ${option_index+1}: ` + option} value={stage_index} />)
+                                                })
+                                            })
+                                        : ''
+                                    }
+                                    
                                 </Picker>
                                 <p/>
                                 <TouchableOpacity

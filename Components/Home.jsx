@@ -37,6 +37,10 @@ const storeData = async (key, value) => {
 }
 
 const styles = StyleSheet.create({
+    p: {
+        wordBreak: 'break-all',
+        whiteSpace: 'normal',
+    },
     flexContainer: {
         display:"flex", flexDirection:"column", justifyContent:"flex-start", alignItems:'center', height:"100vh", width:"100vw"
     },
@@ -92,6 +96,7 @@ export default function Home ({route, navigation}){
 
     function openChallengePage(challengeID){
         //console.log(challengeID)
+        {console.log(challengeID)}
         navigation.navigate('challengePage', { replace: true, challengeID: challengeID })
     }
     
@@ -108,6 +113,7 @@ export default function Home ({route, navigation}){
     const [refresh_challenges, set_refresh_challenges] = React.useState(1);
     const [challenges_sorted_by_sdg, set_challenges_sorted_by_sdg] = React.useState([ {'1': []}, {'2': []}, {'3': []}, {'4': []}, {'5':[]}, {'6':[]}, {'7':[]}, {'8':[]}, {'9':[]}, {'10':[]}, {'11':[]}, {'12':[]}, {'13':[]}, {'14':[]}, {'15':[]}, {'16':[]}, {'17':[]} ]);
     const [sorted_, setSorted] = React.useState([]);
+    const [completed, set_completed] = React.useState([]);
     const sdg_names = ['No Poverty', 'Zero Hunger', 'Good Health and Well-Being', 'Quality Education', 'Gender Equality', 'Clean Water and Sanitation', 'Affordable and Clean Energy', 'Decent Work and Economic Growth', 'Industry, Innovation and Infrastructure', 'Reduce Inequalities', 'Sustainable Cities and Communities', 'Responsible Consumption and Production', 'Climate Action', 'Life below Water', 'Life on Land', 'Peace, Justice and Strong Institutions', 'Partnership for the Goals']
     const sdg_descriptions = ['', '', '', '', '', '','','', '', '', '','', '', '', '','', '', '', '','', '', '', '','', '', '', '','', '', '', '','', '', '', '',];
 
@@ -140,7 +146,7 @@ export default function Home ({route, navigation}){
     }
 
     useEffect(() => {
-
+        
         fetch(`https://mysustainability-api-123.herokuapp.com/getChallenges`, {method: 'GET'})
         .then(resp => resp.json())
         .then(response => {
@@ -148,13 +154,38 @@ export default function Home ({route, navigation}){
         })
     }, []);
 
-    useEffect(() => {
 
+    useEffect(() => {
+        
+        for (let i = 0; i < challengeList.length; i++){
+            //console.log('line 157')
+            getData('user_id')
+            .then (token_value => {
+
+                fetch(`https://mysustainability-api-123.herokuapp.com/getChallengeProgress/?challengeID=${i}&userEmail=${token_value}`, {method: 'GET'})
+                .then(progress => progress.json())
+                .then(progressJSON => {
+                    //console.log(progressJSON['progressScore'])
+                    if (progressJSON['progressScore'] === 10){
+                        //console.log('entered')
+                        set_completed([...completed, true])
+                    }
+                })      
+            })
+        }
+
+    }, [challengeList]);
+
+
+    useEffect(() => {
+        
         fetch(`https://mysustainability-api-123.herokuapp.com/getChallenges`, {method: 'GET'})
         .then(resp => resp.json())
         .then(response => {
             setChallengeList(response['challenges'])
         })
+
+
     }, [refresh_challenges, isFocused]);
 
     useEffect(() => {
@@ -205,13 +236,13 @@ export default function Home ({route, navigation}){
                             accessibilityLabel="button to personal profile"
                             onPress={() =>  navigation.navigate('Profile', { replace: true })}>
                             <Image
-                                style={{height:65, width:65}}
+                                style={[{height:65, width:65}]}
                                 source={require('../public/icons/myprofile.png')}
                             />  
                         </TouchableOpacity>
                     </View>
                         <View style={[styles.flexContainer, {flex:4, margin:'auto',  marginTop:'0', }]}>
-                            <View style={styles.meetingsColumn}>
+                            <View style={[styles.meetingsColumn, isMobile ? {marginBottom:'20%'} : '' ]}>
 
                                 <Modal
                                     onRequestClose={() => setIsVisible(false)}
@@ -260,23 +291,27 @@ export default function Home ({route, navigation}){
                                             if (eachEntry.length === 0) return                                                                                       
                                
                                             return (
-                                                <>
+                                                <div>
                                                     <div style={{display:'flex', flexDirection:'row', marginBottom:'5%', marginTop:'5%'}}>
 
-                                                        <Image source={{uri: eachEntry[0]['sdg'][0]['image_url']}} style={{width:'100px', height:'100px', marginRight:'5%'}}/>
-                                                        <p style={{fontSize:'120%'}}> SDG {eachEntry[0]['sdg'][0]['sdg']} - {sdg_names[parseInt(eachEntry[0]['sdg'][0]['sdg']) - 1]}: {sdg_descriptions[parseInt(eachEntry[0]['sdg'][0]['sdg']) - 1]}</p>
+                                                        <Image source={{uri: eachEntry[0]['sdg'][0]['image_url']}} style={[{width:'100px', height:'100px', marginRight:'5%'}]}/>
+                                                        <p style={{fontSize:'120%', width:'60%'}}> SDG {eachEntry[0]['sdg'][0]['sdg']} - {sdg_names[parseInt(eachEntry[0]['sdg'][0]['sdg']) - 1]}: {sdg_descriptions[parseInt(eachEntry[0]['sdg'][0]['sdg']) - 1]}</p>
 
                                                     </div>
                                                     
                                                     
                                                     {
-                                                        eachEntry.map((challenge)=> {
+                                                        eachEntry.map((challenge, index)=> {
+     
                                                             return (
                                                                 <div style={{marginBottom:'3vh'}}>
                                                                     <StyledCard key={challenge['challengeID']} style={{marginTop:'0'}}>
-                                                                        <TouchableOpacity onPress={() => openChallengePage(challenge['challengeID'])} >
-                                                                            <Text style={{textAlign:'center', fontSize:25,fontWeight:'bold'}}>{challenge['title']}</Text>
-                                                                        </TouchableOpacity>
+                                                                        
+                                                                            <TouchableOpacity onPress={() => openChallengePage(challenge['challengeID'])} >
+                                                                                <Text style={{textAlign:'center', fontSize:25,fontWeight:'bold'}}>{challenge['title']}</Text>
+                                                                            </TouchableOpacity>
+                                                                            {completed[index] === true ? <Image style={{height:'20px', width:'20px', marginTop:'2.5%', display: 'block', marginLeft:'auto', marginRight: 'auto'}} source={{uri: 'https://cdn2.iconfinder.com/data/icons/greenline/512/check-512.png'}}/> : ''}
+                                                                     
                                                                         {admin === true ?
                                                                         
                                                                             <TouchableOpacity onPress={() => openDeleteChallengeModal(challenge['challengeID'], challenge['title'])} style={{position:'absolute', top:'-15px', right:'-15px'}}>
@@ -290,7 +325,7 @@ export default function Home ({route, navigation}){
                                                             );
                                                         })
                                                     }
-                                                </>
+                                                </div>
                                             );
                                             
                                         })

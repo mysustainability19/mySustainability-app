@@ -9,7 +9,7 @@ function ChallengeField(props) {
       placeholderTextColor="black"
       autoComplete="new-password"
       onChangeText={text => props.onChangeText(text)}
-      style = {{ width: '150%', padding:20, marginBottom:10, backgroundColor:"white", outline: 'none' }}
+      style = {{  lineHeight: 23, textAlignVertical: "top", width: '80vw', maxWidth:'700px', height:'10vh', padding:'5vh', marginBottom:10, backgroundColor:"white", outline: 'none' }}
     />
   );
 }

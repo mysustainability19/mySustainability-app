@@ -83,33 +83,62 @@ export default function reportProgress ({route, navigation}){
     const [selectedValue, setSelectedValue] = React.useState("");
     const [isVisible, setIsVisible] = React.useState(false);
     const [admin, setAdmin] = React.useState(false);
+    const [completedStages, set_completedStages] = React.useState([]);
+
+    useEffect(() => {
+        fetch(`https://mysustainability-api-123.herokuapp.com/getChallengebyID?challengeID=${challengeID}`, {method: 'GET'})
+        .then(resp => resp.json())
+        .then(response => {
+            //console.log(response)
+            getData('user_id')
+            .then(user_id => {
+                if(user_id !== null){
+                    fetch(`https://mysustainability-api-123.herokuapp.com/getChallengeProgress/?challengeID=${challengeID}&userEmail=${user_id}`, {method: 'GET'})
+                    .then(progress => progress.json())
+                    .then(progressJSON => {
+                        console.log(progressJSON)
+                        console.log(progressJSON['stagesCompleted'])
+                        set_completedStages(progressJSON['stagesCompleted'])
+                    })
+                }
+            })
+        })
+    }, []);
 
     function handleReporting(){
         //the selected value is the stage index e.g. 0, 1, 2
-        const pointsEarned = points_worth/stages.length;
+        const pointsEarned = points_worth/stages.filter(eachStage => eachStage[0].length > 0).length;
         const progressScore = String(pointsEarned/points_worth * 10);
-        console.log('the stages are', stages.length);
-        console.log('the points earned are', pointsEarned);
+        const stageCompleted = selectedValue;
+        console.log('the stage that was completed is', stageCompleted);
 
         getData('user_id')
             .then(value => {
                 if(value !== null){
-                    fetch(`https://mysustainability-api-123.herokuapp.com/updateChallengeProgress/?challengeID=${challengeID}&userEmail=${value}&progressScore=${progressScore}`, {method: 'POST'})
-                    .then(response => {
-                        if(response['status'] === 200){
-                            fetch(`https://mysustainability-api-123.herokuapp.com/updatePoints/?points=${pointsEarned}&userEmail=${value}`, {method: 'POST'})
-                            .then(response => response.json())
-                            .then(finalResp => {
-                                //console.log(finalResp)
-                                if (finalResp['message'] === 'user stats successfully updated'){
-                                    //console.log(finalResp)
-                                    navigation.navigate('challengePage', { replace: true, challengeID: challengeID })
-                                }
-                            })
-                        }else{
-                            setIsVisible(true);
-                        }
-                    })
+
+                    fetch(`https://mysustainability-api-123.herokuapp.com/updateChallengeStages/?challengeID=${challengeID}&userEmail=${value}&stageCompleted=${stageCompleted}`, {method: 'POST'})
+                        .then(resp => {
+                            console.log('updating stages complete...', resp.json())
+                            if (resp['status'] === 200){
+
+                                fetch(`https://mysustainability-api-123.herokuapp.com/updateChallengeProgress/?challengeID=${challengeID}&userEmail=${value}&progressScore=${progressScore}`, {method: 'POST'})
+                                .then(response => {
+                                    if(response['status'] === 200){
+                                        fetch(`https://mysustainability-api-123.herokuapp.com/updatePoints/?points=${pointsEarned}&userEmail=${value}`, {method: 'POST'})
+                                        .then(response => response.json())
+                                        .then(finalResp => {
+                                            //console.log(finalResp)
+                                            if (finalResp['message'] === 'user stats successfully updated'){
+                                                //console.log(finalResp)
+                                                navigation.navigate('challengePage', { replace: true, challengeID: challengeID })
+                                            }
+                                        })
+                                    }else{
+                                        setIsVisible(true);
+                                    }
+                                })
+                            }
+                        })
                 }
             })
     }
@@ -131,8 +160,8 @@ export default function reportProgress ({route, navigation}){
                             />  
                         </TouchableOpacity>
                     </View>
-                    <View style={[styles.flexContainer, {flex:4, marginTop:'5%', margin:'auto'}]}>
-                        <View style={styles.meetingsColumn}>
+                    <View style={[styles.flexContainer, {marginTop:'5%', margin:'auto'}]}>
+                        <View style={[styles.meetingsColumn, isMobile ? {marginBottom:'20%'} : '' ]}>
                             <Modal
                                 onRequestClose={() => setIsVisible(false)}
                                 visible={isVisible}
@@ -159,12 +188,18 @@ export default function reportProgress ({route, navigation}){
                                     style={{width:'100%', maxWidth:'250px'}}
                                 >
                                     {/*style={{width:'30%', maxWidth:'100px'}}*/}
-                                    {console.log(stages)}
                                     {
                                         stages !== undefined ? 
                                             stages.map((eachStage, stage_index) => {
-                                                return eachStage.map((option, option_index) => {
-                                                    return (<Picker.Item label={`Stage ${stage_index+1}, option ${option_index+1}: ` + option} value={stage_index} />)
+                                                return eachStage.filter(option_ => option_.length > 5).map((option, option_index) => {
+                                                    selectedValue === "" && !completedStages.includes(String(stage_index)) ? setSelectedValue(String(stage_index+1)) : ''
+                                                    {console.log('completed_stages', completedStages)}
+                                                    {console.log(stages)}
+                                                    {console.log(stage_index)}
+                                                    {console.log(completedStages.includes(String(stage_index + 1)))}
+                                                   // {console.log('completed_stages', completedStages)}
+                                                    return completedStages.includes(String(stage_index + 1)) ? ('') : (<Picker.Item label={`Stage ${stage_index+1}, option ${option_index+1}: ` + option.substring(0,100)} value={stage_index+1} />)
+                                                  
                                                 })
                                             })
                                         : ''

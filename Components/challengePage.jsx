@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         flex:0, width:'100%', borderRadius:10, padding:10, marginBottom:'5%'
     },
     meetingsColumn: {
-        flexDirection:"column", justifyContent:"space-evenly", alignItems:"center", marginTop:'0%', marginBottom:'5%'
+        flexDirection:"column", justifyContent:"space-evenly", alignItems:"center", marginTop:'0%', marginBottom:'5%', width: '100%'
     },
     avatar:{
         margin:5
@@ -85,6 +85,8 @@ export default function challengePage ({route, navigation}){
     const [admin, setAdmin] = React.useState(false);
     var completionMessage;
 
+
+
     useEffect(() => {
         fetch(`https://mysustainability-api-123.herokuapp.com/getChallengebyID?challengeID=${challengeID}`, {method: 'GET'})
         .then(resp => resp.json())
@@ -111,7 +113,7 @@ export default function challengePage ({route, navigation}){
     }, [isFocused]);
 
     
-    completionMessage = (`${progress*10}% completed`)
+    completionMessage = (`${Math.round(progress*10)}% completed`)
 
 
     return (
@@ -133,7 +135,7 @@ export default function challengePage ({route, navigation}){
                             </TouchableOpacity>
                         </View>
                         <View style={[styles.flexContainer, {flex:4, marginTop:'2vh', margin:'auto'}]}>
-                            <View style={[styles.meetingsColumn, {width:'100%'}]}>
+                            <View style={[styles.meetingsColumn, isMobile ? {marginBottom:'20%'} : '' ]}>
                                 <StyledCard style={{marginTop:'0 !important'}}>
                                     <Text style={{fontWeight:'bold'}}>Challenge: {challenge['title']} </Text>
                                     <p/>
@@ -154,11 +156,14 @@ export default function challengePage ({route, navigation}){
                                         challenge['stages'] !== undefined ? 
 
                                             challenge['stages'].map((eachStage, index) => {
-                                                return (
+                                                return eachStage[0].length > 0 ? (
 
-                                                    <Text> {index+1}:  {eachStage.filter(n=>n).join('OR')}</Text> 
+                                                    <>
+                                                        <Text> {index+1}:  {eachStage.filter(n=>n).join(' OR ')}</Text> 
+                                                        <p/>
+                                                    </>
 
-                                                )
+                                                ) : ''
                                             })
 
                                         : ''
@@ -184,7 +189,8 @@ export default function challengePage ({route, navigation}){
                                     <Text style={{fontWeight:'bold'}}>Your progress so far: {completionMessage}</Text>
                                     <p/>
                                     <TouchableOpacity
-                                        style={{padding:'20px', backgroundColor:'#8a90fd', border:'2px solid', width:'100%', height:'fit-content', borderRadius:'10px', maxWidth:'200px'}}
+                                        disabled={progress < 10 ? false : true}
+                                        style={{display: progress < 10  ? '': 'None', padding:'20px', backgroundColor:'#8a90fd', border:'2px solid', width:'100%', height:'fit-content', borderRadius:'10px', maxWidth:'200px'}}
                                         accessible={true}
                                         accessibilityLabel="button to report progress"
                                         onPress={() =>  navigation.navigate('reportProgress', { replace: true, challengeID: challengeID, points_worth: challenge['points_worth'], stages: challenge['stages'] })}>

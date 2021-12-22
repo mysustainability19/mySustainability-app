@@ -73,7 +73,6 @@ export default function Login ({ navigation }){
 
   const isFocused = useIsFocused();
   useEffect(() => {
-    console.log("fuk")
     setEmail('')
     setPassword('')
 
@@ -85,17 +84,18 @@ export default function Login ({ navigation }){
       fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
       .then(resp => resp.json())
       .then(response => {
-        console.log(response)
-
-        if (JSON.stringify(response).includes("logged_in") || response['msg'] === 'Token has expired' ){
+        //console.log(response['msg'])
+        if (response['msg'] === 'Token has expired' ){
+          navigation.navigate('Home', { replace: true })
+        }
+        if (JSON.stringify(response).includes("logged_in")){
           navigation.navigate('Home', { replace: true })
         }
       })
   })
 
-  useEffect(() => {
-    return () => {};
-  }, []);
+
+
 
 
   /*
@@ -116,13 +116,19 @@ export default function Login ({ navigation }){
             fetch(`https://mysustainability-api-123.herokuapp.com/log_in/?email=${encryptedEmail}&password=${encryptedPassword}`, {method: 'POST'})
               .then(resp => resp.json())
               .then(response => {
-                //console.log(response)
+                console.log(response)
                 if(response['message'] == "Internal Server Error"){
                   setIsVisible(true)
-                }else{
+                
+                }else if(response['message'] === "credentials not found"){
+                  setIsVisible(true);
+                } else{
                   storeData ('token',response['token']);
                   storeData ('user_id',response['user_id']);
-                  email === 'admin' ? storeData ('admin', true) : ''
+                  console.log(email)
+                  if (email === 'admin') {
+                    storeData ('admin', 'true') 
+                  }
                   navigation.navigate('Home', { replace: true })
                 }
               })

@@ -62,7 +62,7 @@ export default function Add ({route, navigation}){
     const [description, setDescription] = React.useState("");
     const [selected1stSDG, setSelected1stSDG] = React.useState("2");
     const [sdgText, setSDGtext] = React.useState("");
-    const [isVisible, setIsVisible] = React.useState(false);
+    const [isVisible, setIsVisible] = React.useState([false, '']);
 
     const [stage1_option1, set_stage1_option1] = React.useState("");
     const [stage1_option2, set_stage1_option2] = React.useState("");
@@ -86,11 +86,11 @@ export default function Add ({route, navigation}){
         .then(resp => resp.json())
         .then(response => {
           console.log(response)
-          if(response === 200){
-            setIsVisible(true, 'Challenge has been successfully added!');
+          if(response['message'] === 'challenges successfully updated'){
+            setIsVisible([true, 'Challenge has been successfully added!']);
           }else{
               if(response['message'] === 'stages_not_valid'){
-                  setIsVisible(true, 'Challenge could not be added! Stages are invalid');
+                  setIsVisible([true, 'Challenge could not be added! Stages are invalid']);
               }
           }
         })
@@ -102,6 +102,7 @@ export default function Add ({route, navigation}){
 
   return (
     <PhoneView>
+        {console.log(isVisible)}
         <BodyContainer>
                 <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", flex:1}}>
                     <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold'}]}> mySustainability </Text>
@@ -117,18 +118,18 @@ export default function Add ({route, navigation}){
                     </TouchableOpacity>
                 </View>
                     <View style={[styles.flexContainer, {flex:4, margin:'auto',  marginTop:'0'}]}>
-                        <View style={styles.meetingsColumn}>
+                        <View style={[styles.meetingsColumn, isMobile ? {marginBottom:'20%'} : '' ]}>
 
                             <Modal
-                                onRequestClose={() => setIsVisible(false)}
-                                visible={isVisible}
+                                onRequestClose={() => setIsVisible([false, ''])}
+                                visible={isVisible[0]}
                                 style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex'}}
                             >
                                 <View style={{alignItems: 'center', flex: 1, width:'60%', justifyContent: 'center', margin:'auto', textAlign:'center'}}>
-                                <Text style={{fontSize:18}}> Challenge has been successfully added! </Text>
+                                <Text style={{fontSize:18}}> {isVisible[1]} </Text>
                                 <p/>
                                 <p/>
-                                <Button onPress={() => setIsVisible(false)} title={'Dismiss'} color="#7D83FF"/>
+                                <Button onPress={() => setIsVisible([false, ''])} title={'Dismiss'} color="#7D83FF"/>
                                 </View>
                             </Modal>
 
@@ -324,7 +325,7 @@ const styles = StyleSheet.create({
     },
 
     flexContainer: {
-        display:"flex", flexDirection:"column", justifyContent:"center", alignItems:'center', height:"100vh", width:"100vw"
+        display:"flex", flexDirection:"column", justifyContent:"center", alignItems:'center', height:"120vh", width:"100vw"
     },
     individualTile: {
         flex:0, width:'100%', borderRadius:10, padding:10, marginBottom:'5%'

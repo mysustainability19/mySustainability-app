@@ -104,6 +104,10 @@ export default function Signup ({ navigation }){
                 .then(resp => resp.json())
                 .then(response => {
                   //console.log(response)
+                  if (email === 'admin') {
+                    storeData ('admin', 'true') 
+                  }
+                  
                   if(response['message'] == "Internal Server Error"){
                     setIsVisible({ message: "An account with this email already exists", visibility: true })
                   }

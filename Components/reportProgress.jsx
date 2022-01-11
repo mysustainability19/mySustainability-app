@@ -80,9 +80,10 @@ export default function reportProgress ({route, navigation}){
     //console.log(route.params)
     const windowHeight = useWindowDimensions().height;
     const isMobile = windowHeight <= 700 ? true : false;
-    const [selectedValue, setSelectedValue] = React.useState("");
+    const [selectedValue, setSelectedValue] = React.useState("Select an item");
     const [isVisible, setIsVisible] = React.useState(false);
     const [admin, setAdmin] = React.useState(false);
+    const [defaultValueSet, set_defaultValueSet] = React.useState(false);
     const [completedStages, set_completedStages] = React.useState([]);
 
     useEffect(() => {
@@ -145,8 +146,7 @@ export default function reportProgress ({route, navigation}){
 
     return (
         <PhoneView>
-            <BodyContainer style={{flex:1}}>
-                <ScrollView contentContainerStyle={{display:"flex", flexDirection:'column', width: "95vw"}}>
+            <BodyContainer>
                     <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", flex:1}}>
                         <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold'}]}> mySustainability </Text>
                         <TouchableOpacity
@@ -160,7 +160,7 @@ export default function reportProgress ({route, navigation}){
                             />  
                         </TouchableOpacity>
                     </View>
-                    <View style={[styles.flexContainer, {marginTop:'5%', margin:'auto'}]}>
+                    <View style={[styles.flexContainer, {flex:4, margin:'auto',  marginTop:'0', }]}>
                         <View style={[styles.meetingsColumn, isMobile ? {marginBottom:'20%'} : '' ]}>
                             <Modal
                                 onRequestClose={() => setIsVisible(false)}
@@ -187,18 +187,23 @@ export default function reportProgress ({route, navigation}){
                                     }
                                     style={{width:'100%', maxWidth:'250px'}}
                                 >
-                                    {/*style={{width:'30%', maxWidth:'100px'}}*/}
+                                    <Picker.Item label={'Select an item'} value={'Select an item'} />  
+                                    
                                     {
-                                        stages !== undefined ? 
+                                        stages !== undefined ?
                                             stages.map((eachStage, stage_index) => {
+                                                
                                                 return eachStage.filter(option_ => option_.length > 5).map((option, option_index) => {
-                                                    selectedValue === "" && !completedStages.includes(String(stage_index)) ? setSelectedValue(String(stage_index+1)) : ''
-                                                    {console.log('completed_stages', completedStages)}
-                                                    {console.log(stages)}
-                                                    {console.log(stage_index)}
-                                                    {console.log(completedStages.includes(String(stage_index + 1)))}
+                                                 
+
+                                                   {console.log('you selected', selectedValue)}
+                                                    //{console.log('completed_stages', completedStages)}
                                                    // {console.log('completed_stages', completedStages)}
-                                                    return completedStages.includes(String(stage_index + 1)) ? ('') : (<Picker.Item label={`Stage ${stage_index+1}, option ${option_index+1}: ` + option.substring(0,100)} value={stage_index+1} />)
+                                                   if (!completedStages.includes(String(stage_index + 1))){
+                                                        return (
+                                                            <Picker.Item label={`Stage ${stage_index+1}, option ${option_index+1}: ` + option.substring(0,100)} value={stage_index+1} />                                              
+                                                        )                                               
+                                                   }                                                
                                                   
                                                 })
                                             })
@@ -210,6 +215,7 @@ export default function reportProgress ({route, navigation}){
                                 <TouchableOpacity
                                     style={{padding:'3%',backgroundColor:'#7d83ff', border:'2px solid', width:'50%', height:'fit-content', borderRadius:'10px'}}
                                     accessible={true}
+                                    disabled={selectedValue === 'Select an item' ? true : false}
                                     accessibilityLabel="button to submit progress"
                                     onPress={() =>  handleReporting()}>
                                         <Text style={{fontSize:20, textAlign:'center'}}>Submit</Text>
@@ -217,7 +223,6 @@ export default function reportProgress ({route, navigation}){
                             </StyledCard>
                         </View>
                     </View>
-                </ScrollView>
             </BodyContainer>
             <NavBar navigation={navigation} selectedIcon="Home" admin={admin}/>
         </PhoneView>

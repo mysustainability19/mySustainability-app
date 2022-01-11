@@ -10,6 +10,9 @@ const styles = StyleSheet.create({
     icon: {
         height:33, width:33
     },
+    learn_icon: {
+        height:38, width: 33
+    },
     innerBar: {
         display:"flex", flexDirection:"row", width: '100%', marginTop:'3%', marginBottom:20,justifyContent:"space-evenly", alignItems:"center",
     }
@@ -20,8 +23,8 @@ export default function NavBar({ navigation, selectedIcon, admin }){
 
     const home = selectedIcon === "Home" ? require("../icons/selected_home.png"): require("../icons/home.png");
     const friends = selectedIcon === "Leaderboard" ? require("../icons/selected_friends.png"): require("../icons/friends.png");
+    const learn = selectedIcon === "Learn" ? require("../icons/selected_learn.png"): require("../icons/learn.png");
     const add = selectedIcon === "Add" ? require("../icons/selected_add.png"): require("../icons/add.png");
-    const redeem = selectedIcon === "Redeem" ? require("../icons/selected_redeem.png"): require("../icons/redeem.png");
     const windowHeight = useWindowDimensions().height;
     const isMobile = windowHeight <= 300 ? true : false;
 
@@ -31,6 +34,9 @@ export default function NavBar({ navigation, selectedIcon, admin }){
             <View style={[styles.innerBar]}>
                 <TouchableOpacity onPress={() => {navigation.navigate('Home', {replace: true, newUser:false})}}>
                     <Image alt="home page button" source={home} style={styles.icon}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => {navigation.navigate('Learn'), {replace: true}}}>
+                    <Image alt="learn" source={learn} style={styles.learn_icon}/>
                 </TouchableOpacity>
                 {admin ? 
                     <TouchableOpacity onPress={() => {navigation.navigate('Add', {replace: true})}}>

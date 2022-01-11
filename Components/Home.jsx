@@ -241,100 +241,103 @@ export default function Home ({route, navigation}){
                             />  
                         </TouchableOpacity>
                     </View>
-                        <View style={[styles.flexContainer, {flex:4, margin:'auto',  marginTop:'0', }]}>
-                            <View style={[styles.meetingsColumn, isMobile ? {marginBottom:'20%'} : '' ]}>
+                    <View style={[styles.flexContainer, {flex:4, marginLeft:'2%', marginRight:'2%',  marginTop:'0'}, isMobile ? {marginLeft:'6% !important', marginRight:'6% !important'} : '']}>
+                        <View style={[styles.meetingsColumn, isMobile ? {marginBottom:'20%'} : '' ]}>
 
-                                <Modal
-                                    onRequestClose={() => setIsVisible(false)}
-                                    visible={isVisible}
-                                    style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex'}}
-                                >
-                                    <View style={{alignItems: 'center', flex: 1, width:'60%', justifyContent: 'center', margin:'auto', textAlign:'center'}}>
-                                    <Text style={{fontSize:18}}> Welcome to mySustainability! {'\n'} {'\n'} You have earnt your first badge: The Beginner badge! {'\n'} {'\n'} Earn more badges and Green XP by completing challenges, goals or the dynamic quiz. In no time, you will find yourself climbing the leaderboard ranks. </Text>
-                                    <Image source={require("../icons/badges/beginner.PNG")} style={{width:'200px', height:'200px', marginTop:'5%', marginBottom:'5%'}}/>
-                                    <Button onPress={() => setIsVisible(false)} title={'Dismiss'} color="#7D83FF"/>
+                            <Modal
+                                onRequestClose={() => setIsVisible(false)}
+                                visible={isVisible}
+                                style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex'}}
+                            >
+                                <View style={{alignItems: 'center', flex: 1, width:'60%', justifyContent: 'center', margin:'auto', textAlign:'center'}}>
+                                <Text style={{fontSize:18}}> Welcome to mySustainability! {'\n'} {'\n'} You have earnt your first badge: The Beginner badge! {'\n'} {'\n'} Earn more badges and Green XP by completing challenges, goals or the dynamic quiz. In no time, you will find yourself climbing the leaderboard ranks. </Text>
+                                <Image source={require("../icons/badges/beginner.PNG")} style={{width:'200px', height:'200px', marginTop:'5%', marginBottom:'5%'}}/>
+                                <Button onPress={() => setIsVisible(false)} title={'Dismiss'} color="#7D83FF"/>
+                                </View>
+                            </Modal>
+
+                            
+                            <Modal
+                                onRequestClose={() => set_delete_challenge_modal([false, '', ''])}
+                                visible={delete_challenge_modal[0]}
+                                style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex'}}
+                            >
+                                <View style={{alignItems: 'center', flex: 1, width:'60%', justifyContent: 'center', margin:'auto', textAlign:'center'}}>
+                                    <Text style={{fontSize:18}}> Are you sure you want to delete the following challenge: {'\n'} {'\n'}  {delete_challenge_modal[2]} {'\n'}  {'\n'}  </Text>
+                                    <View style={{width:'100%', display:'flex', flexDirection:'row', justifyContent:'space-evenly'}}>
+
+                                        <TouchableOpacity onPress={() => deleteChallenge()} style={{backgroundColor:'green', padding:'2%', borderRadius:'20px', width:'40%', maxWidth:'100px'}}>
+                                            <Text style={{color:'white', textAlign:'center', fontSize:25,fontWeight:'bold'}}>Yes</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => set_delete_challenge_modal([false, '', ''])} style={{backgroundColor:'red', padding:'2%', borderRadius:'20px',width:'40%', maxWidth:'100px'}}>
+                                            <Text style={{color:'white', textAlign:'center', fontSize:25,fontWeight:'bold'}}>No</Text>
+                                        </TouchableOpacity>
                                     </View>
-                                </Modal>
+                                </View>
+                            </Modal>
 
-                                
-                                <Modal
-                                    onRequestClose={() => set_delete_challenge_modal([false, '', ''])}
-                                    visible={delete_challenge_modal[0]}
-                                    style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex'}}
-                                >
-                                    <View style={{alignItems: 'center', flex: 1, width:'60%', justifyContent: 'center', margin:'auto', textAlign:'center'}}>
-                                        <Text style={{fontSize:18}}> Are you sure you want to delete the following challenge: {'\n'} {'\n'}  {delete_challenge_modal[2]} {'\n'}  {'\n'}  </Text>
-                                        <View style={{width:'100%', display:'flex', flexDirection:'row', justifyContent:'space-evenly'}}>
+                            <ScrollView contentContainerStyle = {{display:"flex", flexDirection:'column', height:'120vh', marginLeft: isMobile ? '5%' : '0%'}}>
 
-                                            <TouchableOpacity onPress={() => deleteChallenge()} style={{backgroundColor:'green', padding:'2%', borderRadius:'20px', width:'40%', maxWidth:'100px'}}>
-                                                <Text style={{color:'white', textAlign:'center', fontSize:25,fontWeight:'bold'}}>Yes</Text>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity onPress={() => set_delete_challenge_modal([false, '', ''])} style={{backgroundColor:'red', padding:'2%', borderRadius:'20px',width:'40%', maxWidth:'100px'}}>
-                                                <Text style={{color:'white', textAlign:'center', fontSize:25,fontWeight:'bold'}}>No</Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
-                                </Modal>
+                                <Text style={{fontSize:25,fontWeight:'bold'}}>Challenges: </Text>
+                                <p/>
 
-                                <ScrollView contentContainerStyle = {{display:"flex", flexDirection:'column', height:'120vh', marginLeft: isMobile ? '5%' : '0%'}}>
+                                {
+                                    
+                                    challengeList === [] ? (
+                                        <Text style = {{width:'auto', fontSize: 18, textAlign:'auto'}}> None yet!</Text>
+                                    ): (
 
-                                    {
-                                        
-                                        challengeList === [] ? (
-                                            <Text style = {{width:'auto', fontSize: 18, textAlign:'auto'}}> None yet!</Text>
-                                        ): (
+                                    
+                                    
+                                    sorted_.map((eachEntry)=> {
 
-                                        
-                                        
-                                        sorted_.map((eachEntry)=> {
+                                        if (eachEntry.length === 0) return                                                                                       
+                            
+                                        return (
+                                            <div>
+                                                <div style={{display:'flex', flexDirection:'row', marginBottom:'5%', marginTop:'5%'}}>
 
-                                            if (eachEntry.length === 0) return                                                                                       
-                               
-                                            return (
-                                                <div>
-                                                    <div style={{display:'flex', flexDirection:'row', marginBottom:'5%', marginTop:'5%'}}>
+                                                    <Image source={{uri: eachEntry[0]['sdg'][0]['image_url']}} style={[{width:'100px', height:'100px', marginRight:'5%'}]}/>
+                                                    <p style={{fontSize:'120%', width:'60%'}}> SDG {eachEntry[0]['sdg'][0]['sdg']} - {sdg_names[parseInt(eachEntry[0]['sdg'][0]['sdg']) - 1]}: {sdg_descriptions[parseInt(eachEntry[0]['sdg'][0]['sdg']) - 1]}</p>
 
-                                                        <Image source={{uri: eachEntry[0]['sdg'][0]['image_url']}} style={[{width:'100px', height:'100px', marginRight:'5%'}]}/>
-                                                        <p style={{fontSize:'120%', width:'60%'}}> SDG {eachEntry[0]['sdg'][0]['sdg']} - {sdg_names[parseInt(eachEntry[0]['sdg'][0]['sdg']) - 1]}: {sdg_descriptions[parseInt(eachEntry[0]['sdg'][0]['sdg']) - 1]}</p>
-
-                                                    </div>
-                                                    
-                                                    
-                                                    {
-                                                        eachEntry.map((challenge, index)=> {
-     
-                                                            return (
-                                                                <div style={{marginBottom:'3vh'}}>
-                                                                    <StyledCard key={challenge['challengeID']} style={{marginTop:'0'}}>
-                                                                        
-                                                                            <TouchableOpacity onPress={() => openChallengePage(challenge['challengeID'])} >
-                                                                                <Text style={{textAlign:'center', fontSize:25,fontWeight:'bold'}}>{challenge['title']}</Text>
-                                                                            </TouchableOpacity>
-                                                                            {completed[index] === true ? <Image style={{height:'20px', width:'20px', marginTop:'2.5%', display: 'block', marginLeft:'auto', marginRight: 'auto'}} source={{uri: 'https://cdn2.iconfinder.com/data/icons/greenline/512/check-512.png'}}/> : ''}
-                                                                     
-                                                                        {admin === true ?
-                                                                        
-                                                                            <TouchableOpacity onPress={() => openDeleteChallengeModal(challenge['challengeID'], challenge['title'])} style={{position:'absolute', top:'-15px', right:'-15px'}}>
-                                                                                <Image style={{height:'20px', width:'20px'}} source={{uri: 'https://i.imgur.com/EL7Awvs.png'}}/>
-                                                                            </TouchableOpacity>
-                                                                            : ''
-                                                                        }
-                                                                    </StyledCard>
-                                                                    {/*<br/>*/}
-                                                                </div>
-                                                            );
-                                                        })
-                                                    }
                                                 </div>
-                                            );
-                                            
-                                        })
+                                                
+                                                
+                                                {
+                                                    eachEntry.map((challenge, index)=> {
+    
+                                                        return (
+                                                            <div style={{marginBottom:'8vh'}}>
+                                                                <StyledCard key={challenge['challengeID']} style={{marginTop:'0'}}>
+                                                                    
+                                                                        <TouchableOpacity onPress={() => openChallengePage(challenge['challengeID'])} >
+                                                                            <Text style={{textAlign:'center', fontSize:25,fontWeight:'bold'}}>{challenge['title']}</Text>
+                                                                        </TouchableOpacity>
+                                                                        {completed[index] === true ? <Image style={{height:'20px', width:'20px', marginTop:'2.5%', display: 'block', marginLeft:'auto', marginRight: 'auto'}} source={{uri: 'https://cdn2.iconfinder.com/data/icons/greenline/512/check-512.png'}}/> : ''}
+                                                                    
+                                                                    {admin === true ?
+                                                                    
+                                                                        <TouchableOpacity onPress={() => openDeleteChallengeModal(challenge['challengeID'], challenge['title'])} style={{position:'absolute', top:'-15px', right:'-15px'}}>
+                                                                            <Image style={{height:'20px', width:'20px'}} source={{uri: 'https://i.imgur.com/EL7Awvs.png'}}/>
+                                                                        </TouchableOpacity>
+                                                                        : ''
+                                                                    }
+                                                                </StyledCard>
+                                                                {/*<br/>*/}
+                                                            </div>
+                                                        );
+                                                    })
+                                                }
+                                            </div>
+                                        );
+                                        
+                                    })
 
-                                        )
-                                    }
-                                </ScrollView>
-                            </View>
+                                    )
+                                }
+                            </ScrollView>
                         </View>
+                    </View>
             </BodyContainer>
             <NavBar navigation={navigation} selectedIcon="Home" admin={admin}/>
         </PhoneView>

@@ -4,12 +4,14 @@ import Home from './Components/Home';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Profile from './Components/Profile';
+import Learn from './Components/Learn';
 import Add from './Components/Add';
 import challengePage from './Components/challengePage';
 import Redeem from './Components/Redeem'
 import reportProgress from './Components/reportProgress';
 import TransitionScreen from './Components/TransitionScreen';
 import Leaderboard from './Components/Leaderboard';
+import SDG_PAGE from './Components/SDG_PAGE';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import NavBar from './Components/NavBar';
@@ -23,7 +25,8 @@ const config = {
     challengePage: 'challengePage',
     reportProgress: 'reportProgress',
     Leaderboard: 'Leaderboard',
-    Signup: 'Signup'
+    Signup: 'Signup',
+    Goals: 'Goals',
   },
 };
 
@@ -51,6 +54,8 @@ export default function App() {
             <Stack.Screen name="reportProgress" component={reportProgress} />
             <Stack.Screen name="Leaderboard" component={Leaderboard} />
             <Stack.Screen name="Redeem" component={Redeem} />
+            <Stack.Screen name="Learn" component={Learn} />
+            <Stack.Screen name="SDG_PAGE" component={SDG_PAGE} />
           </Stack.Navigator>
         </NavigationContainer>
   );

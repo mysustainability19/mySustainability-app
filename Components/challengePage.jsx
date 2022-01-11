@@ -115,6 +115,8 @@ export default function challengePage ({route, navigation}){
     
     completionMessage = (`${Math.round(progress*10)}% completed`)
 
+    {console.log(challenge)}
+
 
     return (
         <PhoneView>
@@ -139,8 +141,11 @@ export default function challengePage ({route, navigation}){
                                 <StyledCard style={{marginTop:'0 !important'}}>
                                     <Text style={{fontWeight:'bold'}}>Challenge: {challenge['title']} </Text>
                                     <p/>
-                                    <Text>{challenge['description']}</Text>
+                                    <Text>{challenge['description']}</Text>                                 
                                     <p/>
+                                    <Text>{'Sponsor: ' + challenge['sponsor']}</Text>    
+                                    <Image resizeMode="contain" source={{uri: challenge['sponsorLogo']}} style={{width:'100px', height:'100px'}}/> 
+                                    {/*<p/>*/}
                                     <Text style={{fontWeight:'bold'}}>Number of participants: {participation} {participation === 1 ? 'user' : 'users'}</Text>
                                     <p/>
                                     <Text style={{fontWeight:'bold'}}>Points this challenge is worth: {challenge['points_worth']}</Text>

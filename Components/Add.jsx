@@ -63,6 +63,8 @@ export default function Add ({route, navigation}){
     const [selected1stSDG, setSelected1stSDG] = React.useState("2");
     const [sdgText, setSDGtext] = React.useState("");
     const [isVisible, setIsVisible] = React.useState([false, '']);
+    const [sponsor, setSponsor] = React.useState("");
+    const [sponsorLogo, setSponsorLogo] = React.useState("");
 
     const [stage1_option1, set_stage1_option1] = React.useState("");
     const [stage1_option2, set_stage1_option2] = React.useState("");
@@ -82,15 +84,17 @@ export default function Add ({route, navigation}){
 
 
     function addChallenge(){
-        fetch(`https://mysustainability-api-123.herokuapp.com/updateChallenges/?challengeTitle=${title}&challengeDescription=${description}&pointsWorth=${selectedValue}&primarySDG=${String(selected1stSDG)}&SDGtext=${sdgText}&stage1_option1=${stage1_option1}&stage1_option2=${stage1_option2}&stage1_option3=${stage1_option3}&stage2_option1=${stage2_option1}&stage2_option2=${stage2_option2}&stage2_option3=${stage2_option3}&stage3_option1=${stage3_option1}&stage3_option2=${stage3_option2}&stage3_option3=${stage3_option3}&stage4_option1=${stage4_option1}&stage4_option2=${stage4_option2}&stage4_option3=${stage4_option3}`, {method: 'POST'})
+        fetch(`https://mysustainability-api-123.herokuapp.com/updateChallenges/?challengeTitle=${title}&challengeDescription=${description}&pointsWorth=${selectedValue}&primarySDG=${String(selected1stSDG)}&SDGtext=${sdgText}&stage1_option1=${stage1_option1}&stage1_option2=${stage1_option2}&stage1_option3=${stage1_option3}&stage2_option1=${stage2_option1}&stage2_option2=${stage2_option2}&stage2_option3=${stage2_option3}&stage3_option1=${stage3_option1}&stage3_option2=${stage3_option2}&stage3_option3=${stage3_option3}&stage4_option1=${stage4_option1}&stage4_option2=${stage4_option2}&stage4_option3=${stage4_option3}&sponsor=${sponsor}&logo=${sponsorLogo}`, {method: 'POST'})
         .then(resp => resp.json())
         .then(response => {
           console.log(response)
           if(response['message'] === 'challenges successfully updated'){
             setIsVisible([true, 'Challenge has been successfully added!']);
           }else{
-              if(response['message'] === 'stages_not_valid'){
+              if(response['message'] === 'stages not valid'){
                   setIsVisible([true, 'Challenge could not be added! Stages are invalid']);
+              }else{
+                setIsVisible([true, 'Challenge could not be added! Please check relevant fields and try again']);
               }
           }
         })
@@ -118,7 +122,7 @@ export default function Add ({route, navigation}){
                     </TouchableOpacity>
                 </View>
                     <View style={[styles.flexContainer, {flex:4, margin:'auto',  marginTop:'0'}]}>
-                        <View style={[styles.meetingsColumn, isMobile ? {marginBottom:'20%'} : '' ]}>
+                        <View style={[styles.meetingsColumn, isMobile ? {marginBottom:'25%'} : '' ]}>
 
                             <Modal
                                 onRequestClose={() => setIsVisible([false, ''])}
@@ -136,7 +140,7 @@ export default function Add ({route, navigation}){
 
 
                             <ScrollView contentContainerStyle = {styles.loginForm}>
-                                <Text style={{fontSize:23, marginBottom:'30px', fontWeight:'bold'}}>Add a new challenge to mySustainability </Text>
+                                <Text style={{fontSize:23, marginBottom:'30px', fontWeight:'bold'}}>Add a new challenge to mySustainability: </Text>
                                 <Text> Challenge title 
                                     
                                     {"\n\n"}
@@ -147,6 +151,18 @@ export default function Add ({route, navigation}){
                                     
                                     {"\n\n"}
                                     <ChallengeField onChangeText={(description) => setDescription(description)}/>
+                                </Text>
+                                <p/>
+                                <Text> Challenge sponsor
+                                    
+                                    {"\n\n"}
+                                    <ChallengeField onChangeText={(sponsor) => setSponsor(sponsor)}/>
+                                </Text>
+                                <p/>
+                                <Text> Sponsor logo (URL only)
+                                    
+                                    {"\n\n"}
+                                    <ChallengeField onChangeText={(sponsorLogo) => setSponsorLogo(sponsorLogo)}/>
                                 </Text>
                                 <p/>
                                 <Text> Points challenge is worth: 
@@ -325,7 +341,7 @@ const styles = StyleSheet.create({
     },
 
     flexContainer: {
-        display:"flex", flexDirection:"column", justifyContent:"center", alignItems:'center', height:"120vh", width:"100vw"
+        display:"flex", flexDirection:"column", justifyContent:"center", alignItems:'center', height:"100vh", width:"100vw"
     },
     individualTile: {
         flex:0, width:'100%', borderRadius:10, padding:10, marginBottom:'5%'

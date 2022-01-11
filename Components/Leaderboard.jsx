@@ -33,7 +33,7 @@ const storeData = async (key, value) => {
 
 const styles = StyleSheet.create({
     flexContainer: {
-        display:"flex", flexDirection:"column", justifyContent:"flex-start", alignItems:'center', height:'100%', width:"100%"
+        display:"flex", flexDirection:"column", justifyContent:"flex-start", alignItems:'center', height:'100vh', width:"100%"
     },
     individualTile: {
         flex:0, width:'100%', borderRadius:10, padding:10, marginBottom:'5%'
@@ -61,6 +61,9 @@ export default function Leaderboard ({navigation}){
         .then(resp => resp.json())
         .then(response => {
           //console.log(response['msg'])
+          if (response['msg'] === 'Token has expired' ){
+            return
+          }
           if (!JSON.stringify(response).includes("logged_in")){
             navigation.navigate('Login', { replace: true })
           }

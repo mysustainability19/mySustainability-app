@@ -272,25 +272,25 @@ export default function sdgPage ({route, navigation}){
 
         {
             'heading': 'SDG 9 - Industry, Innovation and Infrastructure', 
-            'link': 'https://www.youtube.com/embed/dylOM3GY9PY',
+            'link': 'https://www.youtube.com/embed/NU6rc_vm9rs',
             'targets': [
 
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.1.svg', '', ''],
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.2.svg', '' , ''],
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.3.svg', '', ''],
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.4.svg', '', ''],
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.5.svg', '', ''],
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.6.svg', '', ''],
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.a.svg', '', ''],
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.b.svg', '' , ''],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/9.1.svg', 'TARGET 9.1 DEVELOP SUSTAINABLE, RESILIENT AND INCLUSIVE INFRASTRUCTURES', 'Develop quality, reliable, sustainable and resilient infrastructure, including regional and transborder infrastructure, to support economic development and human well-being, with a focus on affordable and equitable access for all.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/9.2.svg', 'TARGET 9.2 PROMOTE INCLUSIVE AND SUSTAINABLE INDUSTRIALIZATION' , 'Promote inclusive and sustainable industrialization and, by 2030, significantly raise industry’s share of employment and gross domestic product, in line with national circumstances, and double its share in least developed countries.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/9.3.svg', 'TARGET 9.3 INCREASE ACCESS TO FINANCIAL SERVICES AND MARKETS', 'Increase the access of small-scale industrial and other enterprises, in particular in developing countries, to financial services, including affordable credit, and their integration into value chains and markets.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/9.4.svg', 'TARGET 9.4 UPGRADE ALL INDUSTRIES AND INFRASTRUCTURES FOR SUSTAINABILITY', 'By 2030, upgrade infrastructure and retrofit industries to make them sustainable, with increased resource-use efficiency and greater adoption of clean and environmentally sound technologies and industrial processes, with all countries taking action in accordance with their respective capabilities.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/9.5.svg', 'TARGET 9.5 ENHANCE RESEARCH AND UPGRADE INDUSTRIAL TECHNOLOGIES', 'Enhance scientific research, upgrade the technological capabilities of industrial sectors in all countries, in particular developing countries, including, by 2030, encouraging innovation and substantially increasing the number of research and development workers per 1 million people and public and private research and development spending.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/9.a.svg', 'TARGET 9.A FACILITATE SUSTAINABLE INFRASTRUCTURE DEVELOPMENT FOR DEVELOPING COUNTRIES', 'Facilitate sustainable and resilient infrastructure development in developing countries through enhanced financial, technological and technical support to African countries, least developed countries, landlocked developing countries and small island developing States.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/9.b.svg', 'TARGET 9.B SUPPORT DOMESTIC TECHNOLOGY DEVELOPMENT AND INDUSTRIAL DIVERSIFICATION', 'Support domestic technology development, research and innovation in developing countries, including by ensuring a conducive policy environment for, inter alia, industrial diversification and value addition to commodities.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/9.c.svg', 'TARGET 9.C UNIVERSAL ACCESS TO INFORMATION AND COMMUNICATIONS TECHNOLOGY' , 'Significantly increase access to information and communications technology and strive to provide universal and affordable access to the Internet in least developed countries by 2020.'],
             ],
             'questions': [
-                ['?','Select an answer', '', '', '', ''],
-                ['?','Select an answer', '', '', '', ''],
-                ['?','Select an answer', '', '', '', ''],
-                ['?','Select an answer', '', '', '', ''],   
+                ['What are the key factors to achieving this SDG?','Select an answer', 'Building/maintaining resilient infastructure and sustainable industrialisation, as well as encouraging innovation', 'Leaving it up to entrepreneurs to solve the problem', 'Leaving existing infastructure the way it is'],
+                ['What systems/networks are most important for this SDG?','Select an answer', 'Quality water and electricity systems', 'Effective road networks', 'Advancements in the manufacturing sector', 'All of the above', 'WI-FI networks'],
+                ['Which other SDG does SDG-9 relate to/benefit the most?','Select an answer', 'SDG - 13 Climate Action', 'SDG 12 - Responsible Consumption', 'SDG 16 - Peace, Justice and Strong Institutions'],
+                ['What can you do to help achieve this SDG?','Select an answer', 'Purchasing groceries that are sustainably-sourced', 'Advocate for better transport options such as cycling networks and public transport', 'All of the above', 'Leave it up to the government'],   
             ],
-            'answers': ['All of the above', 'Mirofinance is a type of financial service where small loans are made accessible to the poor to help them get on their feet e.g. by starting a business. These people would otherwise be refused by the big banks to borrow money/get a loan.', 'All of the above']
+            'answers': ['All of the above', 'All of the above', 'SDG - 13 Climate Action', 'All of the above']
         },
 
     ]

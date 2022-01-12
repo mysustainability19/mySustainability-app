@@ -176,7 +176,122 @@ export default function sdgPage ({route, navigation}){
                 ['Which group of people in Australia are disadvantaged when it comes to receiving a quality education?','Select an answer', 'Those living in cities', 'Those living in rural areas', 'Both groups mentioned above'],
             ],
             'answers': ['262 million', 'All of the above', 'Those living in rural areas']
-        }
+        },
+
+        {
+            'heading': 'SDG 5 - Gender Equality', 
+            'link': 'https://www.youtube.com/embed/vNv4WAGZAak',
+            'targets': [
+
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/5.1.svg', 'TARGET 5.1 END DISCRIMINATION AGAINST WOMEN AND GIRLS', 'End all forms of discrimination against all women and girls everywhere.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/5.2.svg', 'TARGET 5.2 END ALL VIOLENCE AGAINST AND EXPLOITATION OF WOMEN AND GIRLS' , 'Eliminate all forms of violence against all women and girls in the public and private spheres, including trafficking and sexual and other types of exploitation.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/5.3.svg', 'TARGET 5.3 ELIMINATE FORCED MARRIAGES AND GENITAL MUTILATION', 'Eliminate all harmful practices, such as child, early and forced marriage and female genital mutilation.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/5.4.svg', 'TARGET 5.4 VALUE UNPAID CARE AND PROMOTE SHARED DOMESTIC RESPONSIBILITIES', 'Recognize and value unpaid care and domestic work through the provision of public services, infrastructure and social protection policies and the promotion of shared responsibility within the household and the family as nationally appropriate.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/5.5.svg', 'TARGET 5.5 ENSURE FULL PARTICIPATION IN LEADERSHIP AND DECISION-MAKING', 'Ensure women’s full and effective participation and equal opportunities for leadership at all levels of decision-making in political, economic and public life.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/5.6.svg', 'TARGET 5.6 UNIVERSAL ACCESS TO REPRODUCTIVE HEALTH AND RIGHTS', 'Ensure universal access to sexual and reproductive health and reproductive rights as agreed in accordance with the Programme of Action of the International Conference on Population and Development and the Beijing Platform for Action and the outcome documents of their review conferences.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/5.a.svg', 'TARGET 5.A EQUAL RIGHTS TO ECONOMIC RESOURCES, PROPERTY OWNERSHIP AND FINANCIAL SERVICES', 'Undertake reforms to give women equal rights to economic resources, as well as access to ownership and control over land and other forms of property, financial services, inheritance and natural resources, in accordance with national laws.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/5.b.svg', 'TARGET 5.B PROMOTE EMPOWERMENT OF WOMEN THROUGH TECHNOLOGY' , 'Enhance the use of enabling technology, in particular information and communications technology, to promote the empowerment of women.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/5.c.svg', 'TARGET 5.C ADOPT AND STRENGTHEN POLICIES AND ENFORCEABLE LEGISLATION FOR GENDER EQUALITY' , 'Adopt and strengthen sound policies and enforceable legislation for the promotion of gender equality and the empowerment of all women and girls at all levels.'],
+            ],
+            'questions': [
+                ['What is this SDG about?','Select an answer', 'Providing women and girls with equal access to education, health care and decent work', 'Providing women with equal rights to economic resources such as land and property', 'All of the above', 'Favouring men over women'],
+                ['How is this SDG best achieved?','Select an answer', 'By addressing structural issues such as unfair social norms and attitudes', 'By developing progressive legal frameworks that promote equality between women and men', 'All of the above', 'By allowing women to fight for their own rights and freedoms, giving them no help whatsoever'],
+                ['Which other SDGs does SDG 5, Gender Equality, further/help make progress in?','Select an answer', 'SDG 4 - Quality Education', 'SDG 8 - Decent Work and Economic Growth', 'SDG 16 - Peace, Justice and Strong Institutions', 'All of above'],
+                ['What can you do to help promote gender equality?','Select an answer', 'Call out sexism in your school, university or workplace', 'Join `He for She`, an organisation that stands in solidarity with women', 'All of the above', 'Leave it up to women to stand up for their own rights'],   
+            ],
+            'answers': ['All of the above', 'All of the above', 'All of the above', 'All of the above']
+        },
+
+        {
+            'heading': 'SDG 6 - Clean Water and Sanitation', 
+            'link': 'https://www.youtube.com/embed/vNv4WAGZAak',
+            'targets': [
+
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.1.svg', 'TARGET 6.1 SAFE AND AFFORDABLE DRINKING WATER', 'By 2030, achieve universal and equitable access to safe and affordable drinking water for all.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.2.svg', 'TARGET 6.2 END OPEN DEFECATION AND PROVIDE ACCESS TO SANITATION AND HYGIENE' , 'By 2030, achieve access to adequate and equitable sanitation and hygiene for all and end open defecation, paying special attention to the needs of women and girls and those in vulnerable situations.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.3.svg', 'TARGET 6.3 IMPROVE WATER QUALITY, WASTEWATER TREATMENT AND SAFE REUSE', 'By 2030, improve water quality by reducing pollution, eliminating dumping and minimizing release of hazardous chemicals and materials, halving the proportion of untreated wastewater and substantially increasing recycling and safe reuse globally.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.4.svg', 'TARGET 6.4 INCREASE WATER-USE EFFICIENCY AND ENSURE FRESHWATER SUPPLIES', 'By 2030, substantially increase water-use efficiency across all sectors and ensure sustainable withdrawals and supply of freshwater to address water scarcity and substantially reduce the number of people suffering from water scarcity.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.5.svg', 'TARGET 6.5 IMPLEMENT INTEGRATED WATER RESOURCES MANAGEMENT', 'By 2030, implement integrated water resources management at all levels, including through transboundary cooperation as appropriate.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.6.svg', 'TARGET 6.6 PROTECT AND RESTORE WATER-RELATED ECOSYSTEMS', 'By 2020, protect and restore water-related ecosystems, including mountains, forests, wetlands, rivers, aquifers and lakes.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.a.svg', 'TARGET 6.A EXPAND WATER AND SANITATION SUPPORT TO DEVELOPING COUNTRIES', 'By 2030, expand international cooperation and capacity-building support to developing countries in water- and sanitation-related activities and programmes, including water harvesting, desalination, water efficiency, wastewater treatment, recycling and reuse technologies.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.b.svg', 'TARGET 6.B SUPPORT LOCAL ENGAGEMENT IN WATER AND SANITATION MANAGEMENT' , 'Support and strengthen the participation of local communities in improving water and sanitation management.'],
+            ],
+            'questions': [
+                ['What does this SDG aim to achieve?','Select an answer', 'Equitable access to safe and affordable drinking water for all', 'Equitable sanitation and hygiene for all', 'Improved water quality by reducing pollution, eliminating dumping and minimizing release of hazardous chemicals (into bodies of water) ', 'All of the above'],
+                ['What can you do to help achieve this SDG?','Select an answer', 'Use water more efficiently e.g. taking shorter showers, turning down the tap etc.', 'Just leave it to the government to sort out', 'Push billionaires to build more wells'],
+            ],
+            'answers': ['All of the above', 'Use water more efficiently e.g. taking shorter showers, turning down the tap etc.']
+        },
+
+        {
+            'heading': 'SDG 7 - Affordable and Clean Energy', 
+            'link': 'https://www.youtube.com/embed/HyjNKnjpRvU',
+            'targets': [
+
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/7.1.svg', 'TARGET 7.1 UNIVERSAL ACCESS TO MODERN ENERGY', 'By 2030, ensure universal access to affordable, reliable and modern energy services.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/7.2.svg', 'TARGET 7.2 INCREASE GLOBAL PERCENTAGE OF RENEWABLE ENERGY' , 'By 2030, increase substantially the share of renewable energy in the global energy mix.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/7.3.svg', 'TARGET 7.3 DOUBLE THE IMPROVEMENT IN ENERGY EFFICIENCY', 'By 2030, double the global rate of improvement in energy efficiency.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/7.a.svg', 'TARGET 7.A PROMOTE ACCESS TO RESEARCH, TECHNOLOGY AND INVESTMENTS IN CLEAN ENERGY', 'By 2030, enhance international cooperation to facilitate access to clean energy research and technology, including renewable energy, energy efficiency and advanced and cleaner fossil-fuel technology, and promote investment in energy infrastructure and clean energy technology.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/7.b.svg', 'TARGET 7.B EXPAND AND UPGRADE ENERGY SERVICES FOR DEVELOPING COUNTRIES', 'By 2030, expand infrastructure and upgrade technology for supplying modern and sustainable energy services for all in developing countries, in particular least developed countries, small island developing States and landlocked developing countries, in accordance with their respective programmes of support.'],
+            ],
+            'questions': [
+                ['Is it true that around 1 billion people worldwide, do not have access to electricity?','Select an answer', 'True', 'False'],
+                ['Is it true that photovoltaics are about 1/3 of the cost of conventional electricity sources (when it comes to supplying electricity)?','Select an answer', 'True', 'False'],
+                ['What can you do to help achieve this SDG?','Select an answer', 'Only buy appliances that are energy-efficient ', 'Change your electricity plan to one that includes a renewable energy source', 'All of the above'],
+                ['?','Select an answer', '', '', '', ''],   
+            ],
+            'answers': ['All of the above', 'Use water more efficiently e.g. taking shorter showers, turning down the tap etc.', 'All of the above']
+        },
+
+        {
+            'heading': 'SDG 8 - Decent Work and Economic Growth', 
+            'link': 'https://www.youtube.com/embed/dylOM3GY9PY',
+            'targets': [
+
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.1.svg', 'TARGET 8.1 SUSTAINABLE ECONOMIC GROWTH', 'Sustain per capita economic growth in accordance with national circumstances and, in particular, at least 7 per cent gross domestic product growth per annum in the least developed countries.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.2.svg', 'TARGET 8.2 DIVERSIFY, INNOVATE AND UPGRADE FOR ECONOMIC PRODUCTIVITY' , 'Achieve higher levels of economic productivity through diversification, technological upgrading and innovation, including through a focus on high-value added and labour-intensive sectors.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.3.svg', 'TARGET 8.3 PROMOTE POLICIES TO SUPPORT JOB CREATION AND GROWING ENTERPRISES', 'Promote development-oriented policies that support productive activities, decent job creation, entrepreneurship, creativity and innovation, and encourage the formalization and growth of micro-, small- and medium-sized enterprises, including through access to financial services.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.4.svg', 'TARGET 8.4 IMPROVE RESOURCE EFFICIENCY IN CONSUMPTION AND PRODUCTION', 'Improve progressively, through 2030, global resource efficiency in consumption and production and endeavour to decouple economic growth from environmental degradation, in accordance with the 10‑Year Framework of Programmes on Sustainable Consumption and Production, with developed countries taking the lead.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.5.svg', 'TARGET 8.5 FULL EMPLOYMENT AND DECENT WORK WITH EQUAL PAY', 'By 2030, achieve full and productive employment and decent work for all women and men, including for young people and persons with disabilities, and equal pay for work of equal value.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.6.svg', 'TARGET 8.6 PROMOTE YOUTH EMPLOYMENT, EDUCATION AND TRAINING', 'By 2020, substantially reduce the proportion of youth not in employment, education or training.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.7.svg', 'TARGET 8.7 END MODERN SLAVERY, TRAFFICKING AND CHILD LABOUR', 'Take immediate and effective measures to eradicate forced labour, end modern slavery and human trafficking and secure the prohibition and elimination of the worst forms of child labour, including recruitment and use of child soldiers, and by 2025 end child labour in all its forms.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.8.svg', 'TARGET 8.8 PROTECT LABOUR RIGHTS AND PROMOTE SAFE WORKING ENVIRONMENTS' , 'Protect labour rights and promote safe and secure working environments for all workers, including migrant workers, in particular women migrants, and those in precarious employment.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.9.svg', 'TARGET 8.9 PROMOTE BENEFICIAL AND SUSTAINABLE TOURISM' , 'By 2030, devise and implement policies to promote sustainable tourism that creates jobs and promotes local culture and products.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.10.svg', 'TARGET 8.10 UNIVERSAL ACCESS TO BANKING, INSURANCE AND FINANCIAL SERVICES' , 'Strengthen the capacity of domestic financial institutions to encourage and expand access to banking, insurance and financial services for all.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.A.svg', 'TARGET 8.A INCREASE AID FOR TRADE SUPPORT' , 'Increase Aid for Trade support for developing countries, in particular least developed countries, including through the Enhanced Integrated Framework for Trade-related Technical Assistance to Least Developed Countries.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.B.svg', 'TARGET 8.B DEVELOP A GLOBAL YOUTH EMPLOYMENT STRATEGY' , 'By 2020, develop and operationalize a global strategy for youth employment and implement the Global Jobs Pact of the International Labour Organization.'],
+            ],
+            'questions': [
+                ['Which of the following are a result of increased entrepreneurship and job creation?','Select an answer', 'Eradication of slavery', 'Eradication of human trafficking', 'Exploitation of workers', 'All of the above'],
+                ['What is microfinance and why is it important to help achieve this SDG?','Select an answer', 'Mirofinance is a type of financial service where small loans are made accessible to the poor to help them get on their feet e.g. by starting a business. These people would otherwise be refused by the big banks to borrow money/get a loan.', 'Microfinance involves investing in the stock exchange, but in small amounts', 'All of the above', 'Microfinance is about saving money by making small changes to your spending'],
+                ['What needs to be done to help achieve this SDG?','Select an answer', 'Better investment in training and education to help people transition into decent jobs', 'Equal employment `playing-field` i.e. regardless of ethnicity, gender, race', 'All of the above', 'People need to help themselves'],
+                ['?','Select an answer', '', '', '', ''],   
+            ],
+            'answers': ['All of the above', 'Mirofinance is a type of financial service where small loans are made accessible to the poor to help them get on their feet e.g. by starting a business. These people would otherwise be refused by the big banks to borrow money/get a loan.', 'All of the above']
+        },
+
+        {
+            'heading': 'SDG 9 - Industry, Innovation and Infrastructure', 
+            'link': 'https://www.youtube.com/embed/dylOM3GY9PY',
+            'targets': [
+
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.1.svg', '', ''],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.2.svg', '' , ''],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.3.svg', '', ''],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.4.svg', '', ''],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.5.svg', '', ''],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.6.svg', '', ''],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.a.svg', '', ''],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.b.svg', '' , ''],
+            ],
+            'questions': [
+                ['?','Select an answer', '', '', '', ''],
+                ['?','Select an answer', '', '', '', ''],
+                ['?','Select an answer', '', '', '', ''],
+                ['?','Select an answer', '', '', '', ''],   
+            ],
+            'answers': ['All of the above', 'Mirofinance is a type of financial service where small loans are made accessible to the poor to help them get on their feet e.g. by starting a business. These people would otherwise be refused by the big banks to borrow money/get a loan.', 'All of the above']
+        },
 
     ]
 

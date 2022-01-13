@@ -117,7 +117,7 @@ export default function Home ({route, navigation}){
     const sdg_names = ['No Poverty', 'Zero Hunger', 'Good Health and Well-Being', 'Quality Education', 'Gender Equality', 'Clean Water and Sanitation', 'Affordable and Clean Energy', 'Decent Work and Economic Growth', 'Industry, Innovation and Infrastructure', 'Reduce Inequalities', 'Sustainable Cities and Communities', 'Responsible Consumption and Production', 'Climate Action', 'Life below Water', 'Life on Land', 'Peace, Justice and Strong Institutions', 'Partnership for the Goals']
     const sdg_descriptions = ['', '', '', '', '', '','','', '', '', '','', '', '', '','', '', '', '','', '', '', '','', '', '', '','', '', '', '','', '', '', '',];
 
-    console.log('wdkjdkjksdksdmcksdcmk')
+    //console.log('wdkjdkjksdksdmcksdcmk')
     //console.log("this", challenges_sorted_by_sdg[1])
 
     const toggleMore = () => {

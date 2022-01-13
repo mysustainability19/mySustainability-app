@@ -75,7 +75,7 @@ export default function Learn ({route, navigation}){
         .then(resp => resp.json())
         .then(response => {
           //console.log(response)
-          if (response['msg'] === 'Token has expired' ){
+          if (response['msg'] === 'Token has expired'){
             return
           }
           if (!JSON.stringify(response).includes("logged_in")){
@@ -92,12 +92,6 @@ export default function Learn ({route, navigation}){
     })
     //maybe have better admin code here instead of just checking value === 'true'.
 
-    function openSDG_module(sdg_index){
-        //console.log(challengeID)
-        {console.log(sdg_index)}
-        navigation.navigate('SDG_PAGE', { replace: true, sdg_index: sdg_index + 1 })
-    }
-    
 
     const windowHeight = useWindowDimensions().height;
     const windowWidth = useWindowDimensions().width;
@@ -109,8 +103,29 @@ export default function Learn ({route, navigation}){
     'Industry, Innovation and Infrastructure', 'Reduce Inequalities', 'Sustainable Cities and Communities', 
     'Responsible Consumption and Production', 'Climate Action', 'Life below Water', 'Life on Land', 'Peace, Justice and Strong Institutions', 
     'Partnership for the Goals']
+    
+    React.useEffect(() => {
 
-  
+        getData('user_id')
+        .then (token_value => {
+            fetch(`https://mysustainability-api-123.herokuapp.com/getModuleProgress/?userEmail=${token_value}`, {method: 'GET'})
+            .then(progress => progress.json())
+            .then(progressJSON => {
+                set_completed(progressJSON['res'][0]['modules'])
+            })      
+        })
+
+    },[isFocused])
+
+    function openSDG_module(sdg_index){
+        //console.log(challengeID)
+        //{console.log(sdg_index)}
+        navigation.navigate('SDG_PAGE', { replace: true, sdg_index: sdg_index + 1, modules_completed: completed })
+    }
+    
+
+    console.log('the completed modules are:', completed)
+
     return (
         <PhoneView>
             <BodyContainer>
@@ -136,6 +151,7 @@ export default function Learn ({route, navigation}){
                                 <p/>
 
                                 {
+
                                     
                                     sdg_names.map((sdg, sdg_index)=> {
                                                                                     
@@ -156,7 +172,9 @@ export default function Learn ({route, navigation}){
                                                             </TouchableOpacity>    
                                                         </div>    
 
-                                                        {/*{sdg_module_completed === true ? <Image style={{height:'20px', width:'20px', marginTop:'2.5%', display: 'block', marginLeft:'auto', marginRight: 'auto'}} source={{uri: 'https://cdn2.iconfinder.com/data/icons/greenline/512/check-512.png'}}/> : ''}*/}
+                                                        {console.log('the sdg index for this is', sdg_index)}
+
+                                                        {completed.includes(String(sdg_index+1)) ? <Image style={{height:'20px', width:'20px', display: 'block', position: 'absolute', right: '-10px', bottom: '0px'}} source={{uri: 'https://cdn2.iconfinder.com/data/icons/greenline/512/check-512.png'}}/> : ''}                                                 
 
                                                     </div>
                                                 </StyledCard>

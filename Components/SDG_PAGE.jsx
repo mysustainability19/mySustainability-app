@@ -68,7 +68,9 @@ export default function sdgPage ({route, navigation}){
     const [admin, setAdmin] = React.useState(false);
     const [completed, set_completed] = React.useState(false);
     const [selectedAnswers, set_selectedAnswers] = React.useState([]);
-    const { sdg_index } = route.params;
+    const { sdg_index, modules_completed } = route.params;
+
+    console.log('the sdg index is', sdg_index)
 
     const sdg_names = ['No Poverty', 'Zero Hunger', 'Good Health and Well-Being', 'Quality Education', 
     'Gender Equality', 'Clean Water and Sanitation', 'Affordable and Clean Energy', 'Decent Work and Economic Growth', 
@@ -204,7 +206,7 @@ export default function sdgPage ({route, navigation}){
 
         {
             'heading': 'SDG 6 - Clean Water and Sanitation', 
-            'link': 'https://www.youtube.com/embed/vNv4WAGZAak',
+            'link': '',
             'targets': [
 
                 ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.1.svg', 'TARGET 6.1 SAFE AND AFFORDABLE DRINKING WATER', 'By 2030, achieve universal and equitable access to safe and affordable drinking water for all.'],
@@ -237,10 +239,9 @@ export default function sdgPage ({route, navigation}){
             'questions': [
                 ['Is it true that around 1 billion people worldwide, do not have access to electricity?','Select an answer', 'True', 'False'],
                 ['Is it true that photovoltaics are about 1/3 of the cost of conventional electricity sources (when it comes to supplying electricity)?','Select an answer', 'True', 'False'],
-                ['What can you do to help achieve this SDG?','Select an answer', 'Only buy appliances that are energy-efficient ', 'Change your electricity plan to one that includes a renewable energy source', 'All of the above'],
-                ['?','Select an answer', '', '', '', ''],   
+                ['What can you do to help achieve this SDG?','Select an answer', 'Only buy appliances that are energy-efficient ', 'Change your electricity plan to one that includes a renewable energy source', 'All of the above'], 
             ],
-            'answers': ['All of the above', 'Use water more efficiently e.g. taking shorter showers, turning down the tap etc.', 'All of the above']
+            'answers': ['True', 'True', 'All of the above']
         },
 
         {
@@ -258,39 +259,15 @@ export default function sdgPage ({route, navigation}){
                 ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.8.svg', 'TARGET 8.8 PROTECT LABOUR RIGHTS AND PROMOTE SAFE WORKING ENVIRONMENTS' , 'Protect labour rights and promote safe and secure working environments for all workers, including migrant workers, in particular women migrants, and those in precarious employment.'],
                 ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.9.svg', 'TARGET 8.9 PROMOTE BENEFICIAL AND SUSTAINABLE TOURISM' , 'By 2030, devise and implement policies to promote sustainable tourism that creates jobs and promotes local culture and products.'],
                 ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.10.svg', 'TARGET 8.10 UNIVERSAL ACCESS TO BANKING, INSURANCE AND FINANCIAL SERVICES' , 'Strengthen the capacity of domestic financial institutions to encourage and expand access to banking, insurance and financial services for all.'],
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.A.svg', 'TARGET 8.A INCREASE AID FOR TRADE SUPPORT' , 'Increase Aid for Trade support for developing countries, in particular least developed countries, including through the Enhanced Integrated Framework for Trade-related Technical Assistance to Least Developed Countries.'],
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.B.svg', 'TARGET 8.B DEVELOP A GLOBAL YOUTH EMPLOYMENT STRATEGY' , 'By 2020, develop and operationalize a global strategy for youth employment and implement the Global Jobs Pact of the International Labour Organization.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.a.svg', 'TARGET 8.A INCREASE AID FOR TRADE SUPPORT' , 'Increase Aid for Trade support for developing countries, in particular least developed countries, including through the Enhanced Integrated Framework for Trade-related Technical Assistance to Least Developed Countries.'],
+                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/8.b.svg', 'TARGET 8.B DEVELOP A GLOBAL YOUTH EMPLOYMENT STRATEGY' , 'By 2020, develop and operationalize a global strategy for youth employment and implement the Global Jobs Pact of the International Labour Organization.'],
             ],
             'questions': [
                 ['Which of the following are a result of increased entrepreneurship and job creation?','Select an answer', 'Eradication of slavery', 'Eradication of human trafficking', 'Exploitation of workers', 'All of the above'],
                 ['What is microfinance and why is it important to help achieve this SDG?','Select an answer', 'Mirofinance is a type of financial service where small loans are made accessible to the poor to help them get on their feet e.g. by starting a business. These people would otherwise be refused by the big banks to borrow money/get a loan.', 'Microfinance involves investing in the stock exchange, but in small amounts', 'All of the above', 'Microfinance is about saving money by making small changes to your spending'],
                 ['What needs to be done to help achieve this SDG?','Select an answer', 'Better investment in training and education to help people transition into decent jobs', 'Equal employment `playing-field` i.e. regardless of ethnicity, gender, race', 'All of the above', 'People need to help themselves'],
-                ['?','Select an answer', '', '', '', ''],   
             ],
             'answers': ['All of the above', 'Mirofinance is a type of financial service where small loans are made accessible to the poor to help them get on their feet e.g. by starting a business. These people would otherwise be refused by the big banks to borrow money/get a loan.', 'All of the above']
-        },
-
-        {
-            'heading': 'SDG 9 - Industry, Innovation and Infrastructure', 
-            'link': 'https://www.youtube.com/embed/NU6rc_vm9rs',
-            'targets': [
-
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/9.1.svg', 'TARGET 9.1 DEVELOP SUSTAINABLE, RESILIENT AND INCLUSIVE INFRASTRUCTURES', 'Develop quality, reliable, sustainable and resilient infrastructure, including regional and transborder infrastructure, to support economic development and human well-being, with a focus on affordable and equitable access for all.'],
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/9.2.svg', 'TARGET 9.2 PROMOTE INCLUSIVE AND SUSTAINABLE INDUSTRIALIZATION' , 'Promote inclusive and sustainable industrialization and, by 2030, significantly raise industry’s share of employment and gross domestic product, in line with national circumstances, and double its share in least developed countries.'],
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/9.3.svg', 'TARGET 9.3 INCREASE ACCESS TO FINANCIAL SERVICES AND MARKETS', 'Increase the access of small-scale industrial and other enterprises, in particular in developing countries, to financial services, including affordable credit, and their integration into value chains and markets.'],
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/9.4.svg', 'TARGET 9.4 UPGRADE ALL INDUSTRIES AND INFRASTRUCTURES FOR SUSTAINABILITY', 'By 2030, upgrade infrastructure and retrofit industries to make them sustainable, with increased resource-use efficiency and greater adoption of clean and environmentally sound technologies and industrial processes, with all countries taking action in accordance with their respective capabilities.'],
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/9.5.svg', 'TARGET 9.5 ENHANCE RESEARCH AND UPGRADE INDUSTRIAL TECHNOLOGIES', 'Enhance scientific research, upgrade the technological capabilities of industrial sectors in all countries, in particular developing countries, including, by 2030, encouraging innovation and substantially increasing the number of research and development workers per 1 million people and public and private research and development spending.'],
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/9.a.svg', 'TARGET 9.A FACILITATE SUSTAINABLE INFRASTRUCTURE DEVELOPMENT FOR DEVELOPING COUNTRIES', 'Facilitate sustainable and resilient infrastructure development in developing countries through enhanced financial, technological and technical support to African countries, least developed countries, landlocked developing countries and small island developing States.'],
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/9.b.svg', 'TARGET 9.B SUPPORT DOMESTIC TECHNOLOGY DEVELOPMENT AND INDUSTRIAL DIVERSIFICATION', 'Support domestic technology development, research and innovation in developing countries, including by ensuring a conducive policy environment for, inter alia, industrial diversification and value addition to commodities.'],
-                ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/9.c.svg', 'TARGET 9.C UNIVERSAL ACCESS TO INFORMATION AND COMMUNICATIONS TECHNOLOGY' , 'Significantly increase access to information and communications technology and strive to provide universal and affordable access to the Internet in least developed countries by 2020.'],
-            ],
-            'questions': [
-                ['What are the key factors to achieving this SDG?','Select an answer', 'Building/maintaining resilient infastructure and sustainable industrialisation, as well as encouraging innovation', 'Leaving it up to entrepreneurs to solve the problem', 'Leaving existing infastructure the way it is'],
-                ['What systems/networks are most important for this SDG?','Select an answer', 'Quality water and electricity systems', 'Effective road networks', 'Advancements in the manufacturing sector', 'All of the above', 'WI-FI networks'],
-                ['Which other SDG does SDG-9 relate to/benefit the most?','Select an answer', 'SDG - 13 Climate Action', 'SDG 12 - Responsible Consumption', 'SDG 16 - Peace, Justice and Strong Institutions'],
-                ['What can you do to help achieve this SDG?','Select an answer', 'Purchasing groceries that are sustainably-sourced', 'Advocate for better transport options such as cycling networks and public transport', 'All of the above', 'Leave it up to the government'],   
-            ],
-            'answers': ['All of the above', 'All of the above', 'SDG - 13 Climate Action', 'All of the above']
         },
 
         {
@@ -557,6 +534,24 @@ export default function sdgPage ({route, navigation}){
 
     function handleModuleSubmission(){
 
+        //call the API and update user stats to indicate they completed the module
+        //give user 5 points
+
+        getData('user_id')
+        .then (token_value => {
+            fetch(`https://mysustainability-api-123.herokuapp.com/updateModuleProgress/?userEmail=${token_value}&sdg=${String(sdg_index)}`, {method: 'POST'})
+            .then(res => res.json())
+            .then(res_JSON => {
+                //console.log(res_JSON)
+                fetch(`https://mysustainability-api-123.herokuapp.com/updatePoints/?points=${'5'}&userEmail=${token_value}`, {method: 'POST'})
+                    .then(response => response.json())
+                    .then(finalResp => {
+                        if (finalResp['message'] === 'user stats successfully updated'){
+                            navigation.navigate('Learn', { replace: true })
+                        }
+                    })
+            })      
+        })
     }
 
     function handleQuizChange(a){
@@ -643,59 +638,51 @@ export default function sdgPage ({route, navigation}){
                                         })
                                     }
                                 </View>
+
+                                {console.log('the determinant is', String(sdg_index) in modules_completed)}
                                 
-                                {/* when  */}
-                                                            
-                                <Text style={{fontSize:18, textAlign:'center'}}>Watch the video about this particular SDG then answer the questions below. </Text> 
-                                <Text style={{fontSize:18, textAlign:'center'}}> When all of your answers are correct, you will be able to submit the module and earn 5 green XP!</Text>
-                                <p/>
-                                {
-                                    sdg_data[sdg_index-1]['questions'].map((question, index) => {
-                                        return (
-                                            <>
-                                                <Text style={{fontSize:18, textAlign:'center'}}> {question[0]} </Text>
-                                                <p/>
-                                                    <Picker 
-                                                        style={{width:'90vw', fontSize:18, maxWidth:'400px'}} 
-                                                        onValueChange={(itemValue, itemPosition) => updateAnswers(itemValue, index)}
-                                                    >
-                                                        {
-                                                                question.slice(1).map(option_ => {
-                                                                    return (<Picker.Item value={option_} label={option_}/>)
-                                                                })
-                                                        }
-                                                    </Picker> 
-                                                    {/*
-
-                                                    {console.log('jejejeje')}
-
-                                                    <RNPickerSelect
-                                                        style={{width:'90vw', fontSize:18, maxWidth:'400px !important'}} 
-                                                        onValueChange={(value) => console.log(value)}
-                                                        items={                                                     
-                                                            question.slice(1).map(option_ => (
-                                                                { 
-                                                                    label: option_, value: option_,
+                                {modules_completed.includes(String(sdg_index)) ?     
+                                    ''
+                                    :
+                                    <>
+                                        <Text style={{fontSize:18, textAlign:'center'}}>Watch the video about this particular SDG then answer the questions below. </Text> 
+                                        <Text style={{fontSize:18, textAlign:'center'}}> When all of your answers are correct, you will be able to submit the module and earn 5 green XP!</Text>
+                                        <p/>
+                                        {
+                                            sdg_data[sdg_index-1]['questions'].map((question, index) => {
+                                                return (
+                                                    <>
+                                                        <Text style={{fontSize:18, textAlign:'center'}}> {question[0]} </Text>
+                                                        <p/>
+                                                            <Picker 
+                                                                style={{width:'90vw', fontSize:18, maxWidth:'400px'}} 
+                                                                onValueChange={(itemValue, itemPosition) => updateAnswers(itemValue, index)}
+                                                            >
+                                                                {
+                                                                        question.slice(1).map(option_ => {
+                                                                            return (<Picker.Item value={option_} label={option_}/>)
+                                                                        })
                                                                 }
-                                                            ))
-                                                        }
-                                                    />
-                                                    */}
-                                                <p/>
-                                            </>   
-                                        )
-                                    })
+                                                            </Picker>                                                    
+                                                        <p/>
+                                                    </>   
+                                                )
+                                            })
 
-                                } 
+                                        } 
+                                        
 
-                                <TouchableOpacity
-                                    style={{display:'flex', justifyContent:'center', alignItems: 'center', padding:'3%',backgroundColor: completed ? '#7d83ff' : 'grey', border:'2px solid', width:'50%', height:'100%', maxHeight: '30px', borderRadius:'10px', maxWidth: '200px', fontSize:20}}
-                                    accessible={true}
-                                    disabled={completed ? false : true}
-                                    accessibilityLabel="button to submit questions"
-                                    onPress={() =>  handleModuleSubmission()}>
-                                        <Text style={{fontSize:21, textAlign:'center'}}>Submit</Text>
-                                </TouchableOpacity>                                          
+                                        <TouchableOpacity
+                                            style={{display:'flex', justifyContent:'center', alignItems: 'center', padding:'3%',backgroundColor: completed ? '#7d83ff' : 'grey', border:'2px solid', width:'50%', height:'100%', maxHeight: '30px', borderRadius:'10px', maxWidth: '200px', fontSize:20}}
+                                            accessible={true}
+                                            disabled={completed ? false : true}
+                                            accessibilityLabel="button to submit questions"
+                                            onPress={() =>  handleModuleSubmission()}>
+                                                <Text style={{fontSize:21, textAlign:'center'}}>Submit</Text>
+                                        </TouchableOpacity> 
+                                    
+                                    </>
+                                }                                       
                                 
                             </ScrollView>
                         </View>

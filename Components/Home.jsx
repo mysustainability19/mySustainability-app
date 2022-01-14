@@ -74,7 +74,7 @@ export default function Home ({route, navigation}){
         fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
         .then(resp => resp.json())
         .then(response => {
-          console.log(response)
+          //console.log(response)
           if (response['msg'] === 'Token has expired' ){
             return
           }
@@ -96,7 +96,7 @@ export default function Home ({route, navigation}){
 
     function openChallengePage(challengeID){
         //console.log(challengeID)
-        {console.log(challengeID)}
+        //{console.log(challengeID)}
         navigation.navigate('challengePage', { replace: true, challengeID: challengeID })
     }
     
@@ -113,7 +113,7 @@ export default function Home ({route, navigation}){
     const [refresh_challenges, set_refresh_challenges] = React.useState(1);
     const [challenges_sorted_by_sdg, set_challenges_sorted_by_sdg] = React.useState([ {'1': []}, {'2': []}, {'3': []}, {'4': []}, {'5':[]}, {'6':[]}, {'7':[]}, {'8':[]}, {'9':[]}, {'10':[]}, {'11':[]}, {'12':[]}, {'13':[]}, {'14':[]}, {'15':[]}, {'16':[]}, {'17':[]} ]);
     const [sorted_, setSorted] = React.useState([]);
-    const [completed, set_completed] = React.useState([]);
+    const [completed, set_completed] = React.useState([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,false, false, false,false, false, false,false, false, false,false, false, false, false, false, false, false, false, false]);
     const sdg_names = ['No Poverty', 'Zero Hunger', 'Good Health and Well-Being', 'Quality Education', 'Gender Equality', 'Clean Water and Sanitation', 'Affordable and Clean Energy', 'Decent Work and Economic Growth', 'Industry, Innovation and Infrastructure', 'Reduce Inequalities', 'Sustainable Cities and Communities', 'Responsible Consumption and Production', 'Climate Action', 'Life below Water', 'Life on Land', 'Peace, Justice and Strong Institutions', 'Partnership for the Goals']
     const sdg_descriptions = ['', '', '', '', '', '','','', '', '', '','', '', '', '','', '', '', '','', '', '', '','', '', '', '','', '', '', '','', '', '', '',];
 
@@ -156,7 +156,8 @@ export default function Home ({route, navigation}){
 
 
     useEffect(() => {
-        
+
+
         for (let i = 0; i < challengeList.length; i++){
             //console.log('line 157')
             getData('user_id')
@@ -166,15 +167,18 @@ export default function Home ({route, navigation}){
                 .then(progress => progress.json())
                 .then(progressJSON => {
                     //console.log(progressJSON['progressScore'])
-                    if (progressJSON['progressScore'] === 10){
+                    if (Math.floor(progressJSON['progressScore']) === 10){
                         //console.log('entered')
-                        set_completed([...completed, true])
+                        console.log('completed challenge detected....', 'index:', i)
+                        let temp = Array.from(completed)
+                        temp[i] = true;
+                        if (completed[i] !== true) set_completed(temp);
                     }
                 })      
             })
         }
 
-    }, [challengeList]);
+    }, [completed, challengeList]);
 
 
     useEffect(() => {
@@ -224,7 +228,8 @@ export default function Home ({route, navigation}){
 
     }, [challengeList]);
 
-  
+    //console.log('the completed challenges are:', completed)
+
     return (
         <PhoneView>
             <BodyContainer>
@@ -304,8 +309,9 @@ export default function Home ({route, navigation}){
                                                 
                                                 
                                                 {
+                                                    
                                                     eachEntry.map((challenge, index)=> {
-    
+
                                                         return (
                                                             <div style={{marginBottom:'8vh'}}>
                                                                 <StyledCard key={challenge['challengeID']} style={{marginTop:'0'}}>
@@ -313,7 +319,9 @@ export default function Home ({route, navigation}){
                                                                         <TouchableOpacity onPress={() => openChallengePage(challenge['challengeID'])} >
                                                                             <Text style={{textAlign:'center', fontSize:25,fontWeight:'bold'}}>{challenge['title']}</Text>
                                                                         </TouchableOpacity>
-                                                                        {completed[index] === true ? <Image style={{height:'20px', width:'20px', marginTop:'2.5%', display: 'block', marginLeft:'auto', marginRight: 'auto'}} source={{uri: 'https://cdn2.iconfinder.com/data/icons/greenline/512/check-512.png'}}/> : ''}
+                                                                        {/*console.log('the challenges that are completed are', completed)*/}
+                                                                        {/*console.log('the index is:', actual_challenge_index - 1, 'completed:', completed[actual_challenge_index - 1])*/}                          
+                                                                        {completed[parseInt(challenge['challengeID'])] === true ? <Image style={{height:'20px', width:'20px', marginTop:'2.5%', display: 'block', marginLeft:'auto', marginRight: 'auto'}} source={{uri: 'https://cdn2.iconfinder.com/data/icons/greenline/512/check-512.png'}}/> : ''}
                                                                     
                                                                     {admin === true ?
                                                                     

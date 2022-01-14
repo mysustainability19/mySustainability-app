@@ -138,8 +138,15 @@ export default function reportProgress ({route, navigation}){
                                         setIsVisible(true);
                                     }
                                 })
+                            }else{
+
+                                throw new Error('Cannot report too often');
                             }
                         })
+                        .catch((error) => {
+                            console.log(error)
+                            setIsVisible(true)
+                        });
                 }
             })
     }
@@ -169,7 +176,7 @@ export default function reportProgress ({route, navigation}){
                             >
                                 <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
                                     <Text style={{fontSize:20, margin:'5%', textAlign:'center'}}> You cannot report challenge progress more than 3 times a day! </Text>
-                                    <TouchableOpacity onPress={() =>  navigation.navigate('challengePage', { replace: true, challengeID: 0 })} style={{backgroundColor:"#7D83FF", padding:'20px', borderRadius: '10px'}}>
+                                    <TouchableOpacity onPress={() =>  navigation.navigate('challengePage', { replace: true, challengeID: challengeID })} style={{backgroundColor:"#7D83FF", padding:'20px', borderRadius: '10px'}}>
                                         <Text style={{fontSize:20}}> Dismiss </Text>
                                     </TouchableOpacity>
                                 </View>

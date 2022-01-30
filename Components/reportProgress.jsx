@@ -137,14 +137,14 @@ export default function reportProgress ({route, navigation}){
                                     getData('reports')
                                         .then(numReports => {
 
-                                            if(response['status'] === 200 && numReports <= 3){
+                                            if(response['status'] === 200 && parseInt(numReports) <= 3){
                                                 fetch(`https://mysustainability-api-123.herokuapp.com/updatePoints/?points=${pointsEarned}&userEmail=${value}`, {method: 'POST'})
                                                 .then(response => response.json())
                                                 .then(finalResp => {
                                                     //console.log(finalResp)
                                                     if (finalResp['message'] === 'user stats successfully updated'){
                                                         //console.log(finalResp)
-                                                        storeData('reports', numReports+1)
+                                                        storeData('reports', String(parseInt(numReports)+1))
                                                         navigation.navigate('challengePage', { replace: true, challengeID: challengeID })
                                                     }
                                                 })

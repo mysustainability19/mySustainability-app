@@ -118,7 +118,7 @@ export default function Signup ({ navigation }){
                     //console.log(response['token'])
                     storeData ('token', response['token']);
                     storeData ('user_id', response['user_id']);
-                    storeData('reports', 0);
+                    storeData('reports', '0');
                     navigation.navigate('Home', { replace: true, newUser: true })
                   }
                 })

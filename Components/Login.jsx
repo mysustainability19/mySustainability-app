@@ -125,7 +125,7 @@ export default function Login ({ navigation }){
                 } else{
                   storeData ('token',response['token']);
                   storeData ('user_id',response['user_id']);
-                  storeData('reports', 0);
+                  storeData ('reports', '0');
                   console.log(email)
                   if (email === 'admin') {
                     storeData ('admin', 'true') 

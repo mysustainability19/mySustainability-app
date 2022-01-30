@@ -97,18 +97,6 @@ export default function reportProgress ({route, navigation}){
     const [completedStages, set_completedStages] = React.useState([]);
     const [numReports, set_numReports] = React.useState(0);
 
-    useEffect(() => {
-
-        getData('reports')
-        .then(numReports => {
-            
-            if (parseInt(numReports) > 3){
-                setIsVisible(true);
-            }
-        
-        })
-
-    }, [isFocused])
 
     useEffect(() => {
         fetch(`https://mysustainability-api-123.herokuapp.com/getChallengebyID?challengeID=${challengeID}`, {method: 'GET'})
@@ -138,6 +126,14 @@ export default function reportProgress ({route, navigation}){
         const stageCompleted = selectedValue;
         console.log('the stage that was completed is', stageCompleted);
 
+        getData('reports')
+        .then(numReports => {
+            
+            if (parseInt(numReports) > 3){
+                setIsVisible(true);
+            }
+        
+        })
 
 
         getData('user_id')

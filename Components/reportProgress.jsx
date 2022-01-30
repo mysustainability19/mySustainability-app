@@ -21,6 +21,13 @@ const getData = async (key) => {
     }
 }
 
+const storeData = async (key, value) => {
+    try {
+      await AsyncStorage.setItem(key, value)
+    } catch (e) {
+      // saving error
+    }
+}
   
 
 const styles = StyleSheet.create({
@@ -85,6 +92,7 @@ export default function reportProgress ({route, navigation}){
     const [admin, setAdmin] = React.useState(false);
     const [defaultValueSet, set_defaultValueSet] = React.useState(false);
     const [completedStages, set_completedStages] = React.useState([]);
+    const [numReports, set_numReports] = React.useState(0);
 
     useEffect(() => {
         fetch(`https://mysustainability-api-123.herokuapp.com/getChallengebyID?challengeID=${challengeID}`, {method: 'GET'})
@@ -125,19 +133,25 @@ export default function reportProgress ({route, navigation}){
 
                                 fetch(`https://mysustainability-api-123.herokuapp.com/updateChallengeProgress/?challengeID=${challengeID}&userEmail=${value}&progressScore=${progressScore}`, {method: 'POST'})
                                 .then(response => {
-                                    if(response['status'] === 200){
-                                        fetch(`https://mysustainability-api-123.herokuapp.com/updatePoints/?points=${pointsEarned}&userEmail=${value}`, {method: 'POST'})
-                                        .then(response => response.json())
-                                        .then(finalResp => {
-                                            //console.log(finalResp)
-                                            if (finalResp['message'] === 'user stats successfully updated'){
-                                                //console.log(finalResp)
-                                                navigation.navigate('challengePage', { replace: true, challengeID: challengeID })
+
+                                    getData('reports')
+                                        .then(numReports => {
+
+                                            if(response['status'] === 200 && numReports <= 3){
+                                                fetch(`https://mysustainability-api-123.herokuapp.com/updatePoints/?points=${pointsEarned}&userEmail=${value}`, {method: 'POST'})
+                                                .then(response => response.json())
+                                                .then(finalResp => {
+                                                    //console.log(finalResp)
+                                                    if (finalResp['message'] === 'user stats successfully updated'){
+                                                        //console.log(finalResp)
+                                                        storeData('reports', numReports+1)
+                                                        navigation.navigate('challengePage', { replace: true, challengeID: challengeID })
+                                                    }
+                                                })
+                                            }else{
+                                                setIsVisible(true);
                                             }
                                         })
-                                    }else{
-                                        setIsVisible(true);
-                                    }
                                 })
                             }else{
 

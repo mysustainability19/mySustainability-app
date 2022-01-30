@@ -7,6 +7,7 @@ import { PhoneView, BodyContainer, StyledCard} from '../styles/GeneralStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from '@react-native-picker/picker';
 import Modal from 'modal-enhanced-react-native-web';
+import { useIsFocused } from "@react-navigation/native";
 
 const getData = async (key) => {
     try {
@@ -56,6 +57,8 @@ const styles = StyleSheet.create({
 })
 
 export default function reportProgress ({route, navigation}){
+    
+    const isFocused = useIsFocused();
 
     getData('token')
     .then(token_value => {
@@ -95,6 +98,19 @@ export default function reportProgress ({route, navigation}){
     const [numReports, set_numReports] = React.useState(0);
 
     useEffect(() => {
+
+        getData('reports')
+        .then(numReports => {
+            
+            if (parseInt(numReports) > 3){
+                setIsVisible(true);
+            }
+        
+        })
+
+    }, [isFocused])
+
+    useEffect(() => {
         fetch(`https://mysustainability-api-123.herokuapp.com/getChallengebyID?challengeID=${challengeID}`, {method: 'GET'})
         .then(resp => resp.json())
         .then(response => {
@@ -122,6 +138,8 @@ export default function reportProgress ({route, navigation}){
         const stageCompleted = selectedValue;
         console.log('the stage that was completed is', stageCompleted);
 
+
+
         getData('user_id')
             .then(value => {
                 if(value !== null){
@@ -134,24 +152,18 @@ export default function reportProgress ({route, navigation}){
                                 fetch(`https://mysustainability-api-123.herokuapp.com/updateChallengeProgress/?challengeID=${challengeID}&userEmail=${value}&progressScore=${progressScore}`, {method: 'POST'})
                                 .then(response => {
 
-                                    getData('reports')
-                                        .then(numReports => {
-
-                                            if(response['status'] === 200 && parseInt(numReports) <= 3){
-                                                fetch(`https://mysustainability-api-123.herokuapp.com/updatePoints/?points=${pointsEarned}&userEmail=${value}`, {method: 'POST'})
-                                                .then(response => response.json())
-                                                .then(finalResp => {
-                                                    //console.log(finalResp)
-                                                    if (finalResp['message'] === 'user stats successfully updated'){
-                                                        //console.log(finalResp)
-                                                        storeData('reports', String(parseInt(numReports)+1))
-                                                        navigation.navigate('challengePage', { replace: true, challengeID: challengeID })
-                                                    }
-                                                })
-                                            }else{
-                                                setIsVisible(true);
+                                    if(response['status'] === 200){
+                                        fetch(`https://mysustainability-api-123.herokuapp.com/updatePoints/?points=${pointsEarned}&userEmail=${value}`, {method: 'POST'})
+                                        .then(response => response.json())
+                                        .then(finalResp => {
+                                            //console.log(finalResp)
+                                            if (finalResp['message'] === 'user stats successfully updated'){
+                                                //console.log(finalResp)
+                                                storeData('reports', String(parseInt(numReports)+1))
+                                                navigation.navigate('challengePage', { replace: true, challengeID: challengeID })
                                             }
                                         })
+                                    }
                                 })
                             }else{
 

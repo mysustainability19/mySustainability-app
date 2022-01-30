@@ -281,7 +281,7 @@ export default function Home ({route, navigation}){
                                 </View>
                             </Modal>
 
-                            <ScrollView contentContainerStyle = {{display:"flex", flexDirection:'column', height:'120vh', marginLeft: isMobile ? '5%' : '0%'}}>
+                            <ScrollView contentContainerStyle = {{display:"flex", flexDirection:'column', height:'120vh', marginLeft: isMobile ? '5%' : '0%', marginTop: isMobile ? '40px' : '0'}}>
 
                                 <Text style={{fontSize:25,fontWeight:'bold'}}>Challenges: </Text>
                                 <p/>

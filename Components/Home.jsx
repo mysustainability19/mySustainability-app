@@ -233,7 +233,7 @@ export default function Home ({route, navigation}){
     return (
         <PhoneView>
             <BodyContainer>
-                    <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", flex:1}}>
+                    <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
                         <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold'}]}> mySustainability </Text>
                         <TouchableOpacity
                             //style={{paddingTop:'3%'}}

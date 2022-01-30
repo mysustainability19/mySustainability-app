@@ -145,7 +145,7 @@ export default function Learn ({route, navigation}){
                     <View style={[styles.flexContainer, {flex:4, margin:'auto',  marginLeft:'2%', marginRight:'2%'}]}>
                         <View style={[styles.meetingsColumn]}>                     
 
-                            <ScrollView contentContainerStyle = {{display:"flex", flexDirection:'column', height:'120vh', marginLeft: isMobile ? '2%' : '0%'}}>
+                            <ScrollView contentContainerStyle = {{display:"flex", flexDirection:'column', height:'120vh', marginLeft: isMobile ? '2%' : '0%', marginTop: isMobile ? '40px' : '0'}}>
 
                                 <Text style={{fontSize:25,fontWeight:'bold'}}>Learn about the Sustainability Development Goals (SDGs): </Text>
                                 <p/>

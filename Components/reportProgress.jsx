@@ -94,6 +94,7 @@ export default function reportProgress ({route, navigation}){
             getData('user_id')
             .then(user_id => {
                 if(user_id !== null){
+                    {console.log(challengeID)}
                     fetch(`https://mysustainability-api-123.herokuapp.com/getChallengeProgress/?challengeID=${challengeID}&userEmail=${user_id}`, {method: 'GET'})
                     .then(progress => progress.json())
                     .then(progressJSON => {

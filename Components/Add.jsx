@@ -84,19 +84,46 @@ export default function Add ({route, navigation}){
 
 
     function addChallenge(){
-        fetch(`https://mysustainability-api-123.herokuapp.com/updateChallenges/?challengeTitle=${title}&challengeDescription=${description}&pointsWorth=${selectedValue}&primarySDG=${String(selected1stSDG)}&SDGtext=${sdgText}&stage1_option1=${stage1_option1}&stage1_option2=${stage1_option2}&stage1_option3=${stage1_option3}&stage2_option1=${stage2_option1}&stage2_option2=${stage2_option2}&stage2_option3=${stage2_option3}&stage3_option1=${stage3_option1}&stage3_option2=${stage3_option2}&stage3_option3=${stage3_option3}&stage4_option1=${stage4_option1}&stage4_option2=${stage4_option2}&stage4_option3=${stage4_option3}&sponsor=${sponsor}&logo=${sponsorLogo}`, {method: 'POST'})
+
+        let stage1_option2_conditional = stage1_option2.length > 0 ? stage1_option2 : '';
+        let stage1_option3_conditional = stage1_option3.length > 0 ? stage1_option3 : '';
+
+
+        let stage2_option2_conditional = stage2_option2.length > 0 ? stage2_option2 : '';
+        let stage2_option3_conditional = stage2_option3.length > 0 ? stage2_option3 : '';
+
+        let stage3_option1_conditional = stage3_option1.length > 0 ? stage3_option1 : '';
+        let stage3_option2_conditional = stage3_option2.length > 0 ? stage3_option2 : '';
+        let stage3_option3_conditional = stage3_option3.length > 0 ? stage3_option3 : '';
+
+        let stage4_option1_conditional = stage4_option1.length > 0 ? stage4_option1 : '';
+        let stage4_option2_conditional = stage4_option2.length > 0 ? stage4_option2 : '';
+        let stage4_option3_conditional = stage4_option3.length > 0 ? stage4_option3 : '';
+
+        let sponsor_conditional = sponsor.length > 0 ? sponsor : '';
+        let sponsor_logo_conditional = sponsorLogo.length > 0 ? sponsorLogo : '';
+
+        let url = `https://mysustainability-api-123.herokuapp.com/updateChallenges/?challengeTitle=${title}&challengeDescription=${description}&pointsWorth=${selectedValue}&primarySDG=${String(selected1stSDG)}&SDGtext=${sdgText}&stage1_option1=${stage1_option1}&stage2_option1=${stage2_option1}` +   stage1_option2_conditional + stage1_option3_conditional + stage2_option2_conditional + stage2_option3_conditional + stage3_option1_conditional + stage3_option2_conditional + stage3_option3_conditional + stage4_option1_conditional + stage4_option2_conditional + stage4_option3_conditional + sponsor_conditional + sponsor_logo_conditional;
+        fetch(url, {method: 'POST'})
         .then(resp => resp.json())
         .then(response => {
-          console.log(response)
-          if(response['message'] === 'challenges successfully updated'){
-            setIsVisible([true, 'Challenge has been successfully added!']);
-          }else{
-              if(response['message'] === 'stages not valid'){
-                  setIsVisible([true, 'Challenge could not be added! Stages are invalid']);
-              }else{
-                setIsVisible([true, 'Challenge could not be added! Please check relevant fields and try again']);
-              }
-          }
+            console.log(response)
+            if(response['message'] === 'challenges successfully updated'){
+                setIsVisible([true, 'Challenge has been successfully added!']);
+            }else{
+                if(response['message'] === 'stages not valid'){
+                    throw new Error('Something went wrong');
+                    //setIsVisible([true, 'Challenge could not be added! Stages are invalid']);
+                }else{
+                    throw new Error('Something went wrong');
+                    //setIsVisible([true, 'Challenge could not be added! Please check relevant fields and try again']);
+                }
+            }
+        })
+        .catch((error) => {
+
+            setIsVisible([true, 'Challenge could not be added! Please check and fix all fields then try again.']);
+            
         })
     }
 

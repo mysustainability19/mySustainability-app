@@ -80,6 +80,7 @@ export default function challengePage ({route, navigation}){
     const windowHeight = useWindowDimensions().height;
     const isMobile = windowHeight <= 700 ? true : false;
     const [challenge, setChallenge] = React.useState([])
+    const [leaders, setLeaders] = React.useState([])
     const [progress, setProgress] = React.useState("")
     const [participation, setParticipation] = React.useState(0);
     const [admin, setAdmin] = React.useState(false);
@@ -99,12 +100,18 @@ export default function challengePage ({route, navigation}){
                     fetch(`https://mysustainability-api-123.herokuapp.com/getChallengeProgress/?challengeID=${challengeID}&userEmail=${user_id}`, {method: 'GET'})
                     .then(progress => progress.json())
                     .then(progressJSON => {
+                        console.log(progressJSON)
                         setProgress(progressJSON['progressScore'])
                         fetch(`https://mysustainability-api-123.herokuapp.com/getChallengeParticipation/?challengeID=${challengeID}`)
                             .then(participationNumber => participationNumber.json())
                             .then(participationNumberJSON => {
                                // console.log(participationNumberJSON)
                                 setParticipation(participationNumberJSON['participation'])
+                                fetch(`https://mysustainability-api-123.herokuapp.com/getChallengeLeaders/?challengeID=${challengeID}`)
+                                    .then(res => res.json())
+                                    .then(leaders => {
+                                        setLeaders(leaders['leaders'])
+                                    })
                             })
                     })
                 }
@@ -115,7 +122,7 @@ export default function challengePage ({route, navigation}){
     
     completionMessage = (`${Math.round(progress*10)}% completed`)
 
-    {console.log(challenge)}
+    {console.log(leaders)}
 
 
     return (
@@ -146,6 +153,17 @@ export default function challengePage ({route, navigation}){
                                     <Text>{'Sponsor: ' + challenge['sponsor']}</Text>    
                                     <Image resizeMode="contain" source={{uri: challenge['sponsorLogo']}} style={{width:'100px', height:'100px'}}/> 
                                     {/*<p/>*/}
+                                    <View style={{flexDirection:'row'}}>
+                                        {leaders.length > 0 ? <Text>Challenge leaders: </Text> : ''}
+                                        {leaders.length > 0 ?
+                                            leaders.map((eachLeader, index) => {
+
+                                                return index === leaders.length - 1 ? (<Text>{eachLeader['name']}</Text>) : (<Text>{eachLeader['name']}, </Text>)
+
+                                            }): ''
+                                        }
+                                    </View>
+                                    <p/>
                                     <Text style={{fontWeight:'bold'}}>Number of participants: {participation} {participation === 1 ? 'user' : 'users'}</Text>
                                     <p/>
                                     <Text style={{fontWeight:'bold'}}>Points this challenge is worth: {challenge['points_worth']}</Text>

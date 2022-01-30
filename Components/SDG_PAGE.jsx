@@ -198,7 +198,7 @@ export default function sdgPage ({route, navigation}){
             'questions': [
                 ['What is this SDG about?','Select an answer', 'Providing women and girls with equal access to education, health care and decent work', 'Providing women with equal rights to economic resources such as land and property', 'All of the above', 'Favouring men over women'],
                 ['How is this SDG best achieved?','Select an answer', 'By addressing structural issues such as unfair social norms and attitudes', 'By developing progressive legal frameworks that promote equality between women and men', 'All of the above', 'By allowing women to fight for their own rights and freedoms, giving them no help whatsoever'],
-                ['Which other SDGs does SDG 5, Gender Equality, further/help make progress in?','Select an answer', 'SDG 4 - Quality Education', 'SDG 8 - Decent Work and Economic Growth', 'SDG 16 - Peace, Justice and Strong Institutions', 'All of above'],
+                ['Which other SDGs does SDG 5, Gender Equality, further/help make progress in?','Select an answer', 'SDG 4 - Quality Education', 'SDG 8 - Decent Work and Economic Growth', 'SDG 16 - Peace, Justice and Strong Institutions', 'All of the above'],
                 ['What can you do to help promote gender equality?','Select an answer', 'Call out sexism in your school, university or workplace', 'Join `He for She`, an organisation that stands in solidarity with women', 'All of the above', 'Leave it up to women to stand up for their own rights'],   
             ],
             'answers': ['All of the above', 'All of the above', 'All of the above', 'All of the above']
@@ -290,7 +290,7 @@ export default function sdgPage ({route, navigation}){
                 ['Which other SDG does SDG-9 relate to/benefit the most?','Select an answer', 'SDG - 13 Climate Action', 'SDG 12 - Responsible Consumption', 'SDG 16 - Peace, Justice and Strong Institutions'],
                 ['What can you do to help achieve this SDG?','Select an answer', 'Purchasing groceries that are sustainably-sourced', 'Advocate for better transport options such as cycling networks and public transport', 'All of the above', 'Leave it up to the government'],   
             ],
-            'answers': ['All of the above', 'All of the above', 'SDG - 13 Climate Action', 'All of the above']
+            'answers': ['Building/maintaining resilient infastructure and sustainable industrialisation, as well as encouraging innovation', 'All of the above', 'SDG - 13 Climate Action', 'All of the above']
         },
 
         {

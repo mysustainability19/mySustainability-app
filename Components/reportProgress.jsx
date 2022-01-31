@@ -155,7 +155,9 @@ export default function reportProgress ({route, navigation}){
                                             if (finalResp['message'] === 'user stats successfully updated'){
                                                 //console.log(finalResp)
                                                 storeData('reports', String(parseInt(numReports)+1))
-                                                navigation.navigate('challengePage', { replace: true, challengeID: challengeID })
+                                                    .then(() => {
+                                                        navigation.navigate('challengePage', { replace: true, challengeID: challengeID })
+                                                    })
                                             }
                                         })
                                     }

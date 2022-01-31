@@ -602,7 +602,7 @@ export default function sdgPage ({route, navigation}){
                         <View style={[styles.meetingsColumn]}>                     
 
                             <ScrollView contentContainerStyle = {{display:"flex", alignItems: 'center', flexDirection:'column', height:'120vh', width: '100vw'}}>
-                                <Text style={{fontSize:25, fontWeight:'bold'}}>{sdg_data[sdg_index-1]['heading']}</Text>
+                                <Text style={{fontSize:22, fontWeight:'bold', textAlign:'center'}}>{sdg_data[sdg_index-1]['heading']}</Text>
                                 <p/>
 
                                 {sdg_data[sdg_index-1]['link'].length > 0 ? 

@@ -158,27 +158,37 @@ export default function Home ({route, navigation}){
     useEffect(() => {
 
 
-        for (let i = 0; i < challengeList.length; i++){
+        ////for (let i = 0; i < challengeList.length; i++){
             //console.log('line 157')
             getData('user_id')
             .then (token_value => {
 
-                fetch(`https://mysustainability-api-123.herokuapp.com/getChallengeProgress/?challengeID=${i}&userEmail=${token_value}`, {method: 'GET'})
+                fetch(`https://mysustainability-api-123.herokuapp.com/getCompletedChallenges?userEmail=${token_value}`, {method: 'GET'})
                 .then(progress => progress.json())
                 .then(progressJSON => {
-                    //console.log(progressJSON['progressScore'])
-                    if (Math.floor(progressJSON['progressScore']) === 10){
+                    console.log(progressJSON['res'])
+
+                    let temp = Array.from(completed);
+
+                    for (let k = 0; k < progressJSON['res'].length; k++){
+                        let completed_challenge_index = progressJSON['res'][k]['challenges']['id']
+                        temp[completed_challenge_index] = true;
+                    }
+
+                    set_completed(temp);
+
+                    /*if (Math.floor(progressJSON['res']) === 10){
                         //console.log('entered')
                         //console.log('completed challenge detected....', 'index:', i)
                         let temp = Array.from(completed)
                         temp[i] = true;
                         if (completed[i] !== true) set_completed(temp);
-                    }
+                    }*/
                 })      
             })
-        }
+        //}
 
-    }, [completed, challengeList]);
+    }, [challengeList]);
 
 
     useEffect(() => {

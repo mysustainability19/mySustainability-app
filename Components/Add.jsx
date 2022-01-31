@@ -103,7 +103,12 @@ export default function Add ({route, navigation}){
         let sponsor_conditional = sponsor.length > 0 ? sponsor : '';
         let sponsor_logo_conditional = sponsorLogo.length > 0 ? sponsorLogo : '';
 
+        //https://mysustainability-api-123.herokuapp.com/updateChallenges/?challengeTitle=aaaaaaaaaaaaaaaa&challengeDescription=aaaaaaaaaaaaaaaa&pointsWorth=10&primarySDG=2&SDGtext=aaaaaaaaaaaaaaaa&stage1_option1=aaaaaaaaaaaaaaaa&stage2_option1=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+        //https://mysustainability-api-123.herokuapp.com/updateChallenges/?challengeTitle=random%20text&challengeDescription=random%20text&pointsWorth=10&primarySDG=2&SDGtext=random%20text&stage1_option1=random%20text&stage2_option1=random%20text
+
         let url = `https://mysustainability-api-123.herokuapp.com/updateChallenges/?challengeTitle=${title}&challengeDescription=${description}&pointsWorth=${selectedValue}&primarySDG=${String(selected1stSDG)}&SDGtext=${sdgText}&stage1_option1=${stage1_option1}&stage2_option1=${stage2_option1}` +   stage1_option2_conditional + stage1_option3_conditional + stage2_option2_conditional + stage2_option3_conditional + stage3_option1_conditional + stage3_option2_conditional + stage3_option3_conditional + stage4_option1_conditional + stage4_option2_conditional + stage4_option3_conditional + sponsor_conditional + sponsor_logo_conditional;
+        console.log(url)
         fetch(url, {method: 'POST'})
         .then(resp => resp.json())
         .then(response => {
@@ -167,13 +172,13 @@ export default function Add ({route, navigation}){
 
                             <ScrollView contentContainerStyle = {styles.loginForm}>
                                 <Text style={{fontSize:23, marginBottom:'30px', fontWeight:'bold'}}>Add a new challenge to mySustainability: </Text>
-                                <Text> Challenge title 
+                                <Text> Challenge title (required)
                                     
                                     {"\n\n"}
                                     <ChallengeField onChangeText={(title) => setTitle(title)}/>
                                 </Text>
                                 <p/>
-                                <Text> Challenge description
+                                <Text> Challenge description (required)
                                     
                                     {"\n\n"}
                                     <ChallengeField onChangeText={(description) => setDescription(description)}/>
@@ -191,7 +196,7 @@ export default function Add ({route, navigation}){
                                     <ChallengeField onChangeText={(sponsorLogo) => setSponsorLogo(sponsorLogo)}/>
                                 </Text>
                                 <p/>
-                                <Text> Points challenge is worth: 
+                                <Text> Points challenge is worth (required): 
                                     {"\n\n"}
                                     <Picker
                                         selectedValue={selected1stSDG}
@@ -205,7 +210,7 @@ export default function Add ({route, navigation}){
                                     </Picker>
                                 </Text>
                                 <p/>
-                                <Text> SDG (that the challenge is related to): 
+                                <Text> SDG (that the challenge is related to) (required): 
                                     {"\n\n"}
                                     <Picker
                                         selectedValue={selected1stSDG}
@@ -235,7 +240,7 @@ export default function Add ({route, navigation}){
                                 <p/>
                                 
                                 <p/>
-                                <Text> Accompanying SDG-related text
+                                <Text> Accompanying SDG-related text (required)
                                     {"\n\n"}
                                     <ChallengeField onChangeText={(sdgText) => setSDGtext(sdgText)}/>
                                 </Text>

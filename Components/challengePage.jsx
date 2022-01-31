@@ -149,8 +149,13 @@ export default function challengePage ({route, navigation}){
                                     <p/>
                                     <Text>{challenge['description']}</Text>                                 
                                     <p/>
-                                    <Text>{'Sponsor: ' + challenge['sponsor']}</Text>    
-                                    <Image resizeMode="contain" source={{uri: challenge['sponsorLogo']}} style={{width:'100px', height:'100px'}}/> 
+                                    {challenge['sponsor'].length > 0 && challenge['sponsorLogo'].length > 0 ?
+                                        <>
+                                            <Text>{'Sponsor: ' + challenge['sponsor']}</Text>    
+                                            <Image resizeMode="contain" source={{uri: challenge['sponsorLogo']}} style={{width:'100px', height:'100px'}}/> 
+                                        </>
+                                        :''
+                                    }
                                     {/*<p/>*/}
                                     <View style={{flexDirection:'row'}}>
                                         {leaders.length > 0 ? <Text>Challenge leaders: </Text> : ''}

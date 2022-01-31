@@ -124,7 +124,7 @@ export default function Learn ({route, navigation}){
     }
     
 
-    console.log('the completed modules are:', completed)
+    //console.log('the completed modules are:', completed)
 
     return (
         <PhoneView>
@@ -171,8 +171,6 @@ export default function Learn ({route, navigation}){
                                                                 <Text style={{textAlign:'center', fontSize:25,fontWeight:'bold'}}>{sdg}</Text>
                                                             </TouchableOpacity>    
                                                         </div>    
-
-                                                        {console.log('the sdg index for this is', sdg_index)}
 
                                                         {completed.includes(String(sdg_index+1)) ? <Image style={{height:'20px', width:'20px', display: 'block', position: 'absolute', right: '-10px', bottom: '0px'}} source={{uri: 'https://cdn2.iconfinder.com/data/icons/greenline/512/check-512.png'}}/> : ''}                                                 
 

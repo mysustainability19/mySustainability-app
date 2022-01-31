@@ -106,12 +106,12 @@ export default function reportProgress ({route, navigation}){
             getData('user_id')
             .then(user_id => {
                 if(user_id !== null){
-                    {console.log(challengeID)}
+                    //{console.log(challengeID)}
                     fetch(`https://mysustainability-api-123.herokuapp.com/getChallengeProgress/?challengeID=${challengeID}&userEmail=${user_id}`, {method: 'GET'})
                     .then(progress => progress.json())
                     .then(progressJSON => {
-                        console.log(progressJSON)
-                        console.log(progressJSON['stagesCompleted'])
+                        //console.log(progressJSON)
+                        //console.log(progressJSON['stagesCompleted'])
                         set_completedStages(progressJSON['stagesCompleted'])
                     })
                 }
@@ -124,7 +124,6 @@ export default function reportProgress ({route, navigation}){
         const pointsEarned = points_worth/stages.filter(eachStage => eachStage[0].length > 0).length;
         const progressScore = String(pointsEarned/points_worth * 10);
         const stageCompleted = selectedValue;
-        console.log('the stage that was completed is', stageCompleted);
 
         getData('reports')
         .then(numReports => {
@@ -142,7 +141,7 @@ export default function reportProgress ({route, navigation}){
 
                     fetch(`https://mysustainability-api-123.herokuapp.com/updateChallengeStages/?challengeID=${challengeID}&userEmail=${value}&stageCompleted=${stageCompleted}`, {method: 'POST'})
                         .then(resp => {
-                            console.log('updating stages complete...', resp.json())
+                            //console.log('updating stages complete...', resp.json())
                             if (resp['status'] === 200){
 
                                 fetch(`https://mysustainability-api-123.herokuapp.com/updateChallengeProgress/?challengeID=${challengeID}&userEmail=${value}&progressScore=${progressScore}`, {method: 'POST'})
@@ -167,7 +166,7 @@ export default function reportProgress ({route, navigation}){
                             }
                         })
                         .catch((error) => {
-                            console.log(error)
+                            //console.log(error)
                             setIsVisible(true)
                         });
                 }
@@ -226,7 +225,7 @@ export default function reportProgress ({route, navigation}){
                                                 return eachStage.filter(option_ => option_.length > 5).map((option, option_index) => {
                                                  
 
-                                                   {console.log('you selected', selectedValue)}
+                                                   //s{console.log('you selected', selectedValue)}
                                                     //{console.log('completed_stages', completedStages)}
                                                    // {console.log('completed_stages', completedStages)}
                                                    if (!completedStages.includes(String(stage_index + 1))){

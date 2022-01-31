@@ -107,7 +107,7 @@ export default function Add ({route, navigation}){
         fetch(url, {method: 'POST'})
         .then(resp => resp.json())
         .then(response => {
-            console.log(response)
+            //console.log(response)
             if(response['message'] === 'challenges successfully updated'){
                 setIsVisible([true, 'Challenge has been successfully added!']);
             }else{
@@ -133,7 +133,6 @@ export default function Add ({route, navigation}){
 
   return (
     <PhoneView>
-        {console.log(isVisible)}
         <BodyContainer>
                 <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", flex:1}}>
                     <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold'}]}> mySustainability </Text>

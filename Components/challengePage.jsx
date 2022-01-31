@@ -100,7 +100,7 @@ export default function challengePage ({route, navigation}){
                     fetch(`https://mysustainability-api-123.herokuapp.com/getChallengeProgress/?challengeID=${challengeID}&userEmail=${user_id}`, {method: 'GET'})
                     .then(progress => progress.json())
                     .then(progressJSON => {
-                        console.log(progressJSON)
+                        //console.log(progressJSON)
                         setProgress(progressJSON['progressScore'])
                         fetch(`https://mysustainability-api-123.herokuapp.com/getChallengeParticipation/?challengeID=${challengeID}`)
                             .then(participationNumber => participationNumber.json())
@@ -122,7 +122,6 @@ export default function challengePage ({route, navigation}){
     
     completionMessage = (`${Math.round(progress*10)}% completed`)
 
-    {console.log(leaders)}
 
 
     return (

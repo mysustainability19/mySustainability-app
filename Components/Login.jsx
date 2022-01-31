@@ -116,7 +116,7 @@ export default function Login ({ navigation }){
             fetch(`https://mysustainability-api-123.herokuapp.com/log_in/?email=${encryptedEmail}&password=${encryptedPassword}`, {method: 'POST'})
               .then(resp => resp.json())
               .then(response => {
-                console.log(response)
+                //sconsole.log(response)
                 if(response['message'] == "Internal Server Error"){
                   setIsVisible(true)
                 
@@ -126,7 +126,7 @@ export default function Login ({ navigation }){
                   storeData ('token',response['token']);
                   storeData ('user_id',response['user_id']);
                   storeData ('reports', '0');
-                  console.log(email)
+                  //console.log(email)
                   if (email === 'admin') {
                     storeData ('admin', 'true') 
                   }

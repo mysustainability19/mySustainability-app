@@ -70,7 +70,6 @@ export default function sdgPage ({route, navigation}){
     const [selectedAnswers, set_selectedAnswers] = React.useState([]);
     const { sdg_index, modules_completed } = route.params;
 
-    console.log('the sdg index is', sdg_index)
 
     const sdg_names = ['No Poverty', 'Zero Hunger', 'Good Health and Well-Being', 'Quality Education', 
     'Gender Equality', 'Clean Water and Sanitation', 'Affordable and Clean Energy', 'Decent Work and Economic Growth', 
@@ -515,11 +514,6 @@ export default function sdgPage ({route, navigation}){
 
     React.useEffect(() => {
 
-        console.log('the selected answers are:', selectedAnswers)
-        console.log('the actual answers are:', sdg_data[sdg_index-1]['answers'])
-
-        console.log('finished:', completed)
-
         if (arraysEqual(sdg_data[sdg_index-1]['answers'],selectedAnswers)){
             set_completed(true)
         }
@@ -638,8 +632,6 @@ export default function sdgPage ({route, navigation}){
                                         })
                                     }
                                 </View>
-
-                                {console.log('the determinant is', String(sdg_index) in modules_completed)}
                                 
                                 {modules_completed.includes(String(sdg_index)) ?     
                                     ''

@@ -169,7 +169,7 @@ export default function Home ({route, navigation}){
                     //console.log(progressJSON['progressScore'])
                     if (Math.floor(progressJSON['progressScore']) === 10){
                         //console.log('entered')
-                        console.log('completed challenge detected....', 'index:', i)
+                        //console.log('completed challenge detected....', 'index:', i)
                         let temp = Array.from(completed)
                         temp[i] = true;
                         if (completed[i] !== true) set_completed(temp);

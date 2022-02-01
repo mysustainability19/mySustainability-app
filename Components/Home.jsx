@@ -66,23 +66,35 @@ const styles = StyleSheet.create({
 })
 
 export default function Home ({route, navigation}){
-    const [is_focused, set_is_focused] = React.useState(false)
+        
     const isFocused = useIsFocused();
+    const [dummy, setDummy] = React.useState(0);
+    const [dummy_2, setDummy_2] = React.useState(0);
+    const {newUser} = route.params;
+    //console.log('newuser:', newUser)
 
-    getData('token')
-    .then(token_value => {
-        fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
-        .then(resp => resp.json())
-        .then(response => {
-          //console.log(response)
-          if (response['msg'] === 'Token has expired' ){
-            return
-          }
-          if (!JSON.stringify(response).includes("logged_in")){
-            navigation.navigate('Login', { replace: true })
-          }
+    const [authorised, set_authorised] = React.useState(false);
+
+    React.useEffect(() => {
+
+        getData('token')
+        .then(token_value => {
+
+            fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
+            .then(resp => resp.json())
+            .then(response => {
+                //console.log(response['msg'])
+                if (!JSON.stringify(response).includes("logged_in") && !response['msg'].includes('expired')){
+                    navigation.navigate('Login', { replace: true })
+                
+                }else{
+                    authorised === false ? set_authorised(true) : ''
+                }
+
+            })
         })
-    })
+
+    }, [authorised]);
 
     getData('admin')
     .then(value => {
@@ -91,8 +103,6 @@ export default function Home ({route, navigation}){
         }
     })
     //maybe have better admin code here instead of just checking value === 'true'.
-
-    const {newUser} = route.params;
 
     function openChallengePage(challengeID){
         //console.log(challengeID)
@@ -106,7 +116,7 @@ export default function Home ({route, navigation}){
 
     const [more, setMore] = React.useState(false);
     const [challengeList, setChallengeList] = React.useState([])
-    const [isVisible, setIsVisible] = React.useState(newUser === true ? true : false);
+    const [isVisible, setIsVisible] = React.useState(false);
     const [admin, setAdmin] = React.useState(false);
     //const [isVisible, setIsVisible] = React.useState(true);
     const [delete_challenge_modal, set_delete_challenge_modal] = React.useState([false, 'challenge_id_', 'challengeTitle']);
@@ -119,6 +129,8 @@ export default function Home ({route, navigation}){
 
     //console.log('wdkjdkjksdksdmcksdcmk')
     //console.log("this", challenges_sorted_by_sdg[1])
+
+    if(String(newUser) === 'true' && isVisible === false && dummy_2 === 0) setIsVisible(true);
 
     const toggleMore = () => {
         if (more === true){
@@ -166,7 +178,7 @@ export default function Home ({route, navigation}){
                 fetch(`https://mysustainability-api-123.herokuapp.com/getCompletedChallenges?userEmail=${token_value}`, {method: 'GET'})
                 .then(progress => progress.json())
                 .then(progressJSON => {
-                    console.log(progressJSON['res'])
+                    //console.log(progressJSON['res'])
 
                     let temp = Array.from(completed);
 
@@ -240,6 +252,12 @@ export default function Home ({route, navigation}){
 
     //console.log('the completed challenges are:', completed)
 
+    React.useEffect(() => {
+
+        if (dummy === 0) setDummy(1);
+
+    },[dummy])
+
     return (
         <PhoneView>
             <BodyContainer>
@@ -259,15 +277,25 @@ export default function Home ({route, navigation}){
                     <View style={[styles.flexContainer, {flex:4, marginLeft:'2%', marginRight:'2%',  marginTop:'0'}, isMobile ? {marginLeft:'6% !important', marginRight:'6% !important'} : '']}>
                         <View style={[styles.meetingsColumn, isMobile ? {marginBottom:'20%'} : '' ]}>
 
+
                             <Modal
-                                onRequestClose={() => setIsVisible(false)}
+                                onRequestClose={() => {
+                                    setDummy_2(1);
+                                    setIsVisible(false);
+                                }}
                                 visible={isVisible}
                                 style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex'}}
                             >
                                 <View style={{alignItems: 'center', flex: 1, width:'60%', justifyContent: 'center', margin:'auto', textAlign:'center'}}>
                                 <Text style={{fontSize:18}}> Welcome to mySustainability! {'\n'} {'\n'} You have earnt your first badge: The Beginner badge! {'\n'} {'\n'} Earn more badges and Green XP by completing challenges, goals or the dynamic quiz. In no time, you will find yourself climbing the leaderboard ranks. </Text>
                                 <Image source={require("../icons/badges/beginner.PNG")} style={{width:'200px', height:'200px', marginTop:'5%', marginBottom:'5%'}}/>
-                                <Button onPress={() => setIsVisible(false)} title={'Dismiss'} color="#7D83FF"/>
+                                <Button onPress={() => {
+                                    setDummy_2(1);
+                                    setIsVisible(false);                        
+                                }} 
+                                    
+                                    title={'Dismiss'} color="#7D83FF"
+                                />
                                 </View>
                             </Modal>
 

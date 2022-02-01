@@ -149,7 +149,7 @@ export default function challengePage ({route, navigation}){
                                     <p/>
                                     <Text>{challenge['description']}</Text>                                 
                                     <p/>
-                                    {challenge['sponsor'].length > 0 && challenge['sponsorLogo'].length > 0 ?
+                                    {challenge['sponsor'] && challenge['sponsorLogo'] ?
                                         <>
                                             <Text>{'Sponsor: ' + challenge['sponsor']}</Text>    
                                             <Image resizeMode="contain" source={{uri: challenge['sponsorLogo']}} style={{width:'100px', height:'100px'}}/> 

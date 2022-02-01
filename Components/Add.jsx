@@ -37,24 +37,33 @@ const storeData = async (key, value) => {
     }
 }
 
+//stage1_option1=fffffffffff&stage2_option1=ffffffffffffff&stage1_option2=fffffffffff&stage1_option3=ffffffffff&stage2_option2=fffffffffffff&stage2_option3=ffffffffffff&stage3_option1=fffffffffffff&stage3_option2=fffffffffffff&stage3_option3=fffffffffff&stage4_option1=ffffffffffffff&stage4_option2=ffffffffffff&stage4_option3=ffffffff&sponsor=ffffffffffff&sponsorLogo=fffffffff
+
 
 export default function Add ({route, navigation}){
 
+    const [authorised, set_authorised] = React.useState(false);
 
-    getData('token')
-    .then(token_value => {
+    React.useEffect(() => {
 
-        fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
-        .then(resp => resp.json())
-        .then(response => {
-          if (response['msg'] === 'Token has expired' ){
-            return
-          }
-          if (!JSON.stringify(response).includes("logged_in")){
-            navigation.navigate('Login', { replace: true })
-          }
+        getData('token')
+        .then(token_value => {
+
+            fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
+            .then(resp => resp.json())
+            .then(response => {
+                //console.log(response['msg'])
+                if (!JSON.stringify(response).includes("logged_in") && !response['msg'].includes('expired')){
+                    navigation.navigate('Login', { replace: true })
+                
+                }else{
+                    authorised === false ? set_authorised(true) : ''
+                }
+
+            })
         })
-    })
+
+    }, [authorised]);
 
     const isMobile = Dimensions.get("window").height <= 700 ? true : false;
     const [title, setTitle] = React.useState("");
@@ -85,30 +94,28 @@ export default function Add ({route, navigation}){
 
     function addChallenge(){
 
-        let stage1_option2_conditional = stage1_option2.length > 0 ? stage1_option2 : '';
-        let stage1_option3_conditional = stage1_option3.length > 0 ? stage1_option3 : '';
+        let stage1_option2_conditional = stage1_option2.length > 0 ? `&stage1_option2=${stage1_option2}` : '';
+        let stage1_option3_conditional = stage1_option3.length > 0 ? `&stage1_option3=${stage1_option3}` : '';
 
 
-        let stage2_option2_conditional = stage2_option2.length > 0 ? stage2_option2 : '';
-        let stage2_option3_conditional = stage2_option3.length > 0 ? stage2_option3 : '';
+        let stage2_option2_conditional = stage2_option2.length > 0 ? `&stage2_option2=${stage2_option2}` : '';
+        let stage2_option3_conditional = stage2_option3.length > 0 ? `&stage2_option3=${stage2_option3}` : '';
 
-        let stage3_option1_conditional = stage3_option1.length > 0 ? stage3_option1 : '';
-        let stage3_option2_conditional = stage3_option2.length > 0 ? stage3_option2 : '';
-        let stage3_option3_conditional = stage3_option3.length > 0 ? stage3_option3 : '';
+        let stage3_option1_conditional = stage3_option1.length > 0 ? `&stage3_option1=${stage3_option1}` : '';
+        let stage3_option2_conditional = stage3_option2.length > 0 ? `&stage3_option2=${stage3_option2}` : '';
+        let stage3_option3_conditional = stage3_option3.length > 0 ? `&stage3_option3=${stage3_option3}` : '';
 
-        let stage4_option1_conditional = stage4_option1.length > 0 ? stage4_option1 : '';
-        let stage4_option2_conditional = stage4_option2.length > 0 ? stage4_option2 : '';
-        let stage4_option3_conditional = stage4_option3.length > 0 ? stage4_option3 : '';
+        let stage4_option1_conditional = stage4_option1.length > 0 ? `&stage4_option1=${stage4_option1}` : '';
+        let stage4_option2_conditional = stage4_option2.length > 0 ? `&stage4_option2=${stage4_option2}` : '';
+        let stage4_option3_conditional = stage4_option3.length > 0 ? `&stage4_option3=${stage4_option3}` : '';
 
-        let sponsor_conditional = sponsor.length > 0 ? sponsor : '';
-        let sponsor_logo_conditional = sponsorLogo.length > 0 ? sponsorLogo : '';
+        let sponsor_conditional = sponsor.length > 0 ? `&sponsor=${sponsor}` : '';
+        let sponsor_logo_conditional = sponsorLogo.length > 0 ? `&sponsorLogo=${sponsorLogo}` : '';
 
-        //https://mysustainability-api-123.herokuapp.com/updateChallenges/?challengeTitle=aaaaaaaaaaaaaaaa&challengeDescription=aaaaaaaaaaaaaaaa&pointsWorth=10&primarySDG=2&SDGtext=aaaaaaaaaaaaaaaa&stage1_option1=aaaaaaaaaaaaaaaa&stage2_option1=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-        //https://mysustainability-api-123.herokuapp.com/updateChallenges/?challengeTitle=random%20text&challengeDescription=random%20text&pointsWorth=10&primarySDG=2&SDGtext=random%20text&stage1_option1=random%20text&stage2_option1=random%20text
+   
 
         let url = `https://mysustainability-api-123.herokuapp.com/updateChallenges/?challengeTitle=${title}&challengeDescription=${description}&pointsWorth=${selectedValue}&primarySDG=${String(selected1stSDG)}&SDGtext=${sdgText}&stage1_option1=${stage1_option1}&stage2_option1=${stage2_option1}` +   stage1_option2_conditional + stage1_option3_conditional + stage2_option2_conditional + stage2_option3_conditional + stage3_option1_conditional + stage3_option2_conditional + stage3_option3_conditional + stage4_option1_conditional + stage4_option2_conditional + stage4_option3_conditional + sponsor_conditional + sponsor_logo_conditional;
-        console.log(url)
+        //console.log(url)
         fetch(url, {method: 'POST'})
         .then(resp => resp.json())
         .then(response => {
@@ -139,7 +146,7 @@ export default function Add ({route, navigation}){
   return (
     <PhoneView>
         <BodyContainer>
-                <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", flex:1}}>
+                <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
                     <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold'}]}> mySustainability </Text>
                     <TouchableOpacity
                         //style={{paddingTop:'3%'}}
@@ -368,7 +375,8 @@ const styles = StyleSheet.create({
         width:'90vw',    //set this to center div
       //  padding:'5%',
         height:'150vh',
-        maxWidth:'800px'
+        maxWidth:'800px',
+        marginTop:'3%'
     },
 
     flexContainer: {

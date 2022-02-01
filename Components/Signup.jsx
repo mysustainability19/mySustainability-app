@@ -61,6 +61,7 @@ const storeData = async (key, value) => {
 
 export default function Signup ({ navigation }){
 
+
   const windowHeight = useWindowDimensions().height;
   const isMobile = windowHeight <= 850 ? true : false;
   const [email, setEmail] = React.useState("");

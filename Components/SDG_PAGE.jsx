@@ -559,20 +559,28 @@ export default function sdgPage ({route, navigation}){
         set_selectedAnswers(temp);
     }
 
-    getData('token')
-    .then(token_value => {
-        fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
-        .then(resp => resp.json())
-        .then(response => {
-          //console.log(response)
-          if (response['msg'] === 'Token has expired' ){
-            return
-          }
-          if (!JSON.stringify(response).includes("logged_in")){
-            navigation.navigate('Login', { replace: true })
-          }
+    const [authorised, set_authorised] = React.useState(false);
+
+    React.useEffect(() => {
+
+        getData('token')
+        .then(token_value => {
+
+            fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
+            .then(resp => resp.json())
+            .then(response => {
+                //console.log(response)
+                if (!JSON.stringify(response).includes("logged_in") && !response['msg'].includes('expired')){
+                    navigation.navigate('Login', { replace: true })
+                
+                }else{
+                    authorised === false ? set_authorised(true) : ''
+                }
+
+            })
         })
-    })
+
+    }, [authorised]);
 
     getData('admin')
     .then(value => {

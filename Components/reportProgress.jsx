@@ -22,9 +22,9 @@ const getData = async (key) => {
     }
 }
 
-const storeData = async (key, value) => {
+const storeData = (key, value) => {
     try {
-      await AsyncStorage.setItem(key, value)
+      localStorage.setItem(key, value)
     } catch (e) {
       // saving error
     }
@@ -119,21 +119,28 @@ export default function reportProgress ({route, navigation}){
         })
     }, []);
 
+    useEffect(() => {
+
+        getData('reports')
+            .then(reports => {
+
+                set_numReports(parseInt(reports))
+            
+            })
+    }, [])
+
     function handleReporting(){
         //the selected value is the stage index e.g. 0, 1, 2
         const pointsEarned = points_worth/stages.filter(eachStage => eachStage[0].length > 0).length;
         const progressScore = String(pointsEarned/points_worth * 10);
         const stageCompleted = selectedValue;
 
-        getData('reports')
-        .then(numReports => {
             
-            if (parseInt(numReports) > 3){
-                setIsVisible(true);
-            }
+        if (numReports > 2){
+            setIsVisible(true);
+            return;
+        }
         
-        })
-
 
         getData('user_id')
             .then(value => {
@@ -153,11 +160,11 @@ export default function reportProgress ({route, navigation}){
                                         .then(finalResp => {
                                             //console.log(finalResp)
                                             if (finalResp['message'] === 'user stats successfully updated'){
-                                                //console.log(finalResp)
-                                                storeData('reports', String(parseInt(numReports)+1))
-                                                    .then(() => {
-                                                        navigation.navigate('challengePage', { replace: true, challengeID: challengeID })
-                                                    })
+                                                //console.log('updating reports...')
+                                                //console.log(numReports+1)
+                                                storeData('reports', String(numReports+1))
+                                                navigation.navigate('challengePage', { replace: true, challengeID: challengeID })
+                                                
                                             }
                                         })
                                     }
@@ -199,7 +206,7 @@ export default function reportProgress ({route, navigation}){
                                 style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex'}}
                             >
                                 <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
-                                    <Text style={{fontSize:20, margin:'5%', textAlign:'center'}}> You cannot report challenge progress more than 3 times a day! </Text>
+                                    <Text style={{fontSize:20, margin:'5%', textAlign:'center'}}> You cannot report challenge progress more than 2 times a day! </Text>
                                     <TouchableOpacity onPress={() =>  navigation.navigate('challengePage', { replace: true, challengeID: challengeID })} style={{backgroundColor:"#7D83FF", padding:'20px', borderRadius: '10px'}}>
                                         <Text style={{fontSize:20}}> Dismiss </Text>
                                     </TouchableOpacity>

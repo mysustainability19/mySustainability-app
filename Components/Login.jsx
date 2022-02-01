@@ -60,6 +60,7 @@ const storeData = async (key, value) => {
 
 export default function Login ({ navigation }){
 
+
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isVisible, setIsVisible] = React.useState(false);
@@ -80,6 +81,8 @@ export default function Login ({ navigation }){
 
   getData('token')
   .then(token_value => {
+
+      //console.log(token_value)
 
       fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
       .then(resp => resp.json())

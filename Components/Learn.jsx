@@ -1,18 +1,11 @@
 import React, {useEffect} from "react";
 import { StyleSheet, TouchableOpacity, View, Text, Image, ScrollView, useWindowDimensions, Button} from 'react-native';
-import {ScrollBox, ScrollAxes, FastTrack} from 'react-scroll-box'; 
-import { Avatar } from 'react-native-paper';
 import NavBar from './NavBar';
-import Profile from './Profile';
 import { PhoneView, BodyContainer, StyledCard} from '../styles/GeneralStyles';
-import { 
-  TileHeading, RecommendationContainer, RecCard, RecCardText, MeetingCard,
-  FriendTile
-} from '../styles/HomeStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useParams } from "react-router";
-import Modal from 'modal-enhanced-react-native-web';
 import { useIsFocused } from "@react-navigation/native";
+import {globalDebug} from './consoleBlocking';
+globalDebug(false,true);
 
   
 const getData = async (key) => {
@@ -35,6 +28,16 @@ const storeData = async (key, value) => {
       // saving error
     }
 }
+<>
+    <link rel="preconnect" href="https://dds.ait.ac.th" />
+    <link rel="preconnect" href="https://www.un.org" />
+    <link rel="preconnect" href="https://mysustainability-api-123.herokuapp.com" />
+    <link rel="preconnect" href="https://cdn2.iconfinder.com" />
+    <link rel="preconnect" href="https://upload.wikimedia.org" />
+    <link rel="preconnect" href="https://i.imgur.com" />
+</>
+
+
 
 const styles = StyleSheet.create({
     p: {

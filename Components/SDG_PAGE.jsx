@@ -1,13 +1,11 @@
 import React, {useEffect} from "react";
 import { StyleSheet, TouchableOpacity, View, Text, Image, ScrollView, useWindowDimensions, Button} from 'react-native';
-import {ScrollBox, ScrollAxes, FastTrack} from 'react-scroll-box'; 
-import { Avatar } from 'react-native-paper';
 import NavBar from './NavBar';
-import Profile from './Profile';
 import { PhoneView, BodyContainer, StyledCard} from '../styles/GeneralStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from '@react-native-picker/picker';
-import RNPickerSelect from 'react-native-picker-select';
+import {globalDebug} from './consoleBlocking';
+globalDebug(false,true);
 
   
 const getData = async (key) => {

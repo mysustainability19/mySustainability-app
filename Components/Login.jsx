@@ -6,6 +6,8 @@ import { JSHash, CONSTANTS } from "react-native-hash";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Modal from 'modal-enhanced-react-native-web';
 import { useIsFocused } from "@react-navigation/native";
+import {globalDebug} from './consoleBlocking';
+globalDebug(false,true);
 
 const classes = StyleSheet.create({
 

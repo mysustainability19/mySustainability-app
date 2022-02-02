@@ -7,6 +7,8 @@ import { PhoneView, BodyContainer, StyledCard} from '../styles/GeneralStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
 import ScrollBox from "react-responsive-scrollbox";
+import {globalDebug} from './consoleBlocking';
+globalDebug(false,true);
 
 const getData = async (key) => {
     try {

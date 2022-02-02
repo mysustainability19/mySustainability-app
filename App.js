@@ -7,7 +7,6 @@ import Profile from './Components/Profile';
 import Learn from './Components/Learn';
 import Add from './Components/Add';
 import challengePage from './Components/challengePage';
-import Redeem from './Components/Redeem'
 import reportProgress from './Components/reportProgress';
 import TransitionScreen from './Components/TransitionScreen';
 import Leaderboard from './Components/Leaderboard';
@@ -53,7 +52,6 @@ export default function App() {
             <Stack.Screen name="challengePage" component={challengePage} />
             <Stack.Screen name="reportProgress" component={reportProgress} />
             <Stack.Screen name="Leaderboard" component={Leaderboard} />
-            <Stack.Screen name="Redeem" component={Redeem} />
             <Stack.Screen name="Learn" component={Learn} />
             <Stack.Screen name="SDG_PAGE" component={SDG_PAGE} />
           </Stack.Navigator>

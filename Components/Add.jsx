@@ -14,6 +14,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useParams } from "react-router";
 import Modal from 'modal-enhanced-react-native-web';
 import {Picker} from '@react-native-picker/picker';
+import {globalDebug} from './consoleBlocking';
+globalDebug(false,true);
 
   
 const getData = async (key) => {

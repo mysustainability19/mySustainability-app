@@ -1,14 +1,11 @@
 import React, { useEffect } from "react";
 import { StyleSheet, TouchableOpacity, View, Text, Image, ScrollView, useWindowDimensions} from 'react-native';
-import { Avatar } from 'react-native-paper';
 import NavBar from './NavBar';
 import { PhoneView, BodyContainer, StyledCard} from '../styles/GeneralStyles';
-import { 
-  TileHeading, RecommendationContainer, RecCard, RecCardText, MeetingCard,
-  FriendTile
-} from '../styles/HomeStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
+import {globalDebug} from './consoleBlocking';
+globalDebug(false,true);
   
 async function getData(key) {
     return await AsyncStorage.getItem(key)

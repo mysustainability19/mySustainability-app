@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         height:38, width: 33
     },
     innerBar: {
-        display:"flex", flexDirection:"row", width: '100%', marginTop:'3%', marginBottom:20,justifyContent:"space-evenly", alignItems:"center",
+        display:"flex", flexDirection:"row", width: '100%', marginTop:'3%',justifyContent:"space-evenly", alignItems:"center", marginBottom:'8px'
     }
 })
 

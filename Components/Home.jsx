@@ -343,7 +343,7 @@ export default function Home ({route, navigation}){
                                                 <div style={{display:'flex', flexDirection:'row', marginBottom:'5%', marginTop:'5%'}}>
 
                                                     <Image source={{uri: eachEntry[0]['sdg'][0]['image_url']}} style={[{width:'100px', height:'100px', marginRight:'5%'}]}/>
-                                                    <p style={{fontSize:'120%', width:'60%'}}> SDG {eachEntry[0]['sdg'][0]['sdg']} - {sdg_names[parseInt(eachEntry[0]['sdg'][0]['sdg']) - 1]}: {sdg_descriptions[parseInt(eachEntry[0]['sdg'][0]['sdg']) - 1]}</p>
+                                                    <Text style={{fontSize:21, width:'60%', fontWeight:'bold'}}> SDG {eachEntry[0]['sdg'][0]['sdg']} - {sdg_names[parseInt(eachEntry[0]['sdg'][0]['sdg']) - 1]}: {sdg_descriptions[parseInt(eachEntry[0]['sdg'][0]['sdg']) - 1]}</Text>
 
                                                 </div>
                                                 

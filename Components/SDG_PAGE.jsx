@@ -203,7 +203,7 @@ export default function sdgPage ({route, navigation}){
 
         {
             'heading': 'SDG 6 - Clean Water and Sanitation', 
-            'link': '',
+            'link': 'https://www.youtube.com/embed/HszSrdjQ0Oo',
             'targets': [
 
                 ['https://cdt-static-content.s3-ap-southeast-2.amazonaws.com/SDG+Toolkit/6.1.svg', 'TARGET 6.1 SAFE AND AFFORDABLE DRINKING WATER', 'By 2030, achieve universal and equitable access to safe and affordable drinking water for all.'],
@@ -613,9 +613,7 @@ export default function sdgPage ({route, navigation}){
 
                                 {sdg_data[sdg_index-1]['link'].length > 0 ? 
                                     <div>
-
                                         <iframe width={isMobile_v2 ? "350" : "600"} height={isMobile_v2 ? "250" : "300"} src={sdg_data[sdg_index-1]['link']}></iframe>
-
                                     </div>
                                     : ''
                                 }

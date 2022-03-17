@@ -157,7 +157,7 @@ export default function Learn ({route, navigation}){
 
                             <ScrollView contentContainerStyle = {{display:"flex", flexDirection:'column', height:'120vh', marginLeft: isMobile ? '2%' : '0%', marginTop: isMobile ? '40px' : '0'}}>
 
-                                <Text style={{fontSize:25,fontWeight:'bold'}}>Learn about the Sustainability Development Goals (SDGs): </Text>
+                                <Text style={{fontSize:23,fontWeight:'bold'}}>Learn about the Sustainability Development Goals (SDGs): </Text>
                                 <p/>
 
                                 {

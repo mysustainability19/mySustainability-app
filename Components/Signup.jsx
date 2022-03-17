@@ -3,6 +3,11 @@ import { StyleSheet, Image, View, Text, TouchableOpacity, useWindowDimensions, B
 import Email from './Email';
 import Password from './Password';
 import FullName from "./FullName";
+import Age from "./Age";
+import School from "./School";
+import Gender from "./Gender";
+import Faculty from "./Faculty";
+import ZID from "./ZID";
 import { JSHash, CONSTANTS } from "react-native-hash";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Modal from 'modal-enhanced-react-native-web';
@@ -70,6 +75,11 @@ export default function Signup ({ navigation }){
   const [password, setPassword] = React.useState("");
   const [fullName, setfullName] = React.useState("");
   const [isVisible, setIsVisible] = React.useState({ message: "", visibility: false });
+  const [age, setAge] = React.useState("");
+  const [faculty, setFaculty] = React.useState("");
+  const [school, setSchool] = React.useState("");
+  const [zid, setZID] = React.useState("");
+
 
   const isFocused = useIsFocused();
   useEffect(() => {
@@ -103,7 +113,7 @@ export default function Signup ({ navigation }){
         .then(encryptedEmail => {
           JSHash(password, CONSTANTS.HashAlgorithms.sha256)
           .then(encryptedPassword => {
-              fetch(`https://mysustainability-api-123.herokuapp.com/sign_up/?name=${fullName}&email=${encryptedEmail}&password=${encryptedPassword}`, {method: 'POST'})
+              fetch(`https://mysustainability-api-123.herokuapp.com/sign_up/?name=${fullName}&email=${encryptedEmail}&password=${encryptedPassword}&school=${school}&faculty=${faculty}&zid=${zid}&age=${age}`, {method: 'POST'})
                 .then(resp => resp.json())
                 .then(response => {
                   //console.log(response)
@@ -148,6 +158,12 @@ export default function Signup ({ navigation }){
           <FullName  onChangeText={(fullName) => setfullName(fullName)}/>
           <Email  onChangeText={(email) => setEmail(email)}/>
           <Password  onChangeText={(password) => setPassword(password)}/>
+          <Gender  onChangeText={(gender) => setGender(gender)}/>
+          <Age  onChangeText={(age) => setAge(age)}/>
+          <Faculty  onChangeText={(faculty) => setFaculty(faculty)}/>
+          <School  onChangeText={(school) => setSchool(school)}/>
+          <ZID onChangeText={(zid) => setZID(zid)}/>
+
           <View>
             <TouchableOpacity
                 type="submit"

@@ -181,31 +181,31 @@ export default function Add ({route, navigation}){
 
                             <ScrollView contentContainerStyle = {styles.loginForm}>
                                 <Text style={{fontSize:23, marginBottom:'30px', fontWeight:'bold'}}>Add a new challenge to mySustainability: </Text>
-                                <Text> Challenge title (required)
+                                <Text style={{fontSize:19}}> Challenge title (required)
                                     
                                     {"\n\n"}
                                     <ChallengeField onChangeText={(title) => setTitle(title)}/>
                                 </Text>
                                 <p/>
-                                <Text> Challenge description (required)
+                                <Text style={{fontSize:19}}> Challenge description (required)
                                     
                                     {"\n\n"}
                                     <ChallengeField onChangeText={(description) => setDescription(description)}/>
                                 </Text>
                                 <p/>
-                                <Text> Challenge sponsor
+                                <Text style={{fontSize:19}}> Challenge sponsor
                                     
                                     {"\n\n"}
                                     <ChallengeField onChangeText={(sponsor) => setSponsor(sponsor)}/>
                                 </Text>
                                 <p/>
-                                <Text> Sponsor logo (URL only)
+                                <Text style={{fontSize:19}}> Sponsor logo (URL only)
                                     
                                     {"\n\n"}
                                     <ChallengeField onChangeText={(sponsorLogo) => setSponsorLogo(sponsorLogo)}/>
                                 </Text>
                                 <p/>
-                                <Text> Points challenge is worth (required): 
+                                <Text style={{fontSize:19}}>Points challenge is worth (required): 
                                     {"\n\n"}
                                     <Picker
                                         selectedValue={selected1stSDG}
@@ -219,7 +219,7 @@ export default function Add ({route, navigation}){
                                     </Picker>
                                 </Text>
                                 <p/>
-                                <Text> SDG (that the challenge is related to) (required): 
+                                <Text style={{fontSize:19}}> SDG (that the challenge is related to) (required): 
                                     {"\n\n"}
                                     <Picker
                                         selectedValue={selected1stSDG}
@@ -249,13 +249,13 @@ export default function Add ({route, navigation}){
                                 <p/>
                                 
                                 <p/>
-                                <Text> Accompanying SDG-related text (required)
+                                <Text style={{fontSize:19}}> Accompanying SDG-related text (required)
                                     {"\n\n"}
                                     <ChallengeField onChangeText={(sdgText) => setSDGtext(sdgText)}/>
                                 </Text>
                                 <p/>
 
-                                <Text> Stage 1 (to complete the challenge)
+                                <Text style={{fontSize:19}}> Stage 1 (to complete the challenge)
                                     {"\n"}
                                 </Text>
                                 <p/>
@@ -278,7 +278,7 @@ export default function Add ({route, navigation}){
                                 </div>
                                 <p/>
 
-                                <Text> Stage 2 (to complete the challenge)
+                                <Text style={{fontSize:19}}> Stage 2 (to complete the challenge)
                                     {"\n"}
                                 </Text>
                                 <p/>
@@ -301,7 +301,7 @@ export default function Add ({route, navigation}){
                                 </div>
 
                                 <p/>
-                                <Text> Stage 3 (to complete the challenge)
+                                <Text style={{fontSize:19}}> Stage 3 (to complete the challenge)
                                     {"\n"}
                                 </Text>
                                 <p/>
@@ -326,7 +326,7 @@ export default function Add ({route, navigation}){
 
                                 
                                 <p/>
-                                <Text> Stage 4 (to complete the challenge)
+                                <Text style={{fontSize:19}}> Stage 4 (to complete the challenge)
                                     {"\n"}
                                 </Text>
                                 <p/>

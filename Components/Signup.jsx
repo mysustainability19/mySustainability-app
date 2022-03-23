@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Image, View, Text, TouchableOpacity, useWindowDimensions, Button } from 'react-native';
+import { StyleSheet, Image, View, Text, TouchableOpacity, useWindowDimensions, Button, ScrollView } from 'react-native';
 import Email from './Email';
 import Password from './Password';
 import FullName from "./FullName";
@@ -12,8 +12,8 @@ import { JSHash, CONSTANTS } from "react-native-hash";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Modal from 'modal-enhanced-react-native-web';
 import { useIsFocused } from "@react-navigation/native";
-import {globalDebug} from './consoleBlocking';
-globalDebug(false,true);
+//import {globalDebug} from './consoleBlocking';
+//globalDebug(false,true);
 
 const getData = async (key) => {
   try {
@@ -28,6 +28,8 @@ const getData = async (key) => {
   }
 }
 
+console.log(window.location.href)
+console.log('tetsing')
 
 const classes = StyleSheet.create({
 
@@ -39,14 +41,14 @@ const classes = StyleSheet.create({
   },
 
   SignUpButton: { 
-    display:"flex", justifyContent:'center',alignSelf:'center',width:'95%', padding:20, borderRadius:10, backgroundColor:"#7D83FF", marginBottom:10,
+    display:"flex", justifyContent:'center',alignSelf:'center',width:'85%', padding:15, borderRadius:10, backgroundColor:'rgb(255, 220, 0)', marginBottom:10,
     marginTop:10
   },
   redirect: {
     color: '#7d83ff', padding:0, paddingLeft:5, marginBottom:2.5, fontWeight:'bold', fontSize:18
   },
   heading: {
-    fontWeight:'bold', fontSize:23, color: '#7D83FF', textAlign:'center', marginBottom: 15
+    fontWeight:'bold', fontSize:23, color: 'black', textAlign:'center', marginBottom: 15
   },
   buttonText: {
     color:"white", textAlign:"center", fontSize:18, fontWeight:'bold'
@@ -70,7 +72,7 @@ export default function Signup ({ navigation }){
 
 
   const windowHeight = useWindowDimensions().height;
-  const isMobile = windowHeight <= 850 ? true : false;
+  const isMobile = windowHeight <= 750 ? true : false;
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [fullName, setfullName] = React.useState("");
@@ -79,6 +81,7 @@ export default function Signup ({ navigation }){
   const [faculty, setFaculty] = React.useState("");
   const [school, setSchool] = React.useState("");
   const [zid, setZID] = React.useState("");
+  const [gender, setGender] = React.useState("");
 
 
   const isFocused = useIsFocused();
@@ -97,7 +100,7 @@ export default function Signup ({ navigation }){
       .then(response => {
         //console.log(JSON.stringify(response).includes("logged_in"))
         if (JSON.stringify(response).includes("logged_in")){
-          navigation.navigate('Home', { replace: true })
+          navigation.navigate('Profile', { replace: true })
         }
       })
   })
@@ -113,7 +116,7 @@ export default function Signup ({ navigation }){
         .then(encryptedEmail => {
           JSHash(password, CONSTANTS.HashAlgorithms.sha256)
           .then(encryptedPassword => {
-              fetch(`https://mysustainability-api-123.herokuapp.com/sign_up/?name=${fullName}&email=${encryptedEmail}&password=${encryptedPassword}&school=${school}&faculty=${faculty}&zid=${zid}&age=${age}`, {method: 'POST'})
+              fetch(`https://mysustainability-api-123.herokuapp.com/sign_up/?name=${fullName}&email=${encryptedEmail}&password=${encryptedPassword}&school=${school}&faculty=${faculty}&zid=${zid}&age=${age}&gender=${gender}`, {method: 'POST'})
                 .then(resp => resp.json())
                 .then(response => {
                   //console.log(response)
@@ -132,7 +135,7 @@ export default function Signup ({ navigation }){
                     storeData ('token', response['token']);
                     storeData ('user_id', response['user_id']);
                     storeData('reports', '0');
-                    navigation.navigate('Home', { replace: true, newUser: true })
+                    navigation.navigate('Profile', { replace: true, newUser: true })
                   }
                 })
             })
@@ -140,8 +143,10 @@ export default function Signup ({ navigation }){
         .catch(e => console.log(e));
   }
 
+    const height_variable = isMobile ? '120vh': '100vh';
+
     return(
-      <View style={{display:"flex", justifyContent:'center', alignItems:'center', width:'100%', height:'100%'}}>
+      <ScrollView contentContainerStyle={{display:"flex", justifyContent:'flex-start', alignItems:'center', width:'100%', height: height_variable, marginTop:'5%', flexDirection:'column'}}>
         {/*//old style={[isMobile ? {marginTop:'10%'} : {}, classes.signUpForm]}>*/}
         <Modal
           onRequestClose={() => setIsVisible({ message: "", visibility: false })}
@@ -155,15 +160,15 @@ export default function Signup ({ navigation }){
         </Modal>
         <Text style = {classes.heading}> Create a new account </Text>
         <View>
-          <FullName  onChangeText={(fullName) => setfullName(fullName)}/>
-          <Email  onChangeText={(email) => setEmail(email)}/>
-          <Password  onChangeText={(password) => setPassword(password)}/>
-          <Gender  onChangeText={(gender) => setGender(gender)}/>
-          <Age  onChangeText={(age) => setAge(age)}/>
-          <Faculty  onChangeText={(faculty) => setFaculty(faculty)}/>
-          <School  onChangeText={(school) => setSchool(school)}/>
-          <ZID onChangeText={(zid) => setZID(zid)}/>
-
+          <FullName  onChangeText={(fullName) => setfullName(fullName)} style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}/>
+          <Email  onChangeText={(email) => setEmail(email)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}/>
+          <Password  onChangeText={(password) => setPassword(password)} style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}/>
+          <Gender  onChangeText={(gender) => setGender(gender)} style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}/>
+          <Age  onChangeText={(age) => setAge(age)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}/>
+          <Faculty  onChangeText={(faculty) => setFaculty(faculty)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}/>
+          <School  onChangeText={(school) => setSchool(school)}   style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}/>
+          <ZID onChangeText={(zid) => setZID(zid)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}/>
+      
           <View>
             <TouchableOpacity
                 type="submit"
@@ -181,6 +186,6 @@ export default function Signup ({ navigation }){
         >
           <Text style={classes.redirect}> Log-in</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     );
   };

@@ -6,8 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from '@react-native-picker/picker';
 import Modal from 'modal-enhanced-react-native-web';
 import { useIsFocused } from "@react-navigation/native";
-import {globalDebug} from './consoleBlocking';
-globalDebug(false,true);
+//import {globalDebug} from './consoleBlocking';
+//globalDebug(false,true);
 
 const getData = async (key) => {
     try {
@@ -33,13 +33,13 @@ const storeData = (key, value) => {
 
 const styles = StyleSheet.create({
     flexContainer: {
-        display:"flex", flexDirection:"column", justifyContent:"flex-start", alignItems:'center', height:'100%', width:"100%"
+        display:"flex", flexDirection:"column", justifyContent:"center", alignItems:'center', height:'100%', width:"100%"
     },
     individualTile: {
         flex:0, width:'100%', borderRadius:10, padding:10, marginBottom:'5%'
     },
     meetingsColumn: {
-        flexDirection:"column", justifyContent:"space-evenly", alignItems:"center", marginTop:'5%', marginBottom:'5%'
+        flexDirection:"column", justifyContent:"center", alignItems:"center", marginTop:'5%', marginBottom:'5%'
     },
     avatar:{
         margin:5
@@ -185,18 +185,8 @@ export default function reportProgress ({route, navigation}){
     return (
         <PhoneView>
             <BodyContainer>
-                    <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", flex:1}}>
-                        <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold'}]}> mySustainability </Text>
-                        <TouchableOpacity
-                            //style={{paddingTop:'3%'}}
-                            accessible={true}
-                            accessibilityLabel="button to personal profile"
-                            onPress={() =>  navigation.navigate('Profile', { replace: true })}>
-                            <Image
-                                style={{height:65, width:65}}
-                                source={require('../icons/myprofile.png')}
-                            />  
-                        </TouchableOpacity>
+                    <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", marginBottom:'5vh'}}>
+                        <Text style={[{fontSize:20, color:'black', fontWeight:'bold'}]}> mySustainability </Text>
                     </View>
                     <View style={[styles.flexContainer, {flex:4, margin:'auto',  marginTop:'0', }]}>
                         <View style={[styles.meetingsColumn, isMobile ? {marginBottom:'20%'} : '' ]}>
@@ -207,12 +197,12 @@ export default function reportProgress ({route, navigation}){
                             >
                                 <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
                                     <Text style={{fontSize:20, margin:'5%', textAlign:'center'}}> You cannot report challenge progress more than 2 times a day! </Text>
-                                    <TouchableOpacity onPress={() =>  navigation.navigate('challengePage', { replace: true, challengeID: challengeID })} style={{backgroundColor:"#7D83FF", padding:'20px', borderRadius: '10px'}}>
+                                    <TouchableOpacity onPress={() =>  navigation.navigate('challengePage', { replace: true, challengeID: challengeID })} style={{backgroundColor:'#ffdc00', padding:'20px', borderRadius: '10px'}}>
                                         <Text style={{fontSize:20}}> Dismiss </Text>
                                     </TouchableOpacity>
                                 </View>
                             </Modal>
-                            <StyledCard style={{marginTop:'0 !important', width:'80vw', maxWidth:'700px'}}>
+                            <StyledCard style={{marginTop:'0 !important', width:'80vw', maxWidth:'700px', flex: 1}}>
                                 <p/>
                                 <Text style={{fontSize:20}}>Report your challenge progress</Text>
                                 <p/>
@@ -251,7 +241,7 @@ export default function reportProgress ({route, navigation}){
                                 </Picker>
                                 <p/>
                                 <TouchableOpacity
-                                    style={{padding:'3%',backgroundColor:'#7d83ff', border:'2px solid', width:'50%', height:'fit-content', borderRadius:'10px'}}
+                                    style={{padding:isMobile ? '4%' : '2%',backgroundColor:'#ffdc00', border:'2px solid', width:'40%', height:'fit-content', borderRadius:'10px', maxWidth: '140px'}}
                                     accessible={true}
                                     disabled={selectedValue === 'Select an item' ? true : false}
                                     accessibilityLabel="button to submit progress"

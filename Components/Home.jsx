@@ -13,8 +13,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useParams } from "react-router";
 import Modal from 'modal-enhanced-react-native-web';
 import { useIsFocused } from "@react-navigation/native";
-import {globalDebug} from './consoleBlocking';
-globalDebug(false,true);
+//import {globalDebug} from './consoleBlocking';
+//globalDebug(false,true);
 
   
 const getData = async (key) => {
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         whiteSpace: 'normal',
     },
     flexContainer: {
-        display:"flex", flexDirection:"column", justifyContent:"flex-start", alignItems:'center', height:"100vh", width:"100vw"
+        display:"flex", flexDirection:"column", justifyContent:"flex-start", alignItems:'center', height:"140vh", width:"100vw"
     },
     individualTile: {
         flex:0, width:'100%', borderRadius:10, padding:10, marginBottom:'5%'
@@ -263,9 +263,11 @@ export default function Home ({route, navigation}){
     return (
         <PhoneView>
             <BodyContainer>
-                    <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
-                        <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold'}]}> mySustainability </Text>
-                        <TouchableOpacity
+                    <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", marginBottom:'5vh'}}>
+                        <View style={{marginBottom: isMobile ? 0 : '5%'}}>
+                            <Text style={[{fontSize:20, color:'black', fontWeight:'bold'}]}> mySustainability </Text>
+                        </View>
+                        {/*<TouchableOpacity
                             //style={{paddingTop:'3%'}}
                             accessible={true}
                             accessibilityLabel="button to personal profile"
@@ -274,7 +276,7 @@ export default function Home ({route, navigation}){
                                 style={[{height:65, width:65}]}
                                 source={require('../public/icons/myprofile.png')}
                             />  
-                        </TouchableOpacity>
+                        </TouchableOpacity>*/}
                     </View>
                     <View style={[styles.flexContainer, {flex:4, marginLeft:'2%', marginRight:'2%',  marginTop:'0'}, isMobile ? {marginLeft:'6% !important', marginRight:'6% !important'} : '']}>
                         <View style={[styles.meetingsColumn, isMobile ? {marginBottom:'20%'} : '' ]}>
@@ -296,7 +298,7 @@ export default function Home ({route, navigation}){
                                     setIsVisible(false);                        
                                 }} 
                                     
-                                    title={'Dismiss'} color="#7D83FF"
+                                    title={'Dismiss'} color='rgb(255, 220, 0)'
                                 />
                                 </View>
                             </Modal>

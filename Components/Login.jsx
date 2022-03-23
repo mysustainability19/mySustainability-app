@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Button } from "react-native";
+import { StyleSheet,  View, TouchableOpacity, Button, Text} from "react-native";
 import Email from './Email';
 import Password from './Password';
 import { JSHash, CONSTANTS } from "react-native-hash";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Modal from 'modal-enhanced-react-native-web';
 import { useIsFocused } from "@react-navigation/native";
-import {globalDebug} from './consoleBlocking';
-globalDebug(false,true);
+import MyAppText from './MyAppText';
+//import {globalDebug} from './consoleBlocking';
+//globalDebug(false,true);
 
 const classes = StyleSheet.create({
 
@@ -18,23 +19,23 @@ const classes = StyleSheet.create({
     justifyContent:"space-evenly"
   },
   heading: {
-    fontWeight:'bold', fontSize:23, color: '#7D83FF', textAlign:'center', marginBottom: 15
+    fontWeight:'bold', fontSize:23, color: 'black', textAlign:'center', marginBottom: 15
   },
   forgotPassword: {
     fontWeight:'bold', marginTop:20,textAlign:'center', fontSize:18
   },
   LoginButton: {
-    display:"flex", justifyContent:'center',alignSelf:'center',width:'40%', padding:20, borderRadius:10, backgroundColor:"#7D83FF"
+    display:"flex", justifyContent:'center',alignSelf:'center',width:'40%', padding:20, borderRadius:10, backgroundColor:"#ffdc00"
   },
   buttonText: {
-    color:"white", textAlign:"center", fontSize:18, fontWeight:'bold'
+    color:"black", textAlign:"center", fontSize:18, fontWeight:'normal'
   },
   redirect:{
-    marginTop:5,color:"#7D83FF", textAlign:"center", fontSize:18, fontWeight:'bold'
+    marginTop:5,color:"black", textAlign:"center", fontSize:18, fontWeight:'bold'
   },
   question: {
     color:'black',marginTop:24,textAlign:'center', fontSize:18  
-  }
+  },
 
 });
 
@@ -62,7 +63,6 @@ const storeData = async (key, value) => {
 
 export default function Login ({ navigation }){
 
-
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isVisible, setIsVisible] = React.useState(false);
@@ -73,7 +73,6 @@ export default function Login ({ navigation }){
     return await AsyncStorage.getItem('token')
   }
 
-
   const isFocused = useIsFocused();
   useEffect(() => {
     setEmail('')
@@ -83,34 +82,18 @@ export default function Login ({ navigation }){
 
   getData('token')
   .then(token_value => {
-
-      //console.log(token_value)
-
       fetch(`https://mysustainability-api-123.herokuapp.com/auth_test/`, {method: 'GET', headers: {'Authorization': `Bearer ${String(token_value)}`}})
       .then(resp => resp.json())
       .then(response => {
         //console.log(response['msg'])
         if (response['msg'] === 'Token has expired' ){
-          navigation.navigate('Home', { replace: true })
+          navigation.navigate('Profile', { replace: true })
         }
         if (JSON.stringify(response).includes("logged_in")){
-          navigation.navigate('Home', { replace: true })
+          navigation.navigate('Profile', { replace: true })
         }
       })
   })
-
-
-
-
-
-  /*
-  useEffect(() => {
-    let isMounted = true; 
-    if (isMounted && Signup === true) navigation.navigate('Signup', { replace: true })
-    return () => { isMounted = false };
-  }, [])
-  */
-  
 
   function handleLogin(){
     //e.preventDefault();
@@ -135,7 +118,7 @@ export default function Login ({ navigation }){
                   if (email === 'admin') {
                     storeData ('admin', 'true') 
                   }
-                  navigation.navigate('Home', { replace: true })
+                  navigation.navigate('Profile', { replace: true })
                 }
               })
           })
@@ -145,7 +128,7 @@ export default function Login ({ navigation }){
 
   return(
     <View style={{display:"flex", justifyContent:'center', alignItems:'center', width:'100%', height:'100%'}}>
-      <Text style = {classes.heading}> Log-in </Text>
+      <MyAppText style={classes.heading}> Log-in </MyAppText>
       <Modal
         onRequestClose={() => setIsVisible(false)}
         visible={isVisible}
@@ -153,14 +136,14 @@ export default function Login ({ navigation }){
       >
         <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
           <Text style={{fontSize:23, marginBottom:'2%'}}> Incorrect username or password </Text>
-          <Button onPress={() => setIsVisible(false)} title={'Dismiss'} color="#7D83FF"/>
+          <Button onPress={() => setIsVisible(false)} title={'Dismiss'} color="black"/>
         </View>
       </Modal>
       <View className={classes.loginForm}>
-        <Email onChangeText={(email) => setEmail(email)}/>
-        <Password onChangeText={(password) => setPassword(password)}/>
+        <Email style={{width: 310, marginBottom:10, backgroundColor:"white", borderRadius:10, padding:20}} onChangeText={(email) => setEmail(email)} />
+        <Password onChangeText={(password) => setPassword(password)} style={{width: 310, marginBottom:10, backgroundColor:"white", borderRadius:10, padding:20}}/>
 
-        <Text style={classes.forgotPassword}> Forgot password? </Text>
+        {/*<Text style={classes.forgotPassword}> Forgot password? </Text>*/}
         <View style={{marginTop:20}}>
           <TouchableOpacity
             type="submit"

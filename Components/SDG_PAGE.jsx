@@ -4,8 +4,8 @@ import NavBar from './NavBar';
 import { PhoneView, BodyContainer, StyledCard} from '../styles/GeneralStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from '@react-native-picker/picker';
-import {globalDebug} from './consoleBlocking';
-globalDebug(false,true);
+//import {globalDebug} from './consoleBlocking';
+//globalDebug(false,true);
 
   
 const getData = async (key) => {
@@ -28,6 +28,8 @@ const storeData = async (key, value) => {
       // saving error
     }
 }
+
+
 
 const styles = StyleSheet.create({
     p: {
@@ -67,6 +69,7 @@ export default function sdgPage ({route, navigation}){
     const [completed, set_completed] = React.useState(false);
     const [selectedAnswers, set_selectedAnswers] = React.useState([]);
     const { sdg_index, modules_completed } = route.params;
+    const isMobile = windowHeight <= 700 ? true : false;
 
 
     const sdg_names = ['No Poverty', 'Zero Hunger', 'Good Health and Well-Being', 'Quality Education', 
@@ -592,17 +595,7 @@ export default function sdgPage ({route, navigation}){
         <PhoneView>
             <BodyContainer>
                     <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", flex:1}}>
-                        <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold'}]}> mySustainability </Text>
-                        <TouchableOpacity
-                            //style={{paddingTop:'3%'}}
-                            accessible={true}
-                            accessibilityLabel="button to personal profile"
-                            onPress={() =>  navigation.navigate('Profile', { replace: true })}>
-                            <Image
-                                style={[{height:65, width:65}]}
-                                source={require('../public/icons/myprofile.png')}
-                            />  
-                        </TouchableOpacity>
+                        <Text style={[{fontSize:20, color:'black', fontWeight:'bold'}]}> mySustainability </Text>
                     </View>
                     <View style={[styles.flexContainer, {flex:4, margin:'2px', marginRight:'5%', paddingRight: '15px !important'}]}>
                         <View style={[styles.meetingsColumn]}>                     
@@ -669,7 +662,7 @@ export default function sdgPage ({route, navigation}){
                                         
 
                                         <TouchableOpacity
-                                            style={{display:'flex', justifyContent:'center', alignItems: 'center', padding:'3%',backgroundColor: completed ? '#7d83ff' : 'grey', border:'2px solid', width:'50%', height:'100%', maxHeight: '30px', borderRadius:'10px', maxWidth: '200px', fontSize:20}}
+                                            style={{display:'flex', justifyContent:'center', alignItems: 'center', padding: isMobile ? '4%' : '2%',backgroundColor: completed ? '#ffdc00' : 'grey', border:'2px solid', width:'40%', height:'100%', maxHeight: '30px', borderRadius:'10px', maxWidth: '120px', fontSize:20}}
                                             accessible={true}
                                             disabled={completed ? false : true}
                                             accessibilityLabel="button to submit questions"

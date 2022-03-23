@@ -39,10 +39,10 @@ const styles = StyleSheet.create({
         display:"flex", justifyContent:'center',alignSelf:'center',width:'40%', padding:10, borderRadius:10, backgroundColor:"#3E3E3E"
     },
     buttonText: {
-        color:"white", textAlign:"center", fontSize:18, fontWeight:'bold'
+        color:"black", textAlign:"center", fontSize:18, fontWeight:'600'
     },
     LogOutButton: { 
-        display:"flex", justifyContent:'center',alignSelf:'center',width:'50%', maxWidth: '250px', padding:20, borderRadius:10, backgroundColor:"#7D83FF", marginBottom:10,
+        display:"flex", justifyContent:'center',alignSelf:'center',width:'50%', maxWidth: '250px', padding:20, borderRadius:10, backgroundColor:"#FFDC00", marginBottom:10,
         marginTop:10
     },
     test: {
@@ -166,7 +166,7 @@ export default function Profile ({navigation}){
     return (
         <PhoneView nativeID="1">
             <BodyContainer nativeID="2">
-                <View style={{flex:1 , marginBottom: isMobile === true ? '15vh': '0vh'}} nativeID="3">
+                <View style={{flex:1,  marginBottom: isMobile === true ? '15vh': '0vh'}} nativeID="3">
                     <ScrollView contentContainerStyle={{display:"flex", flexDirection:'column', height:'150vh'}} nativeID="4">
                         <StyledCard nativeID="5" style={{marginTop:'0'}}>
                             <Text style={{fontSize:23, fontWeight:"bold"}}>Welcome, {info['name']} </Text>
@@ -182,7 +182,7 @@ export default function Profile ({navigation}){
                             </View>
                             <p/>
                             <Text style={{fontSize:18, fontWeight:"bold"}}>Badges: </Text>
-                            <View style={{flexDirection: isMobile === true ? 'column': 'row', justifyContent:'space-evenly', marginBottom:'3%'}}>
+                            <View style={{flexDirection: isMobile === true ? 'column': 'row', justifyContent:'space-evenly', marginBottom:'1%'}}>
                                 {   
                                     info['badges'].map((badge, i) => {
                                         return (
@@ -218,7 +218,7 @@ export default function Profile ({navigation}){
                     </ScrollView>
                 </View>
             </BodyContainer>
-            <NavBar navigation={navigation} selectedIcon="Home" admin={admin}/>
+            <NavBar navigation={navigation} selectedIcon="Profile" admin={admin}/>
         </PhoneView>
     );
 };

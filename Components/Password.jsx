@@ -1,6 +1,8 @@
 import React from 'react';
 import {TextInput} from 'react-native';
 
+var padding = window.location.href.toString().includes("Signup") ? 13 : 20;
+
 function Password(props) {
   return (
     <TextInput
@@ -10,7 +12,7 @@ function Password(props) {
       placeholderTextColor="black"
       autoComplete="new-password"
       onChangeText={text => props.onChangeText(text)}
-      style = {{ width: 310, padding:20, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}
+      style={props.style}
     />
   );
 }

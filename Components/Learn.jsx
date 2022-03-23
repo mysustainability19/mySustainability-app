@@ -4,8 +4,8 @@ import NavBar from './NavBar';
 import { PhoneView, BodyContainer, StyledCard} from '../styles/GeneralStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
-import {globalDebug} from './consoleBlocking';
-globalDebug(false,true);
+//import {globalDebug} from './consoleBlocking';
+//globalDebug(false,true);
 
   
 const getData = async (key) => {
@@ -139,9 +139,9 @@ export default function Learn ({route, navigation}){
     return (
         <PhoneView>
             <BodyContainer>
-                    <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
-                        <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold'}]}> mySustainability </Text>
-                        <TouchableOpacity
+                    <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", marginBottom:'5vh'}}>
+                        <Text style={[{fontSize:20, color:'black', fontWeight:'bold'}]}> mySustainability </Text>
+                        {/*<TouchableOpacity
                             //style={{paddingTop:'3%'}}
                             accessible={true}
                             accessibilityLabel="button to personal profile"
@@ -150,7 +150,7 @@ export default function Learn ({route, navigation}){
                                 style={[{height:65, width:65}]}
                                 source={require('../public/icons/myprofile.png')}
                             />  
-                        </TouchableOpacity>
+                        </TouchableOpacity>*/}
                     </View>
                     <View style={[styles.flexContainer, {flex:4, margin:'auto',  marginLeft:'2%', marginRight:'2%'}]}>
                         <View style={[styles.meetingsColumn]}>                     

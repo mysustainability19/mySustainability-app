@@ -7,8 +7,8 @@ import { PhoneView, BodyContainer, StyledCard} from '../styles/GeneralStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
 import ScrollBox from "react-responsive-scrollbox";
-import {globalDebug} from './consoleBlocking';
-globalDebug(false,true);
+//import {globalDebug} from './consoleBlocking';
+//globalDebug(false,true);
 
 const getData = async (key) => {
     try {
@@ -27,13 +27,13 @@ const getData = async (key) => {
 
 const styles = StyleSheet.create({
     flexContainer: {
-        display:"flex", flexDirection:"column", justifyContent:"flex-start", alignItems:'center', height:'100%', width:"100%"
+        display:"flex", flexDirection:"column", justifyContent:"flex-start", alignItems:'center', height:'140vh', width:"100%"
     },
     individualTile: {
         flex:0, width:'100%', borderRadius:10, padding:10, marginBottom:'5%'
     },
     meetingsColumn: {
-        flexDirection:"column", justifyContent:"space-evenly", alignItems:"center", marginTop:'0%', marginBottom:'5%', width: '100%'
+        flexDirection:"column", justifyContent:"space-evenly", alignItems:"center", marginTop:'0%', marginBottom:'5%', width: '100%', flex:1
     },
     avatar:{
         margin:5
@@ -128,107 +128,97 @@ export default function challengePage ({route, navigation}){
 
     return (
         <PhoneView>
-            <BodyContainer style={{flex:1}}>
-                <ScrollBox style={{height: "100vh", width: "90vw", margin: "auto", marginTop: "1vh", marginBottom:'12vh'}}>
-                        <View style={{flexDirection:"row", justifyContent:"space-between",  flex:1}}>
-                            
-                            <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold', marginTop:'20px'}]}> mySustainability </Text>
-                            <TouchableOpacity
-                                //style={{paddingTop:'3%'}}
-                                accessible={true}
-                                accessibilityLabel="button to personal profile"
-                                onPress={() =>  navigation.navigate('Profile', { replace: true })}>
-                                <Image
-                                    style={{height:65, width:65}}
-                                    source={require('../icons/myprofile.png')}
-                                />  
-                            </TouchableOpacity>
+            <BodyContainer>
+                        <View style={{flexDirection:"row", justifyContent:"space-between",  flex:1}}> 
+                            <Text style={[{fontSize:20, color:'black', fontWeight:'bold', marginTop:'20px'}]}> mySustainability </Text>
                         </View>
                         <View style={[styles.flexContainer, {flex:4, marginTop:'2vh', margin:'auto'}]}>
                             <View style={[styles.meetingsColumn, isMobile ? {marginBottom:'20%'} : '' ]}>
-                                <StyledCard style={{marginTop:'0 !important'}}>
-                                    <Text style={{fontWeight:'bold'}}>Challenge: {challenge['title']} </Text>
-                                    <p/>
-                                    <Text>{challenge['description']}</Text>                                 
-                                    <p/>
-                                    {challenge['sponsor'] && challenge['sponsorLogo'] ?
-                                        <>
-                                            <Text>{'Sponsor: ' + challenge['sponsor']}</Text>    
-                                            <Image resizeMode="contain" source={{uri: challenge['sponsorLogo']}} style={{width:'100px', height:'100px'}}/> 
-                                        </>
-                                        :''
-                                    }
-                                    {/*<p/>*/}
-                                    <View style={{flexDirection:'row'}}>
-                                        {leaders.length > 0 ? <Text>Challenge leaders: </Text> : ''}
-                                        {leaders.length > 0 ?
-                                            leaders.map((eachLeader, index) => {
-
-                                                return index === leaders.length - 1 ? (<Text>{eachLeader['name']}</Text>) : (<Text>{eachLeader['name']}, </Text>)
-
-                                            }): ''
+                                
+                                <ScrollView contentContainerStyle={{height: "120vh", width: "90vw", margin: "auto", marginTop: "1vh", marginBottom:'12vh', marginBottom:'5vh'}}>
+                                    <StyledCard style={{marginTop:'0 !important'}}>
+                                        <Text style={{fontWeight:'bold'}}>Challenge: {challenge['title']} </Text>
+                                        <p/>
+                                        <Text>{challenge['description']}</Text>                                 
+                                        <p/>
+                                        {challenge['sponsor'] && challenge['sponsorLogo'] ?
+                                            <>
+                                                <Text>{'Sponsor: ' + challenge['sponsor']}</Text>    
+                                                <Image resizeMode="contain" source={{uri: challenge['sponsorLogo']}} style={{width:'100px', height:'100px'}}/> 
+                                            </>
+                                            :''
                                         }
-                                    </View>
-                                    <p/>
-                                    <Text style={{fontWeight:'bold'}}>Number of participants: {participation} {participation === 1 ? 'user' : 'users'}</Text>
-                                    <p/>
-                                    <Text style={{fontWeight:'bold'}}>Points this challenge is worth: {challenge['points_worth']}</Text>
-                                    <p/>
+                                        {/*<p/>*/}
+                                        <View style={{flexDirection:'row'}}>
+                                            {leaders.length > 0 ? <Text>Challenge leaders: </Text> : ''}
+                                            {leaders.length > 0 ?
+                                                leaders.map((eachLeader, index) => {
 
-                                    <p/>
+                                                    return index === leaders.length - 1 ? (<Text>{eachLeader['name']}</Text>) : (<Text>{eachLeader['name']}, </Text>)
 
-                                    <Text style={{fontWeight:'bold'}}>Stages of this challenge: </Text>
+                                                }): ''
+                                            }
+                                        </View>
+                                        <p/>
+                                        <Text style={{fontWeight:'bold'}}>Number of participants: {participation} {participation === 1 ? 'user' : 'users'}</Text>
+                                        <p/>
+                                        <Text style={{fontWeight:'bold'}}>Points this challenge is worth: {challenge['points_worth']}</Text>
+                                        <p/>
 
-                                    <p/>
-                                   
-                                    {
-                                        challenge['stages'] !== undefined ? 
+                                        <p/>
 
-                                            challenge['stages'].map((eachStage, index) => {
-                                                return eachStage[0].length > 0 ? (
+                                        <Text style={{fontWeight:'bold'}}>Stages of this challenge: </Text>
 
-                                                    <>
-                                                        <Text> {index+1}:  {eachStage.filter(n=>n).join(' OR ')}</Text> 
-                                                        <p/>
-                                                    </>
+                                        <p/>
+                                    
+                                        {
+                                            challenge['stages'] !== undefined ? 
 
-                                                ) : ''
-                                            })
+                                                challenge['stages'].map((eachStage, index) => {
+                                                    return eachStage[0].length > 0 ? (
 
-                                        : ''
-                                    }
+                                                        <>
+                                                            <Text> {index+1}:  {eachStage.filter(n=>n).join(' OR ')}</Text> 
+                                                            <p/>
+                                                        </>
 
-                                    <p/>
+                                                    ) : ''
+                                                })
 
-                                    <Text style={{fontWeight:'bold'}}>Relatedness to SDGs:</Text>
-                                    <p/>
-                                    {
-                                        challenge.length === undefined ? 
-                                        
-                                        challenge['sdg'].map(element => {
-                                            return (
-                                                <View style={{display:'flex', flexDirection:'row', marginBottom:'5vh'}}> 
-                                                    <Image source={{uri: element['image_url']}} style={{width:'100px', height:'100px', marginRight:'5%'}}/>
-                                                    <Text style={{flex:1}}>{element['target']}</Text>
-                                                </View>
-                                            )
-                                        }) : ''
-                                    }
-                                    <p/>
-                                    <Text style={{fontWeight:'bold'}}>Your progress so far: {completionMessage}</Text>
-                                    <p/>
-                                    <TouchableOpacity
-                                        disabled={progress < 10 ? false : true}
-                                        style={{display: progress < 10  ? '': 'None', padding:'20px', backgroundColor:'#8a90fd', border:'2px solid', width:'100%', height:'fit-content', borderRadius:'10px', maxWidth:'200px'}}
-                                        accessible={true}
-                                        accessibilityLabel="button to report progress"
-                                        onPress={() =>  navigation.navigate('reportProgress', { replace: true, challengeID: challengeID, points_worth: challenge['points_worth'], stages: challenge['stages'] })}>
-                                            <Text style={{fontSize:18, textAlign:'center',}}>Report challenge progress</Text>
-                                    </TouchableOpacity>
-                                </StyledCard>
+                                            : ''
+                                        }
+
+                                        <p/>
+
+                                        <Text style={{fontWeight:'bold'}}>Relatedness to SDGs:</Text>
+                                        <p/>
+                                        {
+                                            challenge.length === undefined ? 
+                                            
+                                            challenge['sdg'].map(element => {
+                                                return (
+                                                    <View style={{display:'flex', flexDirection:'row', marginBottom:'5vh'}}> 
+                                                        <Image source={{uri: element['image_url']}} style={{width:'100px', height:'100px', marginRight:'5%'}}/>
+                                                        <Text style={{flex:1}}>{element['target']}</Text>
+                                                    </View>
+                                                )
+                                            }) : ''
+                                        }
+                                        <p/>
+                                        <Text style={{fontWeight:'bold'}}>Your progress so far: {completionMessage}</Text>
+                                        <p/>
+                                        <TouchableOpacity
+                                            disabled={progress < 10 ? false : true}
+                                            style={{display: progress < 10  ? '': 'None', padding:'20px', backgroundColor:'#ffdc00', border:'2px solid', width:'100%', height:'fit-content', borderRadius:'10px', maxWidth:'200px'}}
+                                            accessible={true}
+                                            accessibilityLabel="button to report progress"
+                                            onPress={() =>  navigation.navigate('reportProgress', { replace: true, challengeID: challengeID, points_worth: challenge['points_worth'], stages: challenge['stages'] })}>
+                                                <Text style={{fontSize:18, textAlign:'center',}}>Report challenge progress</Text>
+                                        </TouchableOpacity>
+                                    </StyledCard>
+                                </ScrollView>
                             </View>
                         </View>
-                    </ScrollBox>
             </BodyContainer>
             <NavBar navigation={navigation} selectedIcon="Home" admin={admin}/>
         </PhoneView>

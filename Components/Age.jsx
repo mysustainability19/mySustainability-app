@@ -1,17 +1,18 @@
 import React from 'react';
 import {TextInput} from 'react-native';
 
+var padding = window.location.href.toString().includes("Signup") ? 13 : 20;
 
 function Age(props) {
   return (
-    <Age
+    <TextInput
       required
       label="Age"
       placeholder="Age"
       placeholderTextColor="black"
       autoComplete=""
       onChangeText={text => props.onChangeText(text)}
-      style = {{ width: 310, padding:20, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}
+      style={props.style}
     />
   );
 }

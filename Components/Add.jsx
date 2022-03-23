@@ -148,9 +148,9 @@ export default function Add ({route, navigation}){
   return (
     <PhoneView>
         <BodyContainer>
-                <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
-                    <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold'}]}> mySustainability </Text>
-                    <TouchableOpacity
+                <View style={{flexDirection:"row", flex: 0.3, justifyContent:"space-between", alignItems:"center", marginBottom:'5vh'}}>
+                    <Text style={[{fontSize:20, color:'black', fontWeight:'bold'}]}> mySustainability </Text>
+                    {/*<TouchableOpacity
                         //style={{paddingTop:'3%'}}
                         accessible={true}
                         accessibilityLabel="button to personal profile"
@@ -159,17 +159,17 @@ export default function Add ({route, navigation}){
                             style={{height:65, width:65}}
                             source={require('../icons/myprofile.png')}
                         />  
-                    </TouchableOpacity>
+                    </TouchableOpacity>*/}
                 </View>
-                    <View style={[styles.flexContainer, {flex:4, margin:'auto',  marginTop:'0'}]}>
-                        <View style={[styles.meetingsColumn, isMobile ? {marginBottom:'25%'} : '' ]}>
+                    <View style={[styles.flexContainer, {flex:3, margin:'auto',  marginTop:'0'}]}>
+                        <View style={[styles.meetingsColumn, {flex:0.8}, isMobile ? {marginBottom:'25%'} : '' ]}>
 
                             <Modal
                                 onRequestClose={() => setIsVisible([false, ''])}
                                 visible={isVisible[0]}
                                 style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex'}}
                             >
-                                <View style={{alignItems: 'center', flex: 1, width:'60%', justifyContent: 'center', margin:'auto', textAlign:'center'}}>
+                                <View style={{alignItems: 'center', width:'60%', justifyContent: 'center', margin:'auto', textAlign:'center'}}>
                                 <Text style={{fontSize:18}}> {isVisible[1]} </Text>
                                 <p/>
                                 <p/>
@@ -400,10 +400,10 @@ const styles = StyleSheet.create({
         display:"flex", justifyContent:'center',alignSelf:'center',width:'40%', padding:10, borderRadius:10, backgroundColor:"#3E3E3E"
     },
     buttonText: {
-        color:"white", textAlign:"center", fontSize:15, fontWeight:'bold'
+        color:"black", textAlign:"center", fontSize:19, fontWeight:'600'
     },
     submit: {
-        display:"flex", justifyContent:'center',alignSelf:'center',width:'40%', maxWidth:'150px', padding:20, borderRadius:10, backgroundColor:"#7D83FF", marginLeft:'30%'
+        display:"flex", justifyContent:'center',alignSelf:'center',width:'40%', maxWidth:'150px', padding:20, borderRadius:10, backgroundColor:'rgb(255, 220, 0)', marginLeft:'30%'
     },
 
 })

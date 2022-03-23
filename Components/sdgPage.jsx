@@ -108,8 +108,8 @@ export default function sdgPage ({route, navigation}){
         <PhoneView>
             <BodyContainer>
                     <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", flex:1}}>
-                        <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold'}]}> mySustainability </Text>
-                        <TouchableOpacity
+                        <Text style={[{fontSize:20, color:'black', fontWeight:'bold'}]}> mySustainability </Text>
+                        {/*<TouchableOpacity
                             //style={{paddingTop:'3%'}}
                             accessible={true}
                             accessibilityLabel="button to personal profile"
@@ -118,7 +118,7 @@ export default function sdgPage ({route, navigation}){
                                 style={[{height:65, width:65}]}
                                 source={require('../public/icons/myprofile.png')}
                             />  
-                        </TouchableOpacity>
+                        </TouchableOpacity>*/}
                     </View>
                     <View style={[styles.flexContainer, {flex:4, margin:'auto',  marginLeft:'2%', marginRight:'2%'}]}>
                         <View style={[styles.meetingsColumn]}>                     

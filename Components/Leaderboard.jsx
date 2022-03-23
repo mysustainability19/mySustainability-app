@@ -3,8 +3,8 @@ import { StyleSheet, TouchableOpacity, View, Text, Image, ScrollView, useWindowD
 import NavBar from './NavBar';
 import { PhoneView, BodyContainer, StyledCard} from '../styles/GeneralStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {globalDebug} from './consoleBlocking';
-globalDebug(false,true);
+//import {globalDebug} from './consoleBlocking';
+//globalDebug(false,true);
   
 const getData = async (key) => {
     try {
@@ -110,9 +110,9 @@ export default function Leaderboard ({navigation}){
     return (
         <PhoneView>
             <BodyContainer>
-                    <View style={{flexDirection:"row", justifyContent:"space-between"}}>
-                        <Text style={[{fontSize:20, color:'#7d83ff', fontWeight:'bold', marginTop:'20px'}]}> mySustainability </Text>
-                        <TouchableOpacity
+                    <View style={{flexDirection:"row", justifyContent:"space-between", marginBottom:'5vh'}}>
+                        <Text style={[{fontSize:20, color:'black', fontWeight:'bold', marginTop:'20px'}]}> mySustainability </Text>
+                        {/*<TouchableOpacity
                             //style={{paddingTop:'3%'}}
                             accessible={true}
                             accessibilityLabel="button to personal profile"
@@ -121,7 +121,7 @@ export default function Leaderboard ({navigation}){
                                 style={{height:65, width:65}}
                                 source={require('../icons/myprofile.png')}
                             />  
-                        </TouchableOpacity>
+                        </TouchableOpacity>*/}
                     </View>
                     <StyledCard style={{marginTop: isMobile === true ? '5%': '2%'}}>
                         <Text style={{fontSize:23, fontWeight:"bold"}}>Leaderboard: </Text>
@@ -132,7 +132,7 @@ export default function Leaderboard ({navigation}){
                                     return (
                                         <>  
                                             <p key={i+1}/>
-                                            <Text key={i} style={userEmail == user['email'] ? {backgroundColor:'#7D83FF', padding:'20px', fontSize:20, borderRadius:'20px'} : {fontSize:20}}> {leaderboard.indexOf(user) + 1}. {user['name']} </Text>
+                                            <Text key={i} style={userEmail == user['email'] ? {backgroundColor:'rgb(255, 220, 0)', padding:'20px', fontSize:20, borderRadius:'20px'} : {fontSize:20}}> {leaderboard.indexOf(user) + 1}. {user['name']} </Text>
                                             <p key={i+3}/>
                                         </>
                                     );

@@ -48,7 +48,7 @@ const classes = StyleSheet.create({
     color: 'black', padding:0, paddingLeft:5, marginBottom:2.5, fontWeight:'bold', fontSize:18
   },
   heading: {
-    fontWeight:'bold', fontSize:23, color: 'black !important', textAlign:'center', marginBottom: 15
+    fontWeight:'bold', fontSize:23, color: 'black', textAlign:'center', marginBottom: 15
   },
   buttonText: {
     color:"white", textAlign:"center", fontSize:18, fontWeight:'bold'
@@ -158,16 +158,16 @@ export default function Signup ({ navigation }){
             <Button onPress={() => setIsVisible({ message: "", visibility: false })} title={'Dismiss'} color="#7D83FF"/>
           </View>
         </Modal>
-        <Text style = {classes.heading}> Create a new account </Text>
+        <Text style = {[classes.heading, {color:'black'}]}> Create a new account </Text>
         <View>
-          <FullName  onChangeText={(fullName) => setfullName(fullName)} style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}/>
-          <Email  onChangeText={(email) => setEmail(email)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}/>
-          <Password  onChangeText={(password) => setPassword(password)} style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}/>
-          <Gender  onChangeText={(gender) => setGender(gender)} style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}/>
-          <Age  onChangeText={(age) => setAge(age)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}/>
-          <Faculty  onChangeText={(faculty) => setFaculty(faculty)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}/>
-          <School  onChangeText={(school) => setSchool(school)}   style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}/>
-          <ZID onChangeText={(zid) => setZID(zid)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"#ebecff", borderRadius:10 }}/>
+          <FullName  onChangeText={(fullName) => setfullName(fullName)} style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
+          <Email  onChangeText={(email) => setEmail(email)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
+          <Password  onChangeText={(password) => setPassword(password)} style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
+          <Gender  onChangeText={(gender) => setGender(gender)} style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
+          <Age  onChangeText={(age) => setAge(age)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
+          <Faculty  onChangeText={(faculty) => setFaculty(faculty)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
+          <School  onChangeText={(school) => setSchool(school)}   style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
+          <ZID onChangeText={(zid) => setZID(zid)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
       
           <View>
             <TouchableOpacity

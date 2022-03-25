@@ -45,10 +45,10 @@ const classes = StyleSheet.create({
     marginTop:10
   },
   redirect: {
-    color: '#7d83ff', padding:0, paddingLeft:5, marginBottom:2.5, fontWeight:'bold', fontSize:18
+    color: 'black', padding:0, paddingLeft:5, marginBottom:2.5, fontWeight:'bold', fontSize:18
   },
   heading: {
-    fontWeight:'bold', fontSize:23, color: 'black', textAlign:'center', marginBottom: 15
+    fontWeight:'bold', fontSize:23, color: 'black !important', textAlign:'center', marginBottom: 15
   },
   buttonText: {
     color:"white", textAlign:"center", fontSize:18, fontWeight:'bold'

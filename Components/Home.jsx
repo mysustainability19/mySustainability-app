@@ -280,29 +280,6 @@ export default function Home ({route, navigation}){
                     </View>
                     <View style={[styles.flexContainer, {flex:4, marginLeft:'2%', marginRight:'2%',  marginTop:'0'}, isMobile ? {marginLeft:'6% !important', marginRight:'6% !important'} : '']}>
                         <View style={[styles.meetingsColumn, isMobile ? {marginBottom:'20%'} : '' ]}>
-
-
-                            <Modal
-                                onRequestClose={() => {
-                                    setDummy_2(1);
-                                    setIsVisible(false);
-                                }}
-                                visible={isVisible}
-                                style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex'}}
-                            >
-                                <View style={{alignItems: 'center', flex: 1, width:'60%', justifyContent: 'center', margin:'auto', textAlign:'center'}}>
-                                <Text style={{fontSize:18}}> Welcome to mySustainability! {'\n'} {'\n'} You have earnt your first badge: The Beginner badge! {'\n'} {'\n'} Earn more badges and Green XP by completing challenges, goals or the dynamic quiz. In no time, you will find yourself climbing the leaderboard ranks. </Text>
-                                <Image source={require("../icons/badges/beginner.PNG")} style={{width:'200px', height:'200px', marginTop:'5%', marginBottom:'5%'}}/>
-                                <Button onPress={() => {
-                                    setDummy_2(1);
-                                    setIsVisible(false);                        
-                                }} 
-                                    
-                                    title={'Dismiss'} color='rgb(255, 220, 0)'
-                                />
-                                </View>
-                            </Modal>
-
                             
                             <Modal
                                 onRequestClose={() => set_delete_challenge_modal([false, '', ''])}

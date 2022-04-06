@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { StyleSheet, TouchableOpacity, View, Text, Image, ScrollView, useWindowDimensions} from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Text, Image, ScrollView, useWindowDimensions, Button} from 'react-native';
 import NavBar from './NavBar';
 import { PhoneView, BodyContainer, StyledCard} from '../styles/GeneralStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
 import {globalDebug} from './consoleBlocking';
+import Modal from 'modal-enhanced-react-native-web';
 globalDebug(false,true);
   
 async function getData(key) {
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
 
 })
 
-export default function Profile ({navigation}){
+export default function Profile ({route, navigation}){
 
     const isFocused = useIsFocused();
     const [authorised, set_authorised] = React.useState(false);
@@ -124,6 +125,10 @@ export default function Profile ({navigation}){
     const [badges_updated, set_badges_updated] = React.useState(false)
     const [is_focused, set_is_focused] = React.useState(false)
     const [admin, setAdmin] = React.useState(false);
+    const {newUser} = route.params;
+    const [isVisible, setIsVisible] = React.useState(false);
+    const [dummy_2, setDummy_2] = React.useState(0);
+    if(String(newUser) === 'true' && isVisible === false && dummy_2 === 0) setIsVisible(true);
 
     function updateUserBadges(email, badge){
         fetch(`https://mysustainability-api-123.herokuapp.com/updateUserBadges/?userEmail=${email}&newBadge=${badge}`, {method: 'POST'})
@@ -167,6 +172,31 @@ export default function Profile ({navigation}){
         <PhoneView nativeID="1">
             <BodyContainer nativeID="2">
                 <View style={{flex:1,  marginBottom: isMobile === true ? '15vh': '0vh'}} nativeID="3">
+                            <Modal
+                                onRequestClose={() => {
+                                    setDummy_2(1);
+                                    setIsVisible(false);
+                                }}
+                                visible={isVisible}
+                                style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex'}}
+                            >
+                                <View style={{alignItems: 'center', flex: 1, width:'60%', justifyContent: 'center', margin:'auto', textAlign:'center'}}>
+                                <Text style={{fontSize:18}}> Welcome to mySustainability! {'\n'} {'\n'} You have earnt your first badge: The Beginner badge! {'\n'} {'\n'} Earn more badges and Green XP by completing challenges or the dynamic quiz. In no time, you will find yourself climbing the leaderboard ranks. </Text>
+                                <Image source={require("../icons/badges/beginner.PNG")} style={{width:'200px', height:'200px', marginTop:'5%', marginBottom:'5%'}}/>
+                                <TouchableOpacity
+                                
+                                    onPress={() => {
+                                        setDummy_2(1);
+                                        setIsVisible(false);                        
+                                    }} 
+
+                                    style={{backgroundColor:'#ffdc00', padding:'20px', borderRadius:'10px'}}
+  
+                                >
+                                    <Text style={{fontWeight:'500', color:'black', fontSize:'19px'}}>Dismiss</Text>
+                                </TouchableOpacity>
+                                </View>
+                            </Modal>
                     <ScrollView contentContainerStyle={{display:"flex", flexDirection:'column', height:'150vh'}} nativeID="4">
                         <StyledCard nativeID="5" style={{marginTop:'0'}}>
                             <Text style={{fontSize:23, fontWeight:"bold"}}>Welcome, {info['name']} </Text>

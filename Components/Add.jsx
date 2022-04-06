@@ -170,7 +170,7 @@ export default function Add ({route, navigation}){
                                 style={{backgroundColor:'#f2f2f2',  maxWidth: '100%', margin: 0, top: 0, bottom: 0, left: 0, right: 0, display:'flex', fontSize:'20f'}}
                             >
                                 <View style={{alignItems: 'center', width:'60%', justifyContent: 'center', margin:'auto', textAlign:'center'}}>
-                                <Text style={{fontSize:18}}> {isVisible[1]} </Text>
+                                <Text style={{fontSize:18, color:"black"}}> {isVisible[1]} </Text>
                                 <p/>
                                 <p/>
                                 <Button onPress={() => setIsVisible([false, ''])} title={'Dismiss'} color="#ffdc00" style={{color:'black', padding: '1%', borderRadius: '5px'}}/>

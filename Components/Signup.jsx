@@ -45,13 +45,13 @@ const classes = StyleSheet.create({
     marginTop:10
   },
   redirect: {
-    color: 'black', padding:0, paddingLeft:5, marginBottom:2.5, fontWeight:'bold', fontSize:18
+    color: 'black', padding:0, paddingLeft:5, marginBottom:2.5, fontWeight:'bold', fontSize:18, textAlign: 'center'
   },
   heading: {
     fontWeight:'bold', fontSize:23, color: 'black', textAlign:'center', marginBottom: 15
   },
   buttonText: {
-    color:"white", textAlign:"center", fontSize:18, fontWeight:'bold'
+    color:"black", textAlign:"center", fontSize:18, fontWeight:'500'
   },
   question: {
     color:'black',textAlign:'center', fontSize:18, marginBottom: 10, marginTop: 10
@@ -112,6 +112,10 @@ export default function Signup ({ navigation }){
     
   function handleSignUp(e){
     validateEmail === false ?  setIsVisible({ message: "Please specify a valid email", visibility: true }) : ''
+    if (email.length <= 4 || password.length < 3 || age.length == 0 || fullName.length <= 3 || faculty.length <= 2 || school.length < 3 || zid.length <= 6 || gender.length <= 3) {
+      setIsVisible({ message: "Please check all fields and try again", visibility: true });
+      return;
+    }
     JSHash(email, CONSTANTS.HashAlgorithms.sha256)
         .then(encryptedEmail => {
           JSHash(password, CONSTANTS.HashAlgorithms.sha256)
@@ -148,44 +152,46 @@ export default function Signup ({ navigation }){
     return(
       <ScrollView contentContainerStyle={{display:"flex", justifyContent:'flex-start', alignItems:'center', width:'100%', height: height_variable, marginTop:'5%', flexDirection:'column'}}>
         {/*//old style={[isMobile ? {marginTop:'10%'} : {}, classes.signUpForm]}>*/}
-        <Modal
-          onRequestClose={() => setIsVisible({ message: "", visibility: false })}
-          visible={isVisible['visibility']}
-          style={{height:'100vh', backgroundColor:'#f2f2f2'}}
-        >
-          <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
-            <Text style={{fontSize:18, marginBottom:'2%'}}> {isVisible['message']} </Text>
-            <Button onPress={() => setIsVisible({ message: "", visibility: false })} title={'Dismiss'} color="#7D83FF"/>
-          </View>
-        </Modal>
-        <Text style = {[classes.heading, {color:'black'}]}> Create a new account </Text>
-        <View>
-          <FullName  onChangeText={(fullName) => setfullName(fullName)} style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
-          <Email  onChangeText={(email) => setEmail(email)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
-          <Password  onChangeText={(password) => setPassword(password)} style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
-          <Gender  onChangeText={(gender) => setGender(gender)} style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
-          <Age  onChangeText={(age) => setAge(age)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
-          <Faculty  onChangeText={(faculty) => setFaculty(faculty)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
-          <School  onChangeText={(school) => setSchool(school)}   style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
-          <ZID onChangeText={(zid) => setZID(zid)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
-      
+          <Modal
+            onRequestClose={() => setIsVisible({ message: "", visibility: false })}
+            visible={isVisible['visibility']}
+            style={{height:'100vh', backgroundColor:'#f2f2f2'}}
+          >
+            <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
+              <Text style={{fontSize:18, marginBottom:'2%'}}> {isVisible['message']} </Text>
+              <Button onPress={() => setIsVisible({ message: "", visibility: false })} title={'Dismiss'} color="black"/>
+            </View>
+          </Modal>
+          <Text style = {classes.heading}> Create a new account </Text>
           <View>
-            <TouchableOpacity
-                type="submit"
-                onPress={(e) => handleSignUp(e)}
-                style={classes.SignUpButton}
-              >
-                <Text style={classes.buttonText}> Create a new account </Text>
-              </TouchableOpacity>
+            <FullName  onChangeText={(fullName) => setfullName(fullName)} style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
+            <Email  onChangeText={(email) => setEmail(email)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
+            <Password  onChangeText={(password) => setPassword(password)} style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
+            <Gender  onChangeText={(gender) => setGender(gender)} style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
+            <Age  onChangeText={(age) => setAge(age)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
+            <Faculty  onChangeText={(faculty) => setFaculty(faculty)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
+            <School  onChangeText={(school) => setSchool(school)}   style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
+            <ZID onChangeText={(zid) => setZID(zid)}  style = {{ width: 310, padding:13, marginBottom:10, backgroundColor:"white", borderRadius:10 }}/>
+        
+            <View>
+              <TouchableOpacity
+                  type="submit"
+                  onPress={(e) => handleSignUp(e)}
+                  style={classes.SignUpButton}
+                >
+                  <Text style={classes.buttonText}> Create a new account </Text>
+                </TouchableOpacity>
+            </View>
           </View>
-        </View>
-        <Text style = {classes.question}> Already have an account? </Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Login', { replace: true })}
-          style={{margin:0, padding:0}}
-        >
-          <Text style={classes.redirect}> Log-in</Text>
-        </TouchableOpacity>
+          <View style={{display: isVisible['visibility'] === true ? 'none' : '' }}>
+            <Text style = {classes.question}> Already have an account? </Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Login', { replace: true })}
+              style={{margin:0, padding:0}}
+            >
+              <Text style={classes.redirect}>Log-in</Text>
+            </TouchableOpacity>
+          </View>
       </ScrollView>
     );
   };
